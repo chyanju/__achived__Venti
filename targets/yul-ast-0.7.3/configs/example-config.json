@@ -1,0 +1,15 @@
+{
+    "ContractPaths": [
+        ["Symbolic1A", "./tests/Symbolic1A.json"],
+        ["Symbolic1B", "./tests/Symbolic1B.json"]
+    ],
+    "Tasks": [
+        [
+            ["txn_function_call", "modifyX", "uint256"],
+            ["txn_function_call", "observe"]
+        ],
+        [
+            ["txn_function_call", "observe"]
+        ]
+    ]
+}

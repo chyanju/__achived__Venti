@@ -1,0 +1,15 @@
+{
+    "ContractPaths": [
+        ["MulRetsA", "./tests/MulRetsA.json"],
+        ["MulRetsB", "./tests/MulRetsB.json"]
+    ],
+    "Tasks": [
+        [
+            ["txn_function_call", "observe"]
+        ],
+        [
+            ["txn_function_call", "modify", "uint256", "uint256"],
+            ["txn_function_call", "observe"]
+        ]
+    ]
+}
