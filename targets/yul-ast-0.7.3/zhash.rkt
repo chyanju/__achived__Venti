@@ -32,7 +32,14 @@
 		(define/public (z-has-key? arg-key)
 			(cond
 				[(union? arg-key) (for/all ([k arg-key]) (z-has-key? k))]
-				[(string? arg-key) (hash-has-key? key-map arg-key)]
+				[(string? arg-key) 
+					(if (hash-has-key? key-map arg-key)
+						; key found in key-map, check if zvoid in case there are path conditions attached
+						(! (zvoid? (vector-ref val-vector (hash-ref key-map arg-key))))
+						; key not found in key-map, definitely not existing
+						#f
+					)
+				]
 				[else (println-and-exit (format "# [panic] zhash/has-key?: arg-key must be union or string, got: ~a." arg-key))]
 			)
 		)
@@ -43,7 +50,7 @@
 				[(string? arg-key) 
 					(define ret-val (vector-ref val-vector (hash-ref key-map arg-key)))
 					(if (zvoid? ret-val)
-						(assert #f)
+						(assert #f) ; invalid access, raise exception
 						ret-val
 					)
 				]
