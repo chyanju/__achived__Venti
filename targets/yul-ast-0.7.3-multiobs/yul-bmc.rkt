@@ -151,9 +151,14 @@
 		)
 	)
 
+	(define flag-terminate #f)
+	(define neq-indices (list ))
+
 	(when arg-verbose (printf "# checking observe equivalence ...\n"))
-	(for ([b observe-calls])
-		(define curr-observe-txn (make-transaction (list b))) ; wrap the single call into a txn
+	(for ([b (range (length observe-calls))])
+		(define oc (list-ref observe-calls b))
+
+		(define curr-observe-txn (make-transaction (list oc))) ; wrap the single call into a txn
 		(define observed-list 
 			(for/list ([q (hash-keys simulators)])
 				(define sret (send (hash-ref simulators q) interpret-txn curr-observe-txn))
@@ -170,8 +175,8 @@
 			; observed lists have different lengths accross simulaators
 			; which means they are not equivalent
 			(if arg-verbose
-				(printf "# result | (task: ~a, observe: ~a): #f\n (length mismatch)" p (list-ref b 1))
-				(printf "# result | (task: ~a, observe: ~a): #f\n" p (list-ref b 1))
+				(printf "# result | (task: ~a, observe: ~a): #f\n (length mismatch)" p (list-ref oc 1))
+				(printf "# result | (task: ~a, observe: ~a): #f\n" p (list-ref oc 1))
 			)
 			; same length, move on to check
 			(begin
@@ -194,16 +199,25 @@
 				(define greg-model (solve (assert final-pred)))
 				(define solved? (sat? greg-model))
 				(define result-eq (not solved?))
-				(if arg-verbose
-					(printf "# result | (task ~a, observe: ~a): ~a\n" p (list-ref b 1) result-eq)
-					(printf "# result | (task ~a, observe: ~a): ~a\n" p (list-ref b 1) result-eq)
+				(when (! result-eq) 
+					(set! flag-terminate #t)
+					(set! neq-indices (append neq-indices (list b)))
 				)
-				(when (&& arg-faststop (! result-eq)) (exit 0))
 			)
 		)
 	)
 
-
+	(define str-output
+		(if (null? neq-indices)
+			"T"
+			(string-append "F " (string-join (map ~a neq-indices) " ") )
+		)
+	)
+	(if arg-verbose
+		(printf "# task ~a: ~a\n" p neq-indices)
+		(printf "~a\n" str-output)
+	)
+	(when (&& arg-faststop (! (null? neq-indices))) (exit 0))
 	
 
 )
