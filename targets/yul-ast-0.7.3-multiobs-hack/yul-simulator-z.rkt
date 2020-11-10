@@ -904,6 +904,7 @@
 
 				; note-important: to avoid collision, you should map them 
 				(define ret (modulo (+ (* 98765 dec-p) (* 4869 dec-k)) (vector-length yul-storage))) 
+				; (define ret (+ dec-p dec-k) ) 
 				; (define ret (modulo (+ (* 3 dec-p) (* 2 dec-k)) 10)) 
 
 				(integer->bitvector ret yul-default-bitvector)

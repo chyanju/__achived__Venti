@@ -1,4 +1,5 @@
 #lang rosette
+(require rosette/lib/synthax)
 ; (require rosette/solver/smt/z3)
 ; (require rosette/solver/smt/cvc4)
 ; (when (cvc4-available?)
@@ -78,15 +79,10 @@
 (for ([p (in-range (length tasks))])
 	(when arg-verbose (printf "\n# running task: ~a\n" p))
 
-	; (define dynamic-range (for/list ([i (range 0 10)])
-	; 	(bv i 256)
-	; ))
 	(define (dynamic-bv sz)
 		(define-symbolic* arg-bv (bitvector sz)) ; creates a different constant when evaluated
-		; (assert (< (bitvector->integer arg-bv) 2))
-		; (assert (> (bitvector->integer arg-bv) 0))
-		; (define arg-bv (bv 0 sz))
 		arg-bv
+		; (integer->bitvector (choose 1 2) (bitvector sz))
 	)
 	(define (dynamic-bool)
 		(define-symbolic* arg-bool boolean?) ; creates a different constant when evaluated
@@ -96,20 +92,37 @@
 		(define-symbolic* arg-int integer?)
 		arg-int
 	)
+
+	(define (static-bv sz)
+		(integer->bitvector (random 1024) (bitvector sz))
+	)
+	(define (static-bool)
+		(if (equal? 0 (random 2))
+			#f
+			#t
+		)
+	)
+	(define (static-int)
+		; note: assume no negative number
+		(random 1024)
+	)
+
+
 	(define (make-transaction q-txn)
 		(for/list ([t0 q-txn])
 			(for/list ([j (in-range (length t0))])
 				(if (>= j 2)
 					; list of argument types
 					(match (list-ref t0 j)
-						["uint256" (dynamic-bv 256)]
-						["uint" (dynamic-bv 256)]
-						["address" (dynamic-bv 256)]
-						; ["uint256" (list-ref dynamic-range (dynamic-int))]
-						; ["uint" (list-ref dynamic-range (dynamic-int))]
-						; ["address" (list-ref dynamic-range (dynamic-int))]
+						["dynamic:uint256" (dynamic-bv 256)]
+						["dynamic:uint" (dynamic-bv 256)]
+						["dynamic:address" (dynamic-bv 256)]
+						["dynamic:bool" (bool->bitvector (dynamic-bool) (bitvector 256))]
 
-						["bool" (bool->bitvector (dynamic-bool) (bitvector 256))]
+						["static:uint256" (static-bv 256)]
+						["static:uint" (static-bv 256)]
+						["static:address" (static-bv 256)]
+						["static:bool" (bool->bitvector (static-bool) (bitvector 256))]
 						[_
 							(printf "# exception-exit: unsupported argument symbolic type, got: ~a\n" (list-ref t0 j))
 							(exit 0)

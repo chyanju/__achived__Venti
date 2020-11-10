@@ -75,6 +75,7 @@
 
 ; load transactions and define symbolic variables
 (define tasks (hash-ref arg-config 'Tasks))
+(define observe-calls (hash-ref arg-config 'ObserveCalls))
 (for ([p (in-range (length tasks))])
 	(when arg-verbose (printf "\n# running task: ~a\n" p))
 
@@ -138,60 +139,86 @@
 		(send q initialize)
 	)
 
-	(when arg-verbose (printf "# running transactions ...\n"))
+	(when arg-verbose (printf "# running transaction ...\n"))
 	; observed-list is ((list-A ...) (list-B ...) ...)
-	(define observed-list
-		(for/list ([q (hash-keys simulators)])
-			(when arg-verbose (printf "  # in simulator ~a\n" q))
-			(define sret (send (hash-ref simulators q) interpret-txn curr-transaction))
-			; if only returning one element, wrap it into a list
-			(if (list? sret)
-				sret
-				(list sret)
-			)
+	(for ([q (hash-keys simulators)])
+		(when arg-verbose (printf "  # in simulator ~a\n" q))
+		(define sret (send (hash-ref simulators q) interpret-txn curr-transaction))
+		; if only returning one element, wrap it into a list
+		(if (list? sret)
+			sret
+			(list sret)
 		)
 	)
 
-	; (printf "# observed-list is ~a\n" observed-list)
+	(define flag-terminate #f)
+	(define neq-indices (list ))
 
-	; check: not (anything is not equal)
-	(when arg-verbose (printf "# checking equivalence ...\n"))
-	(define len-list (map length observed-list))
-	(if (not (apply = len-list))
-		; observed lists have different lengths accross simulaators
-		; which means they are not equivalent
-		(if arg-verbose
-			(printf "# result (task ~a):, #f\n (length mismatch)" p)
-			(printf "task ~a: #f\n" p)
+	(when arg-verbose (printf "# checking observe equivalence ...\n"))
+	(for ([b (range (length observe-calls))])
+		(define oc (list-ref observe-calls b))
+
+		(define curr-observe-txn (make-transaction (list oc))) ; wrap the single call into a txn
+		(define observed-list 
+			(for/list ([q (hash-keys simulators)])
+				(define sret (send (hash-ref simulators q) interpret-txn curr-observe-txn))
+				(if (list? sret)
+					sret
+					(list sret)
+				)
+			)
 		)
-		; same length, move on to check
-		(begin
-			; (output-smt #t)
-			(define zlen (list-ref len-list 0))
-			(define z-preds (for/list ([z (in-range zlen)])
-				; compare every position 
-				(define cmp-list (for/list ([ylist observed-list])
-					(list-ref ylist z)
-				))
-				(define sub-preds (for/list ([y (combinations cmp-list 2)])
-					(apply not-equal? y)
-				))
-				(define p-preds (apply || sub-preds))
-				p-preds
-			))
-			(define final-pred (apply || z-preds))
-			; (printf "preds: ~a\n" final-pred)
-			; (printf "task ~a total assertions: ~a\n" p (length (asserts)))
-			(define greg-model (solve (assert final-pred)))
-			(define solved? (sat? greg-model))
-			(define result-eq (not solved?))
+
+		; check: not (anything is not equal)
+		(define len-list (map length observed-list))
+		(if (not (apply = len-list))
+			; observed lists have different lengths accross simulaators
+			; which means they are not equivalent
 			(if arg-verbose
-				(printf "# result (task ~a):, ~a\n" p result-eq)
-				(printf "task ~a: ~a\n" p result-eq)
+				(printf "# result | (task: ~a, observe: ~a): #f\n (length mismatch)" p (list-ref oc 1))
+				(printf "# result | (task: ~a, observe: ~a): #f\n" p (list-ref oc 1))
 			)
-			(when (&& arg-faststop (! result-eq)) (exit 0))
+			; same length, move on to check
+			(begin
+				; (output-smt #t)
+				(define zlen (list-ref len-list 0))
+				(define z-preds (for/list ([z (in-range zlen)])
+					; compare every position 
+					(define cmp-list (for/list ([ylist observed-list])
+						(list-ref ylist z)
+					))
+					(define sub-preds (for/list ([y (combinations cmp-list 2)])
+						(apply not-equal? y)
+					))
+					(define p-preds (apply || sub-preds))
+					p-preds
+				))
+				(define final-pred (apply || z-preds))
+				; (printf "preds: ~a\n" final-pred)
+				; (printf "task ~a total assertions: ~a\n" p (length (asserts)))
+				(define greg-model (solve (assert final-pred)))
+				(define solved? (sat? greg-model))
+				(define result-eq (not solved?))
+				(when (! result-eq) 
+					(set! flag-terminate #t)
+					(set! neq-indices (append neq-indices (list b)))
+				)
+			)
 		)
 	)
+
+	(define str-output
+		(if (null? neq-indices)
+			"T"
+			(string-append "F " (string-join (map ~a neq-indices) " ") )
+		)
+	)
+	(if arg-verbose
+		(printf "# task ~a: ~a\n" p neq-indices)
+		(printf "~a\n" str-output)
+	)
+	(when (&& arg-faststop (! (null? neq-indices))) (exit 0))
+	
 
 )
 

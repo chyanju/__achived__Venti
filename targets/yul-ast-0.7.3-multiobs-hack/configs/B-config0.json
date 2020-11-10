@@ -1,0 +1,48 @@
+{
+    "ContractPaths": [
+        [
+            "source",
+            "./tests/B1.json"
+        ],
+        [
+            "target",
+            "./tests/B2.json"
+        ]
+    ],
+    "ObserveCalls": [
+        [
+            "txn_function_call",
+            "observe_f1"
+        ],
+        [
+            "txn_function_call",
+            "observe_f2"
+        ]
+    ],
+    "Tasks":[
+        [
+            [
+                "txn_function_call",
+                "constructor"
+            ]
+        ],
+        [
+            [
+                "txn_function_call",
+                "constructor"
+            ],
+            [
+                "txn_function_call",
+                "foo",
+                "uint256",
+                "uint256"
+            ]
+        ],
+        [
+            [
+                "txn_function_call",
+                "constructor"
+            ]
+        ]
+    ]
+}

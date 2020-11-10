@@ -1,0 +1,27 @@
+{
+    "ContractPaths": [
+        [
+            "source",
+            "./tests/A1.json"
+        ],
+        [
+            "target",
+            "./tests/A2.json"
+        ]
+    ],
+    "Tasks":[
+        [
+            [
+                "txn_function_call",
+                "foo",
+                "static:uint",
+                "static:uint"
+            ],
+            [
+                "txn_function_call",
+                "observe_0",
+                "dynamic:uint"
+            ]
+        ]
+    ]
+}
