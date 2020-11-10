@@ -2,11 +2,11 @@
     "ContractPaths": [
         [
             "source",
-            "./tests/B1.json"
+            "./contracts/B1.json"
         ],
         [
             "target",
-            "./tests/B2.json"
+            "./contracts/B2.json"
         ]
     ],
     "ObserveCalls": [

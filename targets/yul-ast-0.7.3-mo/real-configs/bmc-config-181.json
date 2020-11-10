@@ -2,21 +2,23 @@
 	"ContractPaths":[
 		[
 			"source",
-			"./tests/CreditDAOTransformed181.json"
+			"./real-contracts/CreditDAOTransformed181.json"
 		],
 		[
 			"target",
-			"./tests/CreditDAO.json"
+			"./real-contracts/CreditDAO.json"
 		]
 	],
 	"ObserveCalls":[
 		[
 			"txn_function_call",
-			"observe__0"
+			"observe__0",
+			"uint"
 		],
 		[
 			"txn_function_call",
-			"observe__1"
+			"observe__1",
+			"uint"
 		],
 		[
 			"txn_function_call",
@@ -24,27 +26,33 @@
 		],
 		[
 			"txn_function_call",
-			"observe__3"
+			"observe__3",
+			"uint"
 		],
 		[
 			"txn_function_call",
-			"observe__4"
+			"observe__4",
+			"uint"
 		],
 		[
 			"txn_function_call",
-			"observe__5"
+			"observe__5",
+			"uint"
 		],
 		[
 			"txn_function_call",
-			"observe__6"
+			"observe__6",
+			"uint"
 		],
 		[
 			"txn_function_call",
-			"observe__7"
+			"observe__7",
+			"uint"
 		],
 		[
 			"txn_function_call",
-			"observe__8"
+			"observe__8",
+			"uint"
 		]
 	],
 	"Tasks":[

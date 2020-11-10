@@ -2,11 +2,11 @@
 	"ContractPaths":[
 		[
 			"source",
-			"./tests/CreditDAOTransformed181.json"
+			"./contracts/CreditDAOTransformed181.json"
 		],
 		[
 			"target",
-			"./tests/CreditDAO.json"
+			"./contracts/CreditDAO.json"
 		]
 	],
 	"Tasks":[

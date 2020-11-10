@@ -2,11 +2,11 @@
     "ContractPaths": [
         [
             "source",
-            "./tests/A1.json"
+            "./contracts/A1.json"
         ],
         [
             "target",
-            "./tests/A2.json"
+            "./contracts/A2.json"
         ]
     ],
     "Tasks":[

@@ -1,0 +1,32 @@
+{
+	"ContractPaths":[
+		[
+			"source",
+			"./contracts/CreditDAOTransformed181.json"
+		],
+		[
+			"target",
+			"./contracts/CreditDAO.json"
+		]
+	],
+	"ObserveCalls":[
+		[
+			"txn_function_call",
+			"observe__8",
+			"uint"
+		]
+	],
+	"Tasks":[
+		[
+			[
+				"txn_function_call",
+				"constructor"
+			],
+			[
+				"txn_function_call",
+				"vote",
+				"address"
+			]
+		]
+	]
+}

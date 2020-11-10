@@ -1,0 +1,40 @@
+{
+    "ContractPaths": [
+        [
+            "source",
+            "./contracts/A1.json"
+        ],
+        [
+            "target",
+            "./contracts/A2.json"
+        ]
+    ],
+    "ObserveCalls": [
+        [
+            "txn_function_call",
+            "observe_0",
+            "uint"
+        ]
+    ],
+    "Tasks":[
+        [
+            [
+                "txn_function_call",
+                "foo",
+                "uint"
+            ]
+        ],
+        [
+            [
+                "txn_function_call",
+                "foo",
+                "uint"
+            ],
+            [
+                "txn_function_call",
+                "foo",
+                "uint"
+            ]
+        ]
+    ]
+}

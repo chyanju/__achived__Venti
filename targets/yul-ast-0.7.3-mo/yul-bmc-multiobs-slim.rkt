@@ -21,7 +21,7 @@
 (define arg-faststop #f)
 (define arg-nbits 16)
 (define arg-memsize 20)
-(define arg-ntests 3)
+(define arg-ntests 2)
 ; (define arg-config (string->jsexpr (file->string "test-config.json")))
 (command-line
 	#:program "yul-bmc"
@@ -101,6 +101,7 @@
 
 ; load transactions and define symbolic variables
 (define tasks (hash-ref arg-config 'Tasks))
+(define observe-calls (hash-ref arg-config 'ObserveCalls))
 (for ([p (in-range (length tasks))])
 
 	(define (dynamic-bv sz)
@@ -153,27 +154,27 @@
 
 	(define (not-equal? arg-0 arg-1) (not (equal? arg-0 arg-1)))
 
-	(for ([h (in-range arg-ntests)])
-		(when arg-verbose (printf "\n# running: task ~a, test ~a\n" p h))
+	(define all-neq-indices
+		(for/list ([h (in-range arg-ntests)])
+			(when arg-verbose (printf "\n# running: task ~a, test ~a\n" p h))
 
-		(when arg-verbose (printf "# constructing transaction ...\n"))
-		(define curr-transaction
-			(make-transaction (list-ref tasks p) #:tp "")
-		)
-		(when arg-verbose (printf "  transaction is: ~a\n" curr-transaction))
+			(when arg-verbose (printf "# constructing transaction ...\n"))
+			(define curr-transaction
+				(make-transaction (list-ref tasks p) #:tp "static:")
+			)
+			(when arg-verbose (printf "  transaction is: ~a\n" curr-transaction))
 
-		(when arg-verbose (printf "# resetting Rosette ...\n"))
-		(clear-asserts!) ; reset Rosette states
+			(when arg-verbose (printf "# resetting Rosette ...\n"))
+			(clear-asserts!) ; reset Rosette states
 
-		(when arg-verbose (printf "# resetting simulators ...\n"))
-		(for ([q (hash-values simulators)])
-			(send q initialize arg-nbits arg-memsize mo-mia)
-		)
+			(when arg-verbose (printf "# resetting simulators ...\n"))
+			(for ([q (hash-values simulators)])
+				(send q initialize arg-nbits arg-memsize mo-mia)
+			)
 
-		(when arg-verbose (printf "# running transactions ...\n"))
-		; observed-list is ((list-A ...) (list-B ...) ...)
-		(define observed-list
-			(for/list ([q (hash-keys simulators)])
+			(when arg-verbose (printf "# running transaction ...\n"))
+			; observed-list is ((list-A ...) (list-B ...) ...)
+			(for ([q (hash-keys simulators)])
 				(when arg-verbose (printf "  # in simulator ~a\n" q))
 				(define sret (send (hash-ref simulators q) interpret-txn curr-transaction))
 				; if only returning one element, wrap it into a list
@@ -182,49 +183,77 @@
 					(list sret)
 				)
 			)
-		)
 
-		; (printf "# observed-list is ~a\n" observed-list)
+			(define flag-terminate #f)
+			(define neq-indices (list ))
 
-		; check: not (anything is not equal)
-		(when arg-verbose (printf "# checking observe equivalence ...\n"))
-		(define len-list (map length observed-list))
-		(if (not (apply = len-list))
-			; observed lists have different lengths accross simulaators
-			; which means they are not equivalent
-			(if arg-verbose
-				(printf "# task ~a, test ~a: #f\n (return shape mismatch)" p h)
-				(printf "# task ~a, test ~a: #f\n" p h)
-			)
-			; same length, move on to check
-			(begin
-				; (output-smt #t)
-				(define zlen (list-ref len-list 0))
-				(define z-preds (for/list ([z (in-range zlen)])
-					; compare every position 
-					(define cmp-list (for/list ([ylist observed-list])
-						(list-ref ylist z)
-					))
-					(define sub-preds (for/list ([y (combinations cmp-list 2)])
-						(apply not-equal? y)
-					))
-					(define p-preds (apply || sub-preds))
-					p-preds
-				))
-				(define final-pred (apply || z-preds))
-				; (printf "preds: ~a\n" final-pred)
-				; (printf "task ~a total assertions: ~a\n" p (length (asserts)))
-				(define greg-model (solve (assert final-pred)))
-				(define solved? (sat? greg-model))
-				(define result-eq (not solved?))
-				(if arg-verbose
-					(printf "# task ~a, test ~a: ~a\n" p h result-eq)
-					(printf "# task ~a, test ~a: ~a\n" p h result-eq)
+			(when arg-verbose (printf "# checking observe equivalence ...\n"))
+			(for ([b (range (length observe-calls))])
+				(define oc (list-ref observe-calls b))
+
+				(define curr-observe-txn (make-transaction (list oc) #:tp "dynamic:")) ; wrap the single call into a txn
+				(define observed-list 
+					(for/list ([q (hash-keys simulators)])
+						(define sret (send (hash-ref simulators q) interpret-txn curr-observe-txn))
+						(if (list? sret)
+							sret
+							(list sret)
+						)
+					)
 				)
-				(when (&& arg-faststop (! result-eq)) (exit 0))
+
+				; check: not (anything is not equal)
+				(define len-list (map length observed-list))
+				(if (not (apply = len-list))
+					; observed lists have different lengths accross simulaators
+					; which means they are not equivalent
+					(begin
+						(set! flag-terminate #t)
+						(set! neq-indices (append neq-indices (list b)))
+					)
+					; same length, move on to check
+					(begin
+						(define zlen (list-ref len-list 0))
+						(define z-preds (for/list ([z (in-range zlen)])
+							; compare every position 
+							(define cmp-list (for/list ([ylist observed-list])
+								(list-ref ylist z)
+							))
+							(define sub-preds (for/list ([y (combinations cmp-list 2)])
+								(apply not-equal? y)
+							))
+							(define p-preds (apply || sub-preds))
+							p-preds
+						))
+						(define final-pred (apply || z-preds))
+						; (printf "preds: ~a\n" final-pred)
+						; (printf "task ~a total assertions: ~a\n" p (length (asserts)))
+						(define greg-model (solve (assert final-pred)))
+						(define solved? (sat? greg-model))
+						(define result-eq (not solved?))
+						(when (! result-eq) 
+							(set! flag-terminate #t)
+							(set! neq-indices (append neq-indices (list b)))
+						)
+					)
+				)
 			)
+			(when arg-verbose (printf "# neq indices: ~a\n" neq-indices))
+			neq-indices
+
 		)
 	)
+
+	(define aggr-neq-indices (sort (set->list (list->set (flatten all-neq-indices))) <))
+	(define str-output
+		(if (null? aggr-neq-indices)
+			"T"
+			(string-append "F " (string-join (map ~a aggr-neq-indices) " ") )
+		)
+	)
+	(printf "~a\n" str-output)
 	
 
+	(when (&& arg-faststop (! (null? aggr-neq-indices))) (exit 0))
+	
 )
