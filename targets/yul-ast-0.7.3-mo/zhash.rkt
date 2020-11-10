@@ -23,7 +23,7 @@
 	(class* object% (printable<%>)
 		(super-new)
 		(field
-			[cap 1000]
+			[cap 500]
 			[key-map (make-hash)]
 			[key-counter 0]
 			[val-vector (make-vector cap zvoid)]

@@ -50,7 +50,8 @@
 
 			; note: use 256-bit as the default bitvector
 			; used to convert literals into internal representations
-			[yul-default-bitvector (bitvector 16)]
+			; [yul-default-bitvector (bitvector 16)]
+			[yul-default-bitvector null]
 
 			; memory-optimized special function
 			; mapping-index-access
@@ -76,9 +77,10 @@
 		; ============================= ;
 		; ==== initialize-? series ==== ;
 		; ============================= ;
-		(define/public (initialize arg-mia)
-			(set! yul-memory (make-vector 20 (bv 0 yul-default-bitvector)))
-			(set! yul-storage (make-vector 20 (bv 0 yul-default-bitvector)))
+		(define/public (initialize arg-nbits arg-memsize arg-mia)
+			(set! yul-default-bitvector (bitvector arg-nbits))
+			(set! yul-memory (make-vector arg-memsize (bv 0 yul-default-bitvector)))
+			(set! yul-storage (make-vector arg-memsize (bv 0 yul-default-bitvector)))
 			(set! yul-register (make-zhash))
 			(set! yul-functions (make-hash))
 			(set! yul-function-args (make-hash))

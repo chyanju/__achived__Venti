@@ -1,5 +1,5 @@
 #lang rosette
-(output-smt #t)
+; (output-smt #t)
 (require rosette/lib/synthax)
 ; (require rosette/solver/smt/z3)
 ; (require rosette/solver/smt/cvc4)
@@ -20,6 +20,8 @@
 (define arg-config null)
 (define arg-verbose #f)
 (define arg-faststop #f)
+(define arg-nbits 16)
+(define arg-memsize 20)
 ; (define arg-config (string->jsexpr (file->string "test-config.json")))
 (command-line
 	#:program "yul-bmc"
@@ -45,11 +47,25 @@
 			(set! arg-faststop #t)
 		)
 	]
+	#:once-each
+	[("--nbits") p-nbits "specify the number of bits of the simulator"
+		(begin
+			(set! arg-nbits (string->number p-nbits))
+		)
+	]
+	[("--memsize") p-memsize "specify the memory size of the simulator"
+		(begin
+			(set! arg-memsize (string->number p-memsize))
+		)
+	]
 )
+; display configuration
+(when arg-verbose (printf "# using nbits: ~a\n" arg-nbits))
+(when arg-verbose (printf "# using memsize: ~a\n" arg-memsize))
 
 ; initialize one simulator for every contract
 (define simulators (make-hash))
-(define-symbolic mo-mia (~> (bitvector 16) (bitvector 16) (bitvector 16)))
+(define-symbolic mo-mia (~> (bitvector arg-nbits) (bitvector arg-nbits) (bitvector arg-nbits)))
 ; (define-symbolic mo-mia (~> (bitvector 256) (bitvector 256) integer?))
 ; (define (mo-mia p n) (choose 1 2 3))
 ; (define (mo-mia p n)
@@ -73,7 +89,7 @@
 		(define contract-json (string->jsexpr contract-string))
 		(send contract-simulator load-program-from-json contract-json)
 		(when arg-verbose (printf "# initializing simulator ...\n"))
-		(send contract-simulator initialize mo-mia)
+		(send contract-simulator initialize arg-nbits arg-memsize mo-mia)
 	)
 	; no then use the paths instead
 	(for ([p (hash-ref arg-config 'ContractPaths)])
@@ -84,7 +100,7 @@
 		(hash-set! simulators contract-name contract-simulator) ; don't forget to put it into hash
 		(send contract-simulator load-program-from-file contract-path)
 		(when arg-verbose (printf "# initializing simulator ...\n"))
-		(send contract-simulator initialize mo-mia)
+		(send contract-simulator initialize arg-nbits arg-memsize mo-mia)
 	)
 )
 
@@ -105,7 +121,6 @@
 
 	(define (static-bv sz)
 		(define res (integer->bitvector (random 20) (bitvector sz)))
-		(printf "# [debug] you have: ~a\n" res)
 		res
 	)
 	(define (static-bool)
@@ -122,15 +137,15 @@
 				(if (>= j 2)
 					; list of argument types
 					(match (list-ref t0 j)
-						["dynamic:uint256" (dynamic-bv 16)]
-						["dynamic:uint" (dynamic-bv 16)]
-						["dynamic:address" (dynamic-bv 16)]
-						["dynamic:bool" (bool->bitvector (dynamic-bool) (bitvector 16))]
+						["dynamic:uint256" (dynamic-bv arg-nbits)]
+						["dynamic:uint" (dynamic-bv arg-nbits)]
+						["dynamic:address" (dynamic-bv arg-nbits)]
+						["dynamic:bool" (bool->bitvector (dynamic-bool) (bitvector arg-nbits))]
 
-						["static:uint256" (static-bv 16)]
-						["static:uint" (static-bv 16)]
-						["static:address" (static-bv 16)]
-						["static:bool" (bool->bitvector (static-bool) (bitvector 16))]
+						["static:uint256" (static-bv arg-nbits)]
+						["static:uint" (static-bv arg-nbits)]
+						["static:address" (static-bv arg-nbits)]
+						["static:bool" (bool->bitvector (static-bool) (bitvector arg-nbits))]
 						[_
 							(printf "# exception-exit: unsupported argument symbolic type, got: ~a\n" (list-ref t0 j))
 							(exit 0)
@@ -156,7 +171,7 @@
 
 	(when arg-verbose (printf "# resetting simulators ...\n"))
 	(for ([q (hash-values simulators)])
-		(send q initialize mo-mia)
+		(send q initialize arg-nbits arg-memsize mo-mia)
 	)
 
 	(when arg-verbose (printf "# running transactions ...\n"))
