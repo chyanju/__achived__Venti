@@ -4,6 +4,13 @@
   </h2>
 </div>
 
+### Versions
+
+- `yul-bmc-multiobs-slim.rkt`: This is for `solidare` with slim displayed returned message.
+- `yul-bmc.rkt`: This is authentic Venti client for various usage.
+
+Note that the above two versions use ***different*** configure file formats.
+
 ### Quick Commands (for Memory-Optimized Target)
 
 1. Run `solc` to compile the solidity souce code to Yul code (this will generate `*.yul` files):
@@ -47,4 +54,3 @@ racket ./yul-bmc-multiobs-slim.rkt --config ./configs/A-multiobs-slim.json --nbi
 ```bash
 racket ./yul-bmc-multiobs-slim.rkt --config ./real-configs/bmc-config-181.json --nbits 16 --memsize 20 --ntests 2 --faststop --verbose
 ```
-
