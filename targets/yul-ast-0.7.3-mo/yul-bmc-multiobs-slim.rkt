@@ -71,7 +71,14 @@
 
 ; initialize one simulator for every contract
 (define simulators (make-hash))
-(define-symbolic mo-mia (~> (bitvector arg-nbits) (bitvector arg-nbits) (bitvector arg-nbits)))
+; (define-symbolic mo-mia (~> (bitvector arg-nbits) (bitvector arg-nbits) (bitvector arg-nbits)))
+(define (mo-mia p n) 
+	(define r (bvadd p n)) ;;; FIXME: Hack!!
+	(if (term? r) 
+		r 
+		(bvsmod r (bv arg-memsize arg-nbits))
+	)
+)
 (if (hash-has-key? arg-config 'ContractStrings)
 	; yes there's contents, use that directly
 	(for ([p (hash-ref arg-config 'ContractStrings)])
