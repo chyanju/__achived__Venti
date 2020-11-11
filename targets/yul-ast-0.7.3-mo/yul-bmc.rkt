@@ -20,8 +20,8 @@
 (define arg-verbose #f)
 (define arg-faststop #f)
 (define arg-nbits 16)
-(define arg-memsize 20)
-(define arg-ntests 3)
+(define arg-memsize 200)
+(define arg-ntests 2)
 ; (define arg-config (string->jsexpr (file->string "test-config.json")))
 (command-line
 	#:program "yul-bmc"
@@ -72,12 +72,38 @@
 ; initialize one simulator for every contract
 (define simulators (make-hash))
 ;;(define-symbolic mo-mia (~> (bitvector arg-nbits) (bitvector arg-nbits) (bitvector arg-nbits)))
+; (define (mo-mia p n) 
+; 	(define r (bvadd p n)) ;;; FIXME: Hack!!
+; 	(if (term? r) 
+; 		r 
+; 		(bvsmod r (bv arg-memsize arg-nbits))
+; 	)
+; )
 (define (mo-mia p n) 
-	(define r (bvadd p n)) ;;; FIXME: Hack!!
-	(if (term? r) 
-		r 
-		(bvsmod r (bv arg-memsize arg-nbits))
-	)
+	; p is key, n is slot, slot is non-symbolic according to yul memory model
+	; stretchy coefficients k=25, b=5
+	; normal computation: addr = p*k + n*b
+	; constraint is: addr < memsize
+	; so the guard is: p < ( memsize - n*b ) / k
+	; (define bv-memsize (bv arg-memsize arg-nbits))
+	; (define bv-k (bv 7 arg-nbits))
+	; (define bv-b (bv 3 arg-nbits))
+	; (define tmp-bound (bvudiv (bvsub bv-memsize (bvmul n bv-b)) bv-k))
+	; (printf "# bound is: ~a, p is: ~a, n is: ~a\n" tmp-bound p n)
+	; (assert (bvult p tmp-bound))
+	; (define addr (bvadd (bvmul p bv-k) (bvmul n bv-b) )) ;;; FIXME: Hack!!
+	; addr
+
+	; fixme: wait, it seems that n is key, p is slot
+	; so the guard should be: n < ( memsize - k*p ) / b
+	(define bv-memsize (bv arg-memsize arg-nbits))
+	(define bv-k (bv 3 arg-nbits))
+	(define bv-b (bv 5 arg-nbits))
+	(define tmp-bound (bvudiv (bvsub bv-memsize (bvmul p bv-k)) bv-b))
+	; (printf "# bound is: ~a, p is: ~a, n is: ~a\n" tmp-bound p n)
+	(assert (bvult n tmp-bound))
+	(define addr (bvadd (bvmul p bv-k) (bvmul n bv-b) )) ;;; FIXME: Hack!!
+	addr
 )
 (if (hash-has-key? arg-config 'ContractStrings)
 	; yes there's contents, use that directly

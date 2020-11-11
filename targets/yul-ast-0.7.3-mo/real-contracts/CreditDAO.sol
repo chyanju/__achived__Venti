@@ -1,121 +1,105 @@
 pragma solidity >=0.7.3;
-// SPDX-License-Identifier: UNLICENSED
-
-/* typedef: t1 -> uint */
-/* typedef: t2 -> uint */
-/* typedef: t3 -> uint */
-/* typedef: t4 -> bool */
-/* typedef: t5 -> uint */
-/* typedef: t6 -> address */
-/* typedef: t7 -> uint */
-/* typedef: t8 -> uint */
-/* typedef: t9 -> bool */
-/* typedef: t10 -> bool */
-/* typedef: t11 -> address */
-/* typedef: t12 -> uint */
-/* typedef: t13 -> uint */
-
 contract CreditDAO {
-    struct Election {
-        /* t1 -> */ uint startBlock;
-        /* t2 -> */ uint endBlock;
-        /* t3 -> */ uint totalCrbSupply;
-        /* t4 -> */ bool electionsFinished;
-        /* t5 -> */ uint nextCandidateIndex;
-        mapping (uint => /* t6 -> */ address) candidateIndex;
-        mapping (address => /* t7 -> */ uint) candidateAddyToIndexMap;
-        mapping (uint => /* t8 -> */ uint) candidateVotes;
-        mapping (address => /* t9 -> */ bool) candidates;
-        mapping (address => /* t10 -> */ bool) userHasVoted;
-        /* t11 -> */ address maxVotes;
-        /* t12 -> */ uint numOfMaxVotes;
-        /* t13 -> */ uint idProcessed;
-    }
-    uint public nextElectionIndex;
-    mapping(uint => Election) public elections;
-    address public creditCEO;
-    uint public mandateInBlocks = 0;
-    uint public blocksPerMonth = 76235;
-    constructor() {
-        elections[nextElectionIndex].startBlock = block.number;
-        elections[nextElectionIndex].endBlock = block.number + blocksPerMonth;
-        nextElectionIndex++;
-    }
-    // Election part
-    function createNewElections() public {
-        // require(elections[nextElectionIndex - 1].endBlock + mandateInBlocks < block.number);
-        elections[nextElectionIndex].startBlock = block.number;
-        elections[nextElectionIndex].endBlock = block.number + blocksPerMonth;
-        nextElectionIndex++;
-        creditCEO = address(0x0);
-    }
-    function sumbitForElection() public {
-        require(elections[nextElectionIndex - 1].endBlock > block.number);
-        require(!elections[nextElectionIndex - 1].candidates[msg.sender]);
-        uint nextCandidateId = elections[nextElectionIndex].nextCandidateIndex;
-        elections[nextElectionIndex - 1].candidateIndex[nextCandidateId] = msg.sender;
-        elections[nextElectionIndex - 1].candidateAddyToIndexMap[msg.sender] = nextCandidateId;
-        elections[nextElectionIndex - 1].nextCandidateIndex++;
-        elections[nextElectionIndex - 1].candidates[msg.sender] = true;
-    }
-    function vote(address _participant) public {
-        require(elections[nextElectionIndex - 1].endBlock > block.number);
-        // (avaliableBalance, lockedBalance, bondMultiplier, lockedUntilBlock, lastBlockClaimed) = creditBitContract.getAccountData(msg.sender);
-        // require(lockedUntilBlock >= elections[nextElectionIndex - 1].endBlock);
-        require(!elections[nextElectionIndex - 1].userHasVoted[msg.sender]);
-        uint candidateId = elections[nextElectionIndex - 1].candidateAddyToIndexMap[_participant];
-        elections[nextElectionIndex - 1].candidateVotes[candidateId] += 1;
-        elections[nextElectionIndex - 1].userHasVoted[msg.sender] = true; //
-    }
-    function finishElections(uint _iterations) public {
-        // require(elections[nextElectionIndex - 1].endBlock < block.number);
-        // require(!elections[nextElectionIndex - 1].electionsFinished);
-        uint curentVotes;
-        uint nextCandidateId = elections[nextElectionIndex - 1].idProcessed;
-        for (uint cnt = 0; cnt < _iterations; cnt++) {
-            curentVotes = elections[nextElectionIndex - 1].candidateVotes[nextCandidateId];
-            if (curentVotes > elections[nextElectionIndex - 1].numOfMaxVotes) {
-                elections[nextElectionIndex - 1].maxVotes = elections[nextElectionIndex - 1].candidateIndex[nextCandidateId];
-                elections[nextElectionIndex - 1].numOfMaxVotes = curentVotes;
-            }
-            nextCandidateId++;
-        }
-        elections[nextElectionIndex - 1].idProcessed = nextCandidateId;
-        if (elections[nextElectionIndex - 1].candidateIndex[nextCandidateId] == address(0x0)) {
-            creditCEO = elections[nextElectionIndex - 1].maxVotes;
-            elections[nextElectionIndex - 1].electionsFinished = true;
-            if (elections[nextElectionIndex - 1].numOfMaxVotes == 0) {
-                elections[nextElectionIndex].startBlock = block.number;
-                elections[nextElectionIndex].endBlock = block.number + blocksPerMonth;
-                nextElectionIndex++;
-            }
-        }
-    }
-    function observe__0(uint i) public view returns (uint) {
-        return elections[i].nextCandidateIndex;
-    }
-    function observe__1(uint i) public view returns (bool) {
-        return elections[i].candidates[msg.sender];
-    }
-    function observe__2() public view returns (uint) {
-        return nextElectionIndex;
-    }
-    function observe__3(uint i) public view returns (uint) {
-        return elections[i].candidateAddyToIndexMap[msg.sender];
-    }
-    function observe__4(uint i) public view returns (bool) {
-        return elections[i].userHasVoted[msg.sender];
-    }
-    function observe__5(uint i) public view returns (uint) {
-        return elections[i].candidateVotes[elections[i].candidateAddyToIndexMap[msg.sender]];
-    }
-    function observe__6(uint i) public view returns (uint) {
-        return elections[i].candidateAddyToIndexMap[msg.sender];
-    }
-    function observe__7(uint i) public view returns (bool) {
-        return elections[i].candidates[msg.sender];
-    }
-    function observe__8(uint i) public view returns (bool) {
-        return elections[i].userHasVoted[msg.sender];
-    }
+struct Election {
+	/* t1 ->*/ uint256 startBlock;
+	/* t2 ->*/ uint256 endBlock;
+	/* t3 ->*/ uint256 totalCrbSupply;
+	/* t4 ->*/ bool electionsFinished;
+	/* t5 ->*/ uint256 nextCandidateIndex;
+	mapping(uint256 => /* t6 ->*/ address) candidateIndex;
+	mapping(address => /* t7 ->*/ uint256) candidateAddyToIndexMap;
+	mapping(uint256 => /* t8 ->*/ uint256) candidateVotes;
+	mapping(address => /* t9 ->*/ bool) candidates;
+	mapping(address => /* t10 ->*/ bool) userHasVoted;
+	/* t11 ->*/ address maxVotes;
+	/* t12 ->*/ uint256 numOfMaxVotes;
+	/* t13 ->*/ uint256 idProcessed;
+}
+
+uint256 public nextElectionIndex;
+mapping(uint256 => Election) public elections;
+address public creditCEO;
+uint256 public mandateInBlocks = 0;
+uint256 public blocksPerMonth = 76235;
+constructor() public {
+elections[nextElectionIndex].startBlock = block.number;
+elections[nextElectionIndex].endBlock = (block.number + blocksPerMonth);
+nextElectionIndex++;
+}
+function createNewElections() public {
+elections[nextElectionIndex].startBlock = block.number;
+elections[nextElectionIndex].endBlock = (block.number + blocksPerMonth);
+nextElectionIndex++;
+creditCEO = address(0);
+}
+function sumbitForElection() public {
+require((elections[(nextElectionIndex - 1)].endBlock > block.number));
+require(!elections[(nextElectionIndex - 1)].candidates[msg.sender]);
+uint256 nextCandidateId = elections[nextElectionIndex].nextCandidateIndex;
+elections[(nextElectionIndex - 1)].candidateIndex[nextCandidateId] = msg.sender;
+elections[(nextElectionIndex - 1)].candidateAddyToIndexMap[msg.sender] = nextCandidateId;
+elections[(nextElectionIndex - 1)].nextCandidateIndex++;
+elections[(nextElectionIndex - 1)].candidates[msg.sender] = true;
+}
+function vote(address _participant) public {
+require((elections[(nextElectionIndex - 1)].endBlock > block.number));
+require(!elections[(nextElectionIndex - 1)].userHasVoted[msg.sender]);
+uint256 candidateId = elections[(nextElectionIndex - 1)].candidateAddyToIndexMap[_participant];
+elections[(nextElectionIndex - 1)].candidateVotes[candidateId] += 1;
+elections[(nextElectionIndex - 1)].userHasVoted[msg.sender] = true;
+}
+function finishElections(uint256 _iterations) public {
+uint256 curentVotes;
+uint256 nextCandidateId = elections[(nextElectionIndex - 1)].idProcessed;
+{
+uint256 cnt = 0;
+while ((cnt < _iterations)) {
+curentVotes = elections[(nextElectionIndex - 1)].candidateVotes[nextCandidateId];
+if ((curentVotes > elections[(nextElectionIndex - 1)].numOfMaxVotes)) {
+elections[(nextElectionIndex - 1)].maxVotes = elections[(nextElectionIndex - 1)].candidateIndex[nextCandidateId];
+elections[(nextElectionIndex - 1)].numOfMaxVotes = curentVotes;
+}
+nextCandidateId++;
+cnt++;
+}
+}
+elections[(nextElectionIndex - 1)].idProcessed = nextCandidateId;
+if ((elections[(nextElectionIndex - 1)].candidateIndex[nextCandidateId] == address(0))) {
+creditCEO = elections[(nextElectionIndex - 1)].maxVotes;
+elections[(nextElectionIndex - 1)].electionsFinished = true;
+if ((elections[(nextElectionIndex - 1)].numOfMaxVotes == 0)) {
+elections[nextElectionIndex].startBlock = block.number;
+elections[nextElectionIndex].endBlock = (block.number + blocksPerMonth);
+nextElectionIndex++;
+}
+}
+}
+function observe__0(uint256 i) public view returns (uint256) {
+return elections[i].nextCandidateIndex;
+}
+function observe__1(uint256 i) public view returns (bool) {
+return elections[i].candidates[msg.sender];
+}
+function observe__2() public view returns (uint256) {
+return nextElectionIndex;
+}
+function observe__3(uint256 i) public view returns (uint256) {
+return elections[i].candidateAddyToIndexMap[msg.sender];
+}
+function observe__4(uint256 i) public view returns (bool) {
+return elections[i].userHasVoted[msg.sender];
+}
+function observe__5(uint256 i) public view returns (uint256) {
+return elections[i].candidateVotes[elections[i].candidateAddyToIndexMap[msg.sender]];
+}
+function observe__6(uint256 i) public view returns (uint256) {
+return elections[i].candidateAddyToIndexMap[msg.sender];
+}
+function observe__7(uint256 i) public view returns (bool) {
+return elections[i].candidates[msg.sender];
+}
+function observe__8(uint256 i) public view returns (bool) {
+return elections[i].userHasVoted[msg.sender];
+}
+
 }

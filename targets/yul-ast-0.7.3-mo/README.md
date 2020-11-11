@@ -16,8 +16,8 @@ Note that the above two versions use ***different*** configure file formats.
 1. Run `solc` to compile the solidity souce code to Yul code (this will generate `*.yul` files):
 
 ```bash
-solc ./contracts/A1.sol --ir --overwrite -o ./tests/
-solc ./contracts/A2.sol --ir --overwrite -o ./tests/
+solc ./contracts/A1.sol --ir --overwrite -o ./contracts/
+solc ./contracts/A2.sol --ir --overwrite -o ./contracts/
 ```
 
 2. Parse the Yul code into s-expression in json (this will generate `*.json` files):
@@ -44,13 +44,15 @@ racket ./yul-bmc.rkt --config ./configs/A.json
 5. For full commandline arguments, try:
 
 ```bash
-racket ./yul-bmc.rkt --config ./configs/A.json --nbits 16 --memsize 20 --ntests 3 --verbose
+racket ./yul-bmc.rkt --config ./configs/A.json --nbits 16 --memsize 200 --ntests 3 --verbose
 ```
 
 ```bash
-racket ./yul-bmc-multiobs-slim.rkt --config ./configs/A-multiobs-slim.json --nbits 16 --memsize 20 --ntests 2 --faststop --verbose
+racket ./yul-bmc-multiobs-slim.rkt --config ./configs/A-multiobs-slim.json --nbits 16 --memsize 200 --ntests 2 --faststop --verbose
 ```
 
 ```bash
-racket ./yul-bmc-multiobs-slim.rkt --config ./real-configs/bmc-config-181.json --nbits 16 --memsize 20 --ntests 2 --faststop --verbose
+racket ./yul-bmc-multiobs-slim.rkt --config ./real-configs/bmc-config-181.json --nbits 16 --memsize 200 --ntests 2 --faststop --verbose
+racket ./yul-bmc-multiobs-slim.rkt --config ./real-configs/bmc-config-1.json --nbits 16 --memsize 200 --ntests 2 --faststop --verbose
 ```
+

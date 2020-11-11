@@ -6,7 +6,7 @@
 		],
 		[
 			"target",
-			"./real-contracts/CreditDAO.json"
+			"./real-contracts/CreditDAOTransformed1.json"
 		]
 	],
 	"ObserveCalls":[
