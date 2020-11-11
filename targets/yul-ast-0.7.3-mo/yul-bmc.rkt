@@ -97,8 +97,8 @@
 	; fixme: wait, it seems that n is key, p is slot
 	; so the guard should be: n < ( memsize - k*p ) / b
 	(define bv-memsize (bv arg-memsize arg-nbits))
-	(define bv-k (bv 3 arg-nbits))
-	(define bv-b (bv 5 arg-nbits))
+	(define bv-k (bv 11 arg-nbits))
+	(define bv-b (bv 13 arg-nbits))
 	(define tmp-bound (bvudiv (bvsub bv-memsize (bvmul p bv-k)) bv-b))
 	; (printf "# bound is: ~a, p is: ~a, n is: ~a\n" tmp-bound p n)
 	(assert (bvult n tmp-bound))
