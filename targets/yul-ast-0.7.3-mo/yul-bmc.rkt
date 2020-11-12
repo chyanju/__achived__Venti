@@ -82,6 +82,7 @@
 
 ; initialize one simulator for every contract
 (define simulators (make-hash))
+; ==== beforehand linear mapping ==== ;
 ; (define (mo-mia p n) 
 ; 	; p is slot (base addr), n is key (offset/index)
 ; 	; stretchy coefficients k=25, b=5
@@ -97,9 +98,49 @@
 ; 	(define addr (bvadd (bvmul p bv-k) (bvmul n bv-b) ))
 ; 	addr
 ; )
-(define (mo-mia p n) 
-	(define addr (bvmul (bvadd p n ) (bv 13 arg-nbits)))
-	addr
+; (define (mo-mia p n) 
+; 	(define addr (bvmul (bvadd p n ) (bv 23 arg-nbits)))
+; 	addr
+; )
+; ==== preset hash function ==== ;
+; (define mo-mia-hash
+; 	(for/list ([_ (range arg-memsize)])
+; 		(for/list ([_ (range arg-memsize)])
+; 			(bv (random arg-memsize) arg-nbits)
+; 		)
+; 	)
+; )
+; (define (mo-mia p n) 
+; 	(define int-p (bitvector->integer p))
+; 	(define int-n (bitvector->integer n))
+; 	(list-ref (list-ref mo-mia-hash int-p) int-n)
+; )
+; ==== Cantor Pairing Function ==== ;
+; (define (mo-mia p n)
+; 	(define term0 (bvadd p n))
+; 	(define term1 (bvadd term0 (bv 1 arg-nbits)))
+; 	(define term2 (bvmul term0 term1))
+; 	(define term3 (bvudiv term2 (bv 2 arg-nbits)))
+; 	(define term4 (bvadd term3 n))
+; 	term4
+; )
+; ==== lazy random hash ==== ;
+(define mo-reserved-nslots 100)
+(define mo-hash-seq (shuffle (range mo-reserved-nslots arg-memsize)))
+(define mo-lazy-hash (make-hash))
+(define (mo-mia p n)
+	(define int-p (bitvector->integer p))
+	(define int-n (bitvector->integer n))
+	(define pair-key (cons int-p int-n))
+	(when (! (hash-has-key? mo-lazy-hash pair-key))
+		; no key, add it
+		(begin
+			(hash-set! mo-lazy-hash pair-key (car mo-hash-seq))
+			(set! mo-hash-seq (cdr mo-hash-seq))
+		)
+	)
+	; return the hashed number
+	(bv (hash-ref mo-lazy-hash pair-key) arg-nbits)
 )
 (if (hash-has-key? arg-config 'ContractStrings)
 	; yes there's contents, use that directly
@@ -154,6 +195,7 @@
 	(define (random-bv sz)
 		(define res (integer->bitvector (random arg-random-ub) (bitvector sz)))
 		(list res)
+		; (list (bv 1 sz))
 	)
 	(define (random-bool sz)
 		(if (equal? 0 (random 2))

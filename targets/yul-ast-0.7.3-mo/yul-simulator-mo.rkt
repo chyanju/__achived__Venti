@@ -344,6 +344,7 @@
 					)
 					; (printf "# [debug] after declaration to ~a, memory is ~a\n" m-yul-typed-identifier-list yul-memory)
 					; (printf "# [debug] after declaration: ~a\n" args-register)
+					; (printf "# [debug] var ~a gets ~a\n" m-yul-typed-identifier-list r-expression)
 				]
 
 				; note: scope of yul_block will be introduced by its parent structure and itself
