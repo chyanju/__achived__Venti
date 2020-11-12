@@ -28,8 +28,8 @@
 (define arg-preset "creditdao")
 
 (define arg-nbits 24)
-(define arg-memsize 5000)
-(define arg-nruns 2)
+(define arg-memsize 10000)
+(define arg-nruns 1)
 (define arg-random-ub 3) ; upper bound of the random: varaible, default lower bound is 0
 ; (define arg-config (string->jsexpr (file->string "test-config.json")))
 (command-line
@@ -132,8 +132,33 @@
 ; 	term4
 ; )
 ; ==== lazy random hash ==== ;
+; (define mo-reserved-nslots 100)
+; (define mo-hash-seq (shuffle (range mo-reserved-nslots (- arg-memsize mo-reserved-nslots))))
+; (define mo-lazy-hash (make-hash))
+; (define (mo-mia p n)
+; 	(define int-p (bitvector->integer p))
+; 	(define int-n (bitvector->integer n))
+; 	(define pair-key (cons int-p int-n))
+; 	(when (! (hash-has-key? mo-lazy-hash pair-key))
+; 		; no key, add it
+; 		(begin
+; 			(hash-set! mo-lazy-hash pair-key (car mo-hash-seq))
+; 			(set! mo-hash-seq (cdr mo-hash-seq))
+; 		)
+; 	)
+; 	; return the hashed number
+; 	(bv (hash-ref mo-lazy-hash pair-key) arg-nbits)
+; )
+; ==== sparse lazy random hash ==== ;
 (define mo-reserved-nslots 100)
-(define mo-hash-seq (shuffle (range mo-reserved-nslots arg-memsize)))
+(define mo-lazy-step 13) ; lazy step to prevent collision for direct sload(addr+?)
+(define mo-hash-seq (shuffle 
+	(range 
+		mo-reserved-nslots 
+		(- arg-memsize mo-reserved-nslots)
+		mo-lazy-step
+	)
+))
 (define mo-lazy-hash (make-hash))
 (define (mo-mia p n)
 	(define int-p (bitvector->integer p))
