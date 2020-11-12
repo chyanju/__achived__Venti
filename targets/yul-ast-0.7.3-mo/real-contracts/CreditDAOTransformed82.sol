@@ -1,5 +1,5 @@
 pragma solidity >=0.7.3;
-contract CreditDAOTransformed181 {
+contract CreditDAOTransformed82 {
 struct Election {
 	/* t1 ->*/ uint256 startBlock;
 	/* t2 ->*/ uint256 endBlock;
@@ -44,16 +44,16 @@ creditCEO = address(0);
 }
 function sumbitForElection() public {
 require((elections__1[(nextElectionIndex - 1)].endBlock > block.number));
-require(!elections__2[nextElectionIndex].candidateAddyToIndexMap_WRAP[msg.sender].t9bool_1_WRAP);
+require(!elections__2[(nextElectionIndex - 1)].candidateAddyToIndexMap_WRAP[msg.sender].t9bool_1_WRAP);
 uint256 nextCandidateId;
 nextCandidateId = elections__1[nextElectionIndex].nextCandidateIndex;
 elections__2[(nextElectionIndex - 1)].candidateIndex[nextCandidateId] = msg.sender;
 if (true) {
-elections__2[nextElectionIndex].candidateAddyToIndexMap_WRAP[msg.sender].t7uint256_0_WRAP = nextCandidateId;
+elections__2[(nextElectionIndex - 1)].candidateAddyToIndexMap_WRAP[msg.sender].t7uint256_0_WRAP = nextCandidateId;
 }
 elections__1[(nextElectionIndex - 1)].nextCandidateIndex++;
 if (true) {
-elections__2[nextElectionIndex].candidateAddyToIndexMap_WRAP[msg.sender].t9bool_1_WRAP = true;
+elections__2[(nextElectionIndex - 1)].candidateAddyToIndexMap_WRAP[msg.sender].t9bool_1_WRAP = true;
 }
 }
 function vote(address _participant) public {
@@ -62,8 +62,8 @@ require(!elections__2[nextElectionIndex].candidateAddyToIndexMap_WRAP[msg.sender
 uint256 candidateId;
 candidateId = elections__2[nextElectionIndex].candidateAddyToIndexMap_WRAP[_participant].t7uint256_0_WRAP;
 elections__2[nextElectionIndex].candidateVotes[candidateId] += 1;
-if (true) {
-elections__2[nextElectionIndex].candidateAddyToIndexMap_WRAP[msg.sender].t10bool_2_WRAP = true;
+if (false) {
+elections__2[1].candidateAddyToIndexMap_WRAP[msg.sender].t10bool_2_WRAP = true;
 }
 }
 function finishElections(uint256 _iterations) public {
@@ -76,7 +76,7 @@ cnt = 0;
 while ((cnt < _iterations)) {
 curentVotes = elections__2[(nextElectionIndex - 1)].candidateVotes[nextCandidateId];
 if ((curentVotes > elections__1[(nextElectionIndex - 1)].numOfMaxVotes)) {
-elections__2[nextElectionIndex].maxVotes = elections__2[nextElectionIndex].candidateIndex[nextCandidateId];
+elections__2[1].maxVotes = elections__2[nextElectionIndex].candidateIndex[nextCandidateId];
 elections__1[(nextElectionIndex - 1)].numOfMaxVotes = curentVotes;
 }
 nextCandidateId++;
@@ -86,7 +86,7 @@ cnt++;
 elections__1[(nextElectionIndex - 1)].idProcessed = nextCandidateId;
 if ((elections__2[nextElectionIndex].candidateIndex[nextCandidateId] == address(0))) {
 creditCEO = elections__2[nextElectionIndex].maxVotes;
-elections__2[nextElectionIndex].electionsFinished = true;
+elections__2[(nextElectionIndex - 1)].electionsFinished = true;
 if ((elections__1[(nextElectionIndex - 1)].numOfMaxVotes == 0)) {
 elections__1[nextElectionIndex].startBlock = block.number;
 elections__1[nextElectionIndex].endBlock = (block.number + blocksPerMonth);
@@ -94,32 +94,32 @@ nextElectionIndex++;
 }
 }
 }
-function observe__0(uint i) public view returns (uint256) {
+function observe__0(uint256 i) public view returns (uint256) {
 return elections__1[i].nextCandidateIndex;
 }
-function observe__1(uint i) public view returns (bool) {
+function observe__1(uint256 i) public view returns (bool) {
 return elections__2[i].candidateAddyToIndexMap_WRAP[msg.sender].t9bool_1_WRAP;
 }
 function observe__2() public view returns (uint256) {
 return nextElectionIndex;
 }
-function observe__3(uint i) public view returns (uint256) {
+function observe__3(uint256 i) public view returns (uint256) {
 return elections__2[i].candidateAddyToIndexMap_WRAP[msg.sender].t7uint256_0_WRAP;
 }
-function observe__4(uint i) public view returns (bool) {
+function observe__4(uint256 i) public view returns (bool) {
 return elections__2[i].candidateAddyToIndexMap_WRAP[msg.sender].t10bool_2_WRAP;
 }
-function observe__5(uint i) public view returns (uint256) {
+function observe__5(uint256 i) public view returns (uint256) {
 return elections__2[i].candidateVotes[elections__2[i].candidateAddyToIndexMap_WRAP[msg.sender].t7uint256_0_WRAP];
 }
-function observe__6(uint i) public view returns (uint256) {
-return elections__2[i].candidateAddyToIndexMap_WRAP[msg.sender].t7uint256_0_WRAP;
+function observe__6(uint256 i) public view returns (uint256) {
+return elections__1[i].numOfMaxVotes;
 }
-function observe__7(uint i) public view returns (bool) {
-return elections__2[i].candidateAddyToIndexMap_WRAP[msg.sender].t9bool_1_WRAP;
+function observe__7(uint256 i) public view returns (uint256) {
+return elections__1[i].endBlock;
 }
-function observe__8(uint i) public view returns (bool) {
-return elections__2[i].candidateAddyToIndexMap_WRAP[msg.sender].t10bool_2_WRAP;
+function observe__8(uint256 i) public view returns (uint256) {
+return elections__1[i].startBlock;
 }
 
 }

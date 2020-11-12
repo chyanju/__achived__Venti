@@ -6,16 +6,16 @@
  *******************************************************/
 
 
-object "CreditDAO_577" {
+object "CreditDAO_568" {
     code {
         mstore(64, memoryguard(128))
         if callvalue() { revert(0, 0) }
 
-        constructor_CreditDAO_577()
+        constructor_CreditDAO_568()
 
-        codecopy(0, dataoffset("CreditDAO_577_deployed"), datasize("CreditDAO_577_deployed"))
+        codecopy(0, dataoffset("CreditDAO_568_deployed"), datasize("CreditDAO_568_deployed"))
 
-        return(0, datasize("CreditDAO_577_deployed"))
+        return(0, datasize("CreditDAO_568_deployed"))
 
         function checked_add_t_uint256(x, y) -> sum {
             x := cleanup_t_uint256(x)
@@ -35,7 +35,7 @@ object "CreditDAO_577" {
             cleaned := value
         }
 
-        function constructor_CreditDAO_577() {
+        function constructor_CreditDAO_568() {
 
             let expr_48 := 0x00
             update_storage_value_offset_0t_rational_0_by_1_to_t_uint256(0x03, expr_48)
@@ -142,7 +142,7 @@ object "CreditDAO_577" {
         }
 
     }
-    object "CreditDAO_577_deployed" {
+    object "CreditDAO_568_deployed" {
         code {
             mstore(64, memoryguard(128))
 
@@ -233,7 +233,7 @@ object "CreditDAO_577" {
                     // observe__6(uint256)
                     if callvalue() { revert(0, 0) }
                     let param_0 :=  abi_decode_tuple_t_uint256(4, calldatasize())
-                    let ret_0 :=  fun_observe__6_544(param_0)
+                    let ret_0 :=  fun_observe__6_541(param_0)
                     let memPos := allocateMemory(0)
                     let memEnd := abi_encode_tuple_t_uint256__to_t_uint256__fromStack(memPos , ret_0)
                     return(memPos, sub(memEnd, memPos))
@@ -255,9 +255,9 @@ object "CreditDAO_577" {
                     // observe__7(uint256)
                     if callvalue() { revert(0, 0) }
                     let param_0 :=  abi_decode_tuple_t_uint256(4, calldatasize())
-                    let ret_0 :=  fun_observe__7_560(param_0)
+                    let ret_0 :=  fun_observe__7_554(param_0)
                     let memPos := allocateMemory(0)
-                    let memEnd := abi_encode_tuple_t_bool__to_t_bool__fromStack(memPos , ret_0)
+                    let memEnd := abi_encode_tuple_t_uint256__to_t_uint256__fromStack(memPos , ret_0)
                     return(memPos, sub(memEnd, memPos))
                 }
 
@@ -310,9 +310,9 @@ object "CreditDAO_577" {
                     // observe__8(uint256)
                     if callvalue() { revert(0, 0) }
                     let param_0 :=  abi_decode_tuple_t_uint256(4, calldatasize())
-                    let ret_0 :=  fun_observe__8_576(param_0)
+                    let ret_0 :=  fun_observe__8_567(param_0)
                     let memPos := allocateMemory(0)
-                    let memEnd := abi_encode_tuple_t_bool__to_t_bool__fromStack(memPos , ret_0)
+                    let memEnd := abi_encode_tuple_t_uint256__to_t_uint256__fromStack(memPos , ret_0)
                     return(memPos, sub(memEnd, memPos))
                 }
 
@@ -1000,7 +1000,7 @@ object "CreditDAO_577" {
 
             }
 
-            function fun_observe__6_544(vloc_i_530) -> vloc__533 {
+            function fun_observe__6_541(vloc_i_530) -> vloc__533 {
                 let zero_value_for_type_t_uint256_253 := zero_value_for_split_t_uint256()
                 vloc__533 := zero_value_for_type_t_uint256_253
 
@@ -1011,60 +1011,48 @@ object "CreditDAO_577" {
                 let _256 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$38_storage_$_of_t_uint256(expr_535,expr_536)
                 let _257_slot := _256
                 let expr_537_slot := _257_slot
-                let _258 := add(expr_537_slot, 6)
-                let _259 := _258
+                let _258 := add(expr_537_slot, 11)
+                let _259 := read_from_storage_offset_0_t_uint256(_258)
                 let expr_538 := _259
-                let expr_540 := caller()
-                let _260 := mapping_index_access_t_mapping$_t_address_$_t_uint256_$_of_t_address_payable(expr_538,expr_540)
-                let _261 := read_from_storage_offset_0_t_uint256(_260)
-                let expr_541 := _261
-                vloc__533 := expr_541
+                vloc__533 := expr_538
                 leave
 
             }
 
-            function fun_observe__7_560(vloc_i_546) -> vloc__549 {
-                let zero_value_for_type_t_bool_262 := zero_value_for_split_t_bool()
-                vloc__549 := zero_value_for_type_t_bool_262
+            function fun_observe__7_554(vloc_i_543) -> vloc__546 {
+                let zero_value_for_type_t_uint256_260 := zero_value_for_split_t_uint256()
+                vloc__546 := zero_value_for_type_t_uint256_260
 
-                let _263 := 0x01
-                let expr_551 := _263
-                let _264 := vloc_i_546
-                let expr_552 := _264
-                let _265 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$38_storage_$_of_t_uint256(expr_551,expr_552)
-                let _266_slot := _265
-                let expr_553_slot := _266_slot
-                let _267 := add(expr_553_slot, 8)
-                let _268 := _267
-                let expr_554 := _268
-                let expr_556 := caller()
-                let _269 := mapping_index_access_t_mapping$_t_address_$_t_bool_$_of_t_address_payable(expr_554,expr_556)
-                let _270 := read_from_storage_offset_0_t_bool(_269)
-                let expr_557 := _270
-                vloc__549 := expr_557
+                let _261 := 0x01
+                let expr_548 := _261
+                let _262 := vloc_i_543
+                let expr_549 := _262
+                let _263 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$38_storage_$_of_t_uint256(expr_548,expr_549)
+                let _264_slot := _263
+                let expr_550_slot := _264_slot
+                let _265 := add(expr_550_slot, 1)
+                let _266 := read_from_storage_offset_0_t_uint256(_265)
+                let expr_551 := _266
+                vloc__546 := expr_551
                 leave
 
             }
 
-            function fun_observe__8_576(vloc_i_562) -> vloc__565 {
-                let zero_value_for_type_t_bool_271 := zero_value_for_split_t_bool()
-                vloc__565 := zero_value_for_type_t_bool_271
+            function fun_observe__8_567(vloc_i_556) -> vloc__559 {
+                let zero_value_for_type_t_uint256_267 := zero_value_for_split_t_uint256()
+                vloc__559 := zero_value_for_type_t_uint256_267
 
-                let _272 := 0x01
-                let expr_567 := _272
-                let _273 := vloc_i_562
-                let expr_568 := _273
-                let _274 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$38_storage_$_of_t_uint256(expr_567,expr_568)
-                let _275_slot := _274
-                let expr_569_slot := _275_slot
-                let _276 := add(expr_569_slot, 9)
-                let _277 := _276
-                let expr_570 := _277
-                let expr_572 := caller()
-                let _278 := mapping_index_access_t_mapping$_t_address_$_t_bool_$_of_t_address_payable(expr_570,expr_572)
-                let _279 := read_from_storage_offset_0_t_bool(_278)
-                let expr_573 := _279
-                vloc__565 := expr_573
+                let _268 := 0x01
+                let expr_561 := _268
+                let _269 := vloc_i_556
+                let expr_562 := _269
+                let _270 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$38_storage_$_of_t_uint256(expr_561,expr_562)
+                let _271_slot := _270
+                let expr_563_slot := _271_slot
+                let _272 := add(expr_563_slot, 0)
+                let _273 := read_from_storage_offset_0_t_uint256(_272)
+                let expr_564 := _273
+                vloc__559 := expr_564
                 leave
 
             }

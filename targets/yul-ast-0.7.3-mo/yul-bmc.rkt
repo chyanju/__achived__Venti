@@ -11,17 +11,24 @@
 (require json)
 (require racket/cmdline)
 (require
-	; "./yul-simulator.rkt"
 	"./yul-simulator-mo.rkt"
 )
+(define (not-equal? arg-0 arg-1) (not (equal? arg-0 arg-1)))
 
 ; read configuration from commandline
 (define arg-config null)
 (define arg-verbose #f)
 (define arg-faststop #f)
-(define arg-nbits 16)
-(define arg-memsize 200)
-(define arg-ntests 2)
+
+; if on, assume every txn share the same prefix and the last call is observe
+; in this case, re-use the state of the simulator (no need to reset)
+; and only keep the last call of every txn (except the first one)
+(define arg-cached-txn #f)
+
+(define arg-nbits 24)
+(define arg-memsize 5000)
+(define arg-nruns 2)
+(define arg-random-ub 3) ; upper bound of the random: varaible, default lower bound is 0
 ; (define arg-config (string->jsexpr (file->string "test-config.json")))
 (command-line
 	#:program "yul-bmc"
@@ -47,7 +54,11 @@
 			(set! arg-faststop #t)
 		)
 	]
-	#:once-each
+	[("--cached-txn") "assume every txn share the same prefix and the last call is observe"
+		(begin
+			(set! arg-cached-txn #t)
+		)
+	]
 	[("--nbits") p-nbits "specify the number of bits of the simulator"
 		(begin
 			(set! arg-nbits (string->number p-nbits))
@@ -58,51 +69,36 @@
 			(set! arg-memsize (string->number p-memsize))
 		)
 	]
-	[("--ntests") p-ntests "specify how many tests a single transaction should run"
+	[("--nruns") p-nruns "specify how many runs a single transaction should run"
 		(begin
-			(set! arg-ntests (string->number p-ntests))
+			(set! arg-nruns (string->number p-nruns))
 		)
 	]
 )
 ; display configuration
 (when arg-verbose (printf "# using nbits: ~a\n" arg-nbits))
 (when arg-verbose (printf "# using memsize: ~a\n" arg-memsize))
-(when arg-verbose (printf "# using ntests: ~a\n" arg-ntests))
+(when arg-verbose (printf "# using nruns: ~a\n" arg-nruns))
 
 ; initialize one simulator for every contract
 (define simulators (make-hash))
-;;(define-symbolic mo-mia (~> (bitvector arg-nbits) (bitvector arg-nbits) (bitvector arg-nbits)))
 ; (define (mo-mia p n) 
-; 	(define r (bvadd p n)) ;;; FIXME: Hack!!
-; 	(if (term? r) 
-; 		r 
-; 		(bvsmod r (bv arg-memsize arg-nbits))
-; 	)
+; 	; p is slot (base addr), n is key (offset/index)
+; 	; stretchy coefficients k=25, b=5
+; 	; normal computation: addr = p*k + n*b
+; 	; constraint is: addr < memsize
+; 	; so the guard is: p < ( memsize - n*b ) / k
+; 	; or: n < ( memsize - k*p ) / b
+; 	(define bv-memsize (bv arg-memsize arg-nbits))
+; 	(define bv-k (bv 13 arg-nbits))
+; 	(define bv-b (bv 1 arg-nbits))
+; 	; (define tmp-bound (bvudiv (bvsub bv-memsize (bvmul p bv-k)) bv-b))
+; 	; (assert (bvult n tmp-bound))
+; 	(define addr (bvadd (bvmul p bv-k) (bvmul n bv-b) ))
+; 	addr
 ; )
 (define (mo-mia p n) 
-	; p is key, n is slot, slot is non-symbolic according to yul memory model
-	; stretchy coefficients k=25, b=5
-	; normal computation: addr = p*k + n*b
-	; constraint is: addr < memsize
-	; so the guard is: p < ( memsize - n*b ) / k
-	; (define bv-memsize (bv arg-memsize arg-nbits))
-	; (define bv-k (bv 7 arg-nbits))
-	; (define bv-b (bv 3 arg-nbits))
-	; (define tmp-bound (bvudiv (bvsub bv-memsize (bvmul n bv-b)) bv-k))
-	; (printf "# bound is: ~a, p is: ~a, n is: ~a\n" tmp-bound p n)
-	; (assert (bvult p tmp-bound))
-	; (define addr (bvadd (bvmul p bv-k) (bvmul n bv-b) )) ;;; FIXME: Hack!!
-	; addr
-
-	; fixme: wait, it seems that n is key, p is slot
-	; so the guard should be: n < ( memsize - k*p ) / b
-	(define bv-memsize (bv arg-memsize arg-nbits))
-	(define bv-k (bv 11 arg-nbits))
-	(define bv-b (bv 13 arg-nbits))
-	(define tmp-bound (bvudiv (bvsub bv-memsize (bvmul p bv-k)) bv-b))
-	; (printf "# bound is: ~a, p is: ~a, n is: ~a\n" tmp-bound p n)
-	(assert (bvult n tmp-bound))
-	(define addr (bvadd (bvmul p bv-k) (bvmul n bv-b) )) ;;; FIXME: Hack!!
+	(define addr (bvmul (bvadd p n ) (bv 13 arg-nbits)))
 	addr
 )
 (if (hash-has-key? arg-config 'ContractStrings)
@@ -133,131 +129,185 @@
 
 
 ; load transactions and define symbolic variables
+; ======== important notes ======== ;
+; - one checker call contains multiple tasks
+; - one task contains multiple runs
+; - one run contains multiple scoped transactions
+;
+; - all scoped transactions say equal -> the run says equal
+; - all runs say equal -> the task says equal
+; - all tasks say equal -> the checker says equal
+; that is, any scoped transaction says neq, then the checker says neq
+; otherise the checker says equal
+(define final-result #t)
 (define tasks (hash-ref arg-config 'Tasks))
-(for ([p (in-range (length tasks))])
-
-	(define (dynamic-bv sz)
+(for ([i (range (length tasks))])
+	; transaction components should be wrapped in a list in preparation for cartesian products
+	(define (symbolic-bv sz)
 		(define-symbolic* arg-bv (bitvector sz)) ; creates a different constant when evaluated
-		arg-bv
+		(list arg-bv)
 	)
-	(define (dynamic-bool)
+	(define (symbolic-bool sz)
 		(define-symbolic* arg-bool boolean?) ; creates a different constant when evaluated
-		arg-bool
+		(list (bool->bitvector arg-bool (bitvector sz)))
 	)
-
-	(define (static-bv sz)
-		(define res (integer->bitvector (random 20) (bitvector sz)))
-		res
+	(define (random-bv sz)
+		(define res (integer->bitvector (random arg-random-ub) (bitvector sz)))
+		(list res)
 	)
-	(define (static-bool)
+	(define (random-bool sz)
 		(if (equal? 0 (random 2))
-			#f
-			#t
+			(list (bool->bitvector #f (bitvector sz)))
+			(list (bool->bitvector #t (bitvector sz)))
+		)
+	)
+	(define (scoped-bv sz)
+		(for/list ([p (range arg-random-ub)])
+			(bv p sz)
+		)
+	)
+	(define (scoped-bool sz)
+		(for/list ([p (list #f #t)])
+			(bool->bitvector p (bitvector sz))
 		)
 	)
 
-	(define (make-transaction q-txn #:tp [tp ""])
-		(for/list ([t0 q-txn])
-			(for/list ([j (in-range (length t0))])
-				(if (>= j 2)
-					; list of argument types
-					(match (string-append tp (list-ref t0 j))
-						["dynamic:uint256" (dynamic-bv arg-nbits)]
-						["dynamic:uint" (dynamic-bv arg-nbits)]
-						["dynamic:address" (dynamic-bv arg-nbits)]
-						["dynamic:bool" (bool->bitvector (dynamic-bool) (bitvector arg-nbits))]
+	; ============================ ;
+	; ======= for every run ====== ;
+	; ============================ ;
+	(for ([j (range arg-nruns)])
+		(define (make-run one-txn #:vpref [vpref ""])
+			(define tmp1 
+				(for/list ([c0 one-txn])
+					(define tmp0
+						(for/list ([k (range (length c0))])
+							(if (>= k 2)
+								; pos 2 starts the function call arguments
+								(match (string-append vpref (list-ref c0 k))
+									["symbolic:uint256" (symbolic-bv arg-nbits)]
+									["symbolic:uint" (symbolic-bv arg-nbits)]
+									["symbolic:address" (symbolic-bv arg-nbits)]
+									["symbolic:bool" (symbolic-bool arg-nbits)]
 
-						["static:uint256" (static-bv arg-nbits)]
-						["static:uint" (static-bv arg-nbits)]
-						["static:address" (static-bv arg-nbits)]
-						["static:bool" (bool->bitvector (static-bool) (bitvector arg-nbits))]
+									["random:uint256" (random-bv arg-nbits)]
+									["random:uint" (random-bv arg-nbits)]
+									["random:address" (random-bv arg-nbits)]
+									["random:bool" (random-bool arg-nbits)]
 
-						[_
-							(printf "# exception-exit: unsupported argument symbolic type, got: ~a\n" (list-ref t0 j))
-							(exit 0)
-						]
+									["scoped:uint256" (scoped-bv arg-nbits)]
+									["scoped:uint" (scoped-bv arg-nbits)]
+									["scoped:address" (scoped-bv arg-nbits)]
+									["scoped:bool" (scoped-bool arg-nbits)]
+
+									[_
+										(printf "# [exit] make-run: unsupported argument type, got: ~a.\n" (list-ref c0 k))
+										(exit 0)
+									]
+								)
+								; pos 0 and 1 are the tag and function name
+								(list (list-ref c0 k)) ; wrap for cartesian product
+							)
+						)
 					)
-					; tag and function name
-					(list-ref t0 j)
+					(apply cartesian-product tmp0)
+				)
+			)
+			(apply cartesian-product tmp1)
+		)
+
+
+		(define run-j (make-run (list-ref tasks i)))
+		; =================================== ;
+		; ====== for every transaction ====== ;
+		; =================================== ;
+		(define last-txn-rp null)
+		(for ([k (range (length run-j))])
+			(define txn-k (list-ref run-j k))
+			(define txn-k-rp (cdr (reverse txn-k)))
+			(when arg-verbose (printf "\n"))
+			(when arg-verbose (printf "# checking task: ~a, run: ~a, txn: ~a\n" i j k))
+			(when arg-verbose (printf "  # txn is: ~a\n" txn-k))
+			(if (&& arg-cached-txn (equal? last-txn-rp txn-k-rp))
+				; should reuse the cached simulator state
+				(begin
+					; change the txn to only include the last observe function
+					; (by assumption of arg-cached-txn)
+					(set! txn-k (list (car (reverse txn-k)))) ; reset the txn
+				)
+				; start a fresh new run
+				(begin
+					(set! last-txn-rp (cdr (reverse txn-k)))
+					(when arg-verbose (printf "  # resetting Rosette ...\n"))
+					(clear-asserts!)
+					(when arg-verbose (printf "  # resetting simulators ...\n"))
+					(for ([q (hash-values simulators)])
+						(send q initialize arg-nbits arg-memsize mo-mia)
+					)
+				)
+			)
+			
+			(when arg-verbose (printf "  # running txn ...\n"))
+			(define observed-list
+				(for/list ([q (hash-keys simulators)])
+					(when arg-verbose (printf "  # in simulator ~a\n" q))
+					(define sret (send (hash-ref simulators q) interpret-txn txn-k))
+					; if only returning one element, wrap it into a list
+					(if (list? sret)
+						sret
+						(list sret)
+					)
+				)
+			)
+			(when arg-verbose (printf "  # observed: ~a\n" observed-list))
+			(when arg-verbose (printf "  # checking observe equivalence ...\n"))
+			(define len-list (map length observed-list))
+			(if (not (apply = len-list))
+				; observed lists have different lengths accross simulaators
+				; which means they are not equivalent
+				(begin
+					(if arg-verbose 
+						(printf "  # result: #f (return shape mismatch)\n")
+						(printf "# task: ~a, run: ~a, txn: ~a | #f (return shape mismatch)\n" i j k)
+					)
+					(set! final-result (&& final-result #f))
+					; perform fast stop
+					(when arg-faststop 
+						(printf "# final result: ~a\n" final-result)
+						(exit 0)
+					)
+				)
+				; same length, move on to check
+				(begin
+					(define zlen (list-ref len-list 0))
+					(define z-preds (for/list ([z (in-range zlen)])
+						; compare every position 
+						(define cmp-list (for/list ([ylist observed-list])
+							(list-ref ylist z)
+						))
+						(define sub-preds (for/list ([y (combinations cmp-list 2)])
+							(apply not-equal? y)
+						))
+						(define p-preds (apply || sub-preds))
+						p-preds
+					))
+					(define final-pred (apply || z-preds))
+					(define greg-model (solve (assert final-pred)))
+					(define solved? (sat? greg-model))
+					(define result-eq (not solved?))
+					(if arg-verbose 
+						(printf "  # result: ~a\n" result-eq)
+						(printf "# task: ~a, run: ~a, txn: ~a | ~a\n" i j k result-eq)
+					)
+					(set! final-result (&& final-result result-eq))
+					; perform fast stop
+					(when (&& arg-faststop (! result-eq))
+						(printf "# final result: ~a\n" final-result)
+						(exit 0)
+					)
 				)
 			)
 		)
 	)
-
-	(define (not-equal? arg-0 arg-1) (not (equal? arg-0 arg-1)))
-
-	(for ([h (in-range arg-ntests)])
-		(when arg-verbose (printf "\n# running: task ~a, test ~a\n" p h))
-
-		(when arg-verbose (printf "# constructing transaction ...\n"))
-		(define curr-transaction
-			(make-transaction (list-ref tasks p) #:tp "")
-		)
-		(when arg-verbose (printf "  transaction is: ~a\n" curr-transaction))
-
-		(when arg-verbose (printf "# resetting Rosette ...\n"))
-		(clear-asserts!) ; reset Rosette states
-
-		(when arg-verbose (printf "# resetting simulators ...\n"))
-		(for ([q (hash-values simulators)])
-			(send q initialize arg-nbits arg-memsize mo-mia)
-		)
-
-		(when arg-verbose (printf "# running transactions ...\n"))
-		; observed-list is ((list-A ...) (list-B ...) ...)
-		(define observed-list
-			(for/list ([q (hash-keys simulators)])
-				(when arg-verbose (printf "  # in simulator ~a\n" q))
-				(define sret (send (hash-ref simulators q) interpret-txn curr-transaction))
-				; if only returning one element, wrap it into a list
-				(if (list? sret)
-					sret
-					(list sret)
-				)
-			)
-		)
-
-		; (printf "# observed-list is ~a\n" observed-list)
-
-		; check: not (anything is not equal)
-		(when arg-verbose (printf "# checking observe equivalence ...\n"))
-		(define len-list (map length observed-list))
-		(if (not (apply = len-list))
-			; observed lists have different lengths accross simulaators
-			; which means they are not equivalent
-			(if arg-verbose
-				(printf "# task ~a, test ~a: #f\n (return shape mismatch)" p h)
-				(printf "# task ~a, test ~a: #f\n" p h)
-			)
-			; same length, move on to check
-			(begin
-				; (output-smt #t)
-				(define zlen (list-ref len-list 0))
-				(define z-preds (for/list ([z (in-range zlen)])
-					; compare every position 
-					(define cmp-list (for/list ([ylist observed-list])
-						(list-ref ylist z)
-					))
-					(define sub-preds (for/list ([y (combinations cmp-list 2)])
-						(apply not-equal? y)
-					))
-					(define p-preds (apply || sub-preds))
-					p-preds
-				))
-				(define final-pred (apply || z-preds))
-				; (printf "preds: ~a\n" final-pred)
-				; (printf "task ~a total assertions: ~a\n" p (length (asserts)))
-				(define greg-model (solve (assert final-pred)))
-				(define solved? (sat? greg-model))
-				(define result-eq (not solved?))
-				(if arg-verbose
-					(printf "# task ~a, test ~a: ~a\n" p h result-eq)
-					(printf "# task ~a, test ~a: ~a\n" p h result-eq)
-				)
-				(when (&& arg-faststop (! result-eq)) (exit 0))
-			)
-		)
-	)
-	
-
 )
+; after all tasks, print the final result if still alive
+(printf "# final result: ~a\n" final-result)

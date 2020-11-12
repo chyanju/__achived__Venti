@@ -13,12 +13,12 @@
 		[
 			"txn_function_call",
 			"observe__0",
-			"uint"
+			"uint256"
 		],
 		[
 			"txn_function_call",
 			"observe__1",
-			"uint"
+			"uint256"
 		],
 		[
 			"txn_function_call",
@@ -27,32 +27,32 @@
 		[
 			"txn_function_call",
 			"observe__3",
-			"uint"
+			"uint256"
 		],
 		[
 			"txn_function_call",
 			"observe__4",
-			"uint"
+			"uint256"
 		],
 		[
 			"txn_function_call",
 			"observe__5",
-			"uint"
+			"uint256"
 		],
 		[
 			"txn_function_call",
 			"observe__6",
-			"uint"
+			"uint256"
 		],
 		[
 			"txn_function_call",
 			"observe__7",
-			"uint"
+			"uint256"
 		],
 		[
 			"txn_function_call",
 			"observe__8",
-			"uint"
+			"uint256"
 		]
 	],
 	"Tasks":[

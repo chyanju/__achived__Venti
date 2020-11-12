@@ -6,16 +6,16 @@
  *******************************************************/
 
 
-object "CreditDAOTransformed181_585" {
+object "CreditDAOTransformed82_585" {
     code {
         mstore(64, memoryguard(128))
         if callvalue() { revert(0, 0) }
 
-        constructor_CreditDAOTransformed181_585()
+        constructor_CreditDAOTransformed82_585()
 
-        codecopy(0, dataoffset("CreditDAOTransformed181_585_deployed"), datasize("CreditDAOTransformed181_585_deployed"))
+        codecopy(0, dataoffset("CreditDAOTransformed82_585_deployed"), datasize("CreditDAOTransformed82_585_deployed"))
 
-        return(0, datasize("CreditDAOTransformed181_585_deployed"))
+        return(0, datasize("CreditDAOTransformed82_585_deployed"))
 
         function checked_add_t_uint256(x, y) -> sum {
             x := cleanup_t_uint256(x)
@@ -35,7 +35,7 @@ object "CreditDAOTransformed181_585" {
             cleaned := value
         }
 
-        function constructor_CreditDAOTransformed181_585() {
+        function constructor_CreditDAOTransformed82_585() {
 
             let expr_58 := 0x00
             let _1 := convert_t_rational_0_by_1_to_t_uint256(expr_58)
@@ -145,7 +145,7 @@ object "CreditDAOTransformed181_585" {
         }
 
     }
-    object "CreditDAOTransformed181_585_deployed" {
+    object "CreditDAOTransformed82_585_deployed" {
         code {
             mstore(64, memoryguard(128))
 
@@ -170,7 +170,7 @@ object "CreditDAOTransformed181_585" {
                     // sumbitForElection()
                     if callvalue() { revert(0, 0) }
                     abi_decode_tuple_(4, calldatasize())
-                    fun_sumbitForElection_211()
+                    fun_sumbitForElection_220()
                     let memPos := allocateMemory(0)
                     let memEnd := abi_encode_tuple__to__fromStack(memPos  )
                     return(memPos, sub(memEnd, memPos))
@@ -181,7 +181,7 @@ object "CreditDAOTransformed181_585" {
                     // observe__1(uint256)
                     if callvalue() { revert(0, 0) }
                     let param_0 :=  abi_decode_tuple_t_uint256(4, calldatasize())
-                    let ret_0 :=  fun_observe__1_469(param_0)
+                    let ret_0 :=  fun_observe__1_481(param_0)
                     let memPos := allocateMemory(0)
                     let memEnd := abi_encode_tuple_t_bool__to_t_bool__fromStack(memPos , ret_0)
                     return(memPos, sub(memEnd, memPos))
@@ -192,7 +192,7 @@ object "CreditDAOTransformed181_585" {
                     // observe__0(uint256)
                     if callvalue() { revert(0, 0) }
                     let param_0 :=  abi_decode_tuple_t_uint256(4, calldatasize())
-                    let ret_0 :=  fun_observe__0_452(param_0)
+                    let ret_0 :=  fun_observe__0_464(param_0)
                     let memPos := allocateMemory(0)
                     let memEnd := abi_encode_tuple_t_uint256__to_t_uint256__fromStack(memPos , ret_0)
                     return(memPos, sub(memEnd, memPos))
@@ -247,7 +247,7 @@ object "CreditDAOTransformed181_585" {
                     // observe__5(uint256)
                     if callvalue() { revert(0, 0) }
                     let param_0 :=  abi_decode_tuple_t_uint256(4, calldatasize())
-                    let ret_0 :=  fun_observe__5_533(param_0)
+                    let ret_0 :=  fun_observe__5_545(param_0)
                     let memPos := allocateMemory(0)
                     let memEnd := abi_encode_tuple_t_uint256__to_t_uint256__fromStack(memPos , ret_0)
                     return(memPos, sub(memEnd, memPos))
@@ -258,7 +258,7 @@ object "CreditDAOTransformed181_585" {
                     // observe__6(uint256)
                     if callvalue() { revert(0, 0) }
                     let param_0 :=  abi_decode_tuple_t_uint256(4, calldatasize())
-                    let ret_0 :=  fun_observe__6_550(param_0)
+                    let ret_0 :=  fun_observe__6_558(param_0)
                     let memPos := allocateMemory(0)
                     let memEnd := abi_encode_tuple_t_uint256__to_t_uint256__fromStack(memPos , ret_0)
                     return(memPos, sub(memEnd, memPos))
@@ -269,7 +269,7 @@ object "CreditDAOTransformed181_585" {
                     // observe__2()
                     if callvalue() { revert(0, 0) }
                     abi_decode_tuple_(4, calldatasize())
-                    let ret_0 :=  fun_observe__2_477()
+                    let ret_0 :=  fun_observe__2_489()
                     let memPos := allocateMemory(0)
                     let memEnd := abi_encode_tuple_t_uint256__to_t_uint256__fromStack(memPos , ret_0)
                     return(memPos, sub(memEnd, memPos))
@@ -280,9 +280,9 @@ object "CreditDAOTransformed181_585" {
                     // observe__7(uint256)
                     if callvalue() { revert(0, 0) }
                     let param_0 :=  abi_decode_tuple_t_uint256(4, calldatasize())
-                    let ret_0 :=  fun_observe__7_567(param_0)
+                    let ret_0 :=  fun_observe__7_571(param_0)
                     let memPos := allocateMemory(0)
-                    let memEnd := abi_encode_tuple_t_bool__to_t_bool__fromStack(memPos , ret_0)
+                    let memEnd := abi_encode_tuple_t_uint256__to_t_uint256__fromStack(memPos , ret_0)
                     return(memPos, sub(memEnd, memPos))
                 }
 
@@ -291,7 +291,7 @@ object "CreditDAOTransformed181_585" {
                     // vote(address)
                     if callvalue() { revert(0, 0) }
                     let param_0 :=  abi_decode_tuple_t_address(4, calldatasize())
-                    fun_vote_279(param_0)
+                    fun_vote_288(param_0)
                     let memPos := allocateMemory(0)
                     let memEnd := abi_encode_tuple__to__fromStack(memPos  )
                     return(memPos, sub(memEnd, memPos))
@@ -313,7 +313,7 @@ object "CreditDAOTransformed181_585" {
                     // observe__3(uint256)
                     if callvalue() { revert(0, 0) }
                     let param_0 :=  abi_decode_tuple_t_uint256(4, calldatasize())
-                    let ret_0 :=  fun_observe__3_494(param_0)
+                    let ret_0 :=  fun_observe__3_506(param_0)
                     let memPos := allocateMemory(0)
                     let memEnd := abi_encode_tuple_t_uint256__to_t_uint256__fromStack(memPos , ret_0)
                     return(memPos, sub(memEnd, memPos))
@@ -326,7 +326,7 @@ object "CreditDAOTransformed181_585" {
                     let param_0 :=  abi_decode_tuple_t_uint256(4, calldatasize())
                     let ret_0 :=  fun_observe__8_584(param_0)
                     let memPos := allocateMemory(0)
-                    let memEnd := abi_encode_tuple_t_bool__to_t_bool__fromStack(memPos , ret_0)
+                    let memEnd := abi_encode_tuple_t_uint256__to_t_uint256__fromStack(memPos , ret_0)
                     return(memPos, sub(memEnd, memPos))
                 }
 
@@ -346,7 +346,7 @@ object "CreditDAOTransformed181_585" {
                     // observe__4(uint256)
                     if callvalue() { revert(0, 0) }
                     let param_0 :=  abi_decode_tuple_t_uint256(4, calldatasize())
-                    let ret_0 :=  fun_observe__4_511(param_0)
+                    let ret_0 :=  fun_observe__4_523(param_0)
                     let memPos := allocateMemory(0)
                     let memEnd := abi_encode_tuple_t_bool__to_t_bool__fromStack(memPos , ret_0)
                     return(memPos, sub(memEnd, memPos))
@@ -357,7 +357,7 @@ object "CreditDAOTransformed181_585" {
                     // finishElections(uint256)
                     if callvalue() { revert(0, 0) }
                     let param_0 :=  abi_decode_tuple_t_uint256(4, calldatasize())
-                    fun_finishElections_439(param_0)
+                    fun_finishElections_451(param_0)
                     let memPos := allocateMemory(0)
                     let memEnd := abi_encode_tuple__to__fromStack(memPos  )
                     return(memPos, sub(memEnd, memPos))
@@ -635,478 +635,460 @@ object "CreditDAOTransformed181_585" {
 
             }
 
-            function fun_finishElections_439(vloc__iterations_281) {
+            function fun_finishElections_451(vloc__iterations_290) {
 
-                let vloc_curentVotes_285
+                let vloc_curentVotes_294
+                let zero_value_for_type_t_uint256_119 := zero_value_for_split_t_uint256()
+                vloc_curentVotes_294 := zero_value_for_type_t_uint256_119
+                let vloc_nextCandidateId_297
                 let zero_value_for_type_t_uint256_120 := zero_value_for_split_t_uint256()
-                vloc_curentVotes_285 := zero_value_for_type_t_uint256_120
-                let vloc_nextCandidateId_288
-                let zero_value_for_type_t_uint256_121 := zero_value_for_split_t_uint256()
-                vloc_nextCandidateId_288 := zero_value_for_type_t_uint256_121
-                let _122 := 0x01
-                let expr_291 := _122
-                let _123 := read_from_storage_offset_0_t_uint256(0x00)
-                let expr_292 := _123
-                let expr_293 := 0x01
-                let expr_294 := checked_sub_t_uint256(expr_292, convert_t_rational_1_by_1_to_t_uint256(expr_293))
+                vloc_nextCandidateId_297 := zero_value_for_type_t_uint256_120
+                let _121 := 0x01
+                let expr_300 := _121
+                let _122 := read_from_storage_offset_0_t_uint256(0x00)
+                let expr_301 := _122
+                let expr_302 := 0x01
+                let expr_303 := checked_sub_t_uint256(expr_301, convert_t_rational_1_by_1_to_t_uint256(expr_302))
 
-                let expr_295 := expr_294
-                let _124 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_291,expr_295)
-                let _125_slot := _124
-                let expr_296_slot := _125_slot
-                let _126 := add(expr_296_slot, 5)
-                let _127 := read_from_storage_offset_0_t_uint256(_126)
-                let expr_297 := _127
-                vloc_nextCandidateId_288 := expr_297
-                let expr_298 := expr_297
-                let vloc_cnt_301
-                let zero_value_for_type_t_uint256_128 := zero_value_for_split_t_uint256()
-                vloc_cnt_301 := zero_value_for_type_t_uint256_128
-                let expr_304 := 0x00
-                let _129 := convert_t_rational_0_by_1_to_t_uint256(expr_304)
-                vloc_cnt_301 := _129
-                let expr_305 := _129
+                let expr_304 := expr_303
+                let _123 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_300,expr_304)
+                let _124_slot := _123
+                let expr_305_slot := _124_slot
+                let _125 := add(expr_305_slot, 5)
+                let _126 := read_from_storage_offset_0_t_uint256(_125)
+                let expr_306 := _126
+                vloc_nextCandidateId_297 := expr_306
+                let expr_307 := expr_306
+                let vloc_cnt_310
+                let zero_value_for_type_t_uint256_127 := zero_value_for_split_t_uint256()
+                vloc_cnt_310 := zero_value_for_type_t_uint256_127
+                let expr_313 := 0x00
+                let _128 := convert_t_rational_0_by_1_to_t_uint256(expr_313)
+                vloc_cnt_310 := _128
+                let expr_314 := _128
                 for {
                     } 1 {
                 }
                 {
-                    let _130 := vloc_cnt_301
-                    let expr_307 := _130
-                    let _131 := vloc__iterations_281
-                    let expr_308 := _131
-                    let expr_309 := lt(cleanup_t_uint256(expr_307), cleanup_t_uint256(expr_308))
-                    let expr_310 := expr_309
-                    if iszero(expr_310) { break }
-                    let _132 := 0x02
-                    let expr_312 := _132
-                    let _133 := read_from_storage_offset_0_t_uint256(0x00)
-                    let expr_313 := _133
-                    let expr_314 := 0x01
-                    let expr_315 := checked_sub_t_uint256(expr_313, convert_t_rational_1_by_1_to_t_uint256(expr_314))
+                    let _129 := vloc_cnt_310
+                    let expr_316 := _129
+                    let _130 := vloc__iterations_290
+                    let expr_317 := _130
+                    let expr_318 := lt(cleanup_t_uint256(expr_316), cleanup_t_uint256(expr_317))
+                    let expr_319 := expr_318
+                    if iszero(expr_319) { break }
+                    let _131 := 0x02
+                    let expr_321 := _131
+                    let _132 := read_from_storage_offset_0_t_uint256(0x00)
+                    let expr_322 := _132
+                    let expr_323 := 0x01
+                    let expr_324 := checked_sub_t_uint256(expr_322, convert_t_rational_1_by_1_to_t_uint256(expr_323))
 
-                    let expr_316 := expr_315
-                    let _134 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_312,expr_316)
-                    let _135_slot := _134
-                    let expr_317_slot := _135_slot
-                    let _136 := add(expr_317_slot, 0)
-                    let _137 := _136
-                    let expr_318 := _137
-                    let _138 := vloc_nextCandidateId_288
-                    let expr_319 := _138
-                    let _139 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_uint256(expr_318,expr_319)
-                    let _140 := read_from_storage_offset_0_t_uint256(_139)
-                    let expr_320 := _140
-                    vloc_curentVotes_285 := expr_320
-                    let expr_321 := expr_320
-                    let _141 := vloc_curentVotes_285
-                    let expr_323 := _141
-                    let _142 := 0x01
-                    let expr_324 := _142
-                    let _143 := read_from_storage_offset_0_t_uint256(0x00)
-                    let expr_325 := _143
-                    let expr_326 := 0x01
-                    let expr_327 := checked_sub_t_uint256(expr_325, convert_t_rational_1_by_1_to_t_uint256(expr_326))
+                    let expr_325 := expr_324
+                    let _133 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_321,expr_325)
+                    let _134_slot := _133
+                    let expr_326_slot := _134_slot
+                    let _135 := add(expr_326_slot, 0)
+                    let _136 := _135
+                    let expr_327 := _136
+                    let _137 := vloc_nextCandidateId_297
+                    let expr_328 := _137
+                    let _138 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_uint256(expr_327,expr_328)
+                    let _139 := read_from_storage_offset_0_t_uint256(_138)
+                    let expr_329 := _139
+                    vloc_curentVotes_294 := expr_329
+                    let expr_330 := expr_329
+                    let _140 := vloc_curentVotes_294
+                    let expr_332 := _140
+                    let _141 := 0x01
+                    let expr_333 := _141
+                    let _142 := read_from_storage_offset_0_t_uint256(0x00)
+                    let expr_334 := _142
+                    let expr_335 := 0x01
+                    let expr_336 := checked_sub_t_uint256(expr_334, convert_t_rational_1_by_1_to_t_uint256(expr_335))
 
-                    let expr_328 := expr_327
-                    let _144 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_324,expr_328)
-                    let _145_slot := _144
-                    let expr_329_slot := _145_slot
-                    let _146 := add(expr_329_slot, 4)
-                    let _147 := read_from_storage_offset_0_t_uint256(_146)
-                    let expr_330 := _147
-                    let expr_331 := gt(cleanup_t_uint256(expr_323), cleanup_t_uint256(expr_330))
-                    let expr_332 := expr_331
-                    if expr_332 {
-                        let _148 := 0x02
-                        let expr_337 := _148
-                        let _149 := read_from_storage_offset_0_t_uint256(0x00)
-                        let expr_338 := _149
-                        let _150 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_337,expr_338)
-                        let _151_slot := _150
-                        let expr_339_slot := _151_slot
-                        let _152 := add(expr_339_slot, 3)
-                        let _153 := _152
-                        let expr_340 := _153
-                        let _154 := vloc_nextCandidateId_288
-                        let expr_341 := _154
-                        let _155 := mapping_index_access_t_mapping$_t_uint256_$_t_address_$_of_t_uint256(expr_340,expr_341)
-                        let _156 := read_from_storage_offset_0_t_address(_155)
+                    let expr_337 := expr_336
+                    let _143 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_333,expr_337)
+                    let _144_slot := _143
+                    let expr_338_slot := _144_slot
+                    let _145 := add(expr_338_slot, 4)
+                    let _146 := read_from_storage_offset_0_t_uint256(_145)
+                    let expr_339 := _146
+                    let expr_340 := gt(cleanup_t_uint256(expr_332), cleanup_t_uint256(expr_339))
+                    let expr_341 := expr_340
+                    if expr_341 {
+                        let _147 := 0x02
+                        let expr_346 := _147
+                        let _148 := read_from_storage_offset_0_t_uint256(0x00)
+                        let expr_347 := _148
+                        let _149 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_346,expr_347)
+                        let _150_slot := _149
+                        let expr_348_slot := _150_slot
+                        let _151 := add(expr_348_slot, 3)
+                        let _152 := _151
+                        let expr_349 := _152
+                        let _153 := vloc_nextCandidateId_297
+                        let expr_350 := _153
+                        let _154 := mapping_index_access_t_mapping$_t_uint256_$_t_address_$_of_t_uint256(expr_349,expr_350)
+                        let _155 := read_from_storage_offset_0_t_address(_154)
+                        let expr_351 := _155
+                        let _156 := 0x02
                         let expr_342 := _156
-                        let _157 := 0x02
-                        let expr_333 := _157
-                        let _158 := read_from_storage_offset_0_t_uint256(0x00)
-                        let expr_334 := _158
-                        let _159 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_333,expr_334)
-                        let _160_slot := _159
-                        let expr_335_slot := _160_slot
-                        let _161 := add(expr_335_slot, 2)
-                        update_storage_value_offset_0t_address_to_t_address(_161, expr_342)
-                        let expr_343 := expr_342
-                        let _162 := vloc_curentVotes_285
-                        let expr_352 := _162
-                        let _163 := 0x01
-                        let expr_345 := _163
-                        let _164 := read_from_storage_offset_0_t_uint256(0x00)
-                        let expr_346 := _164
-                        let expr_347 := 0x01
-                        let expr_348 := checked_sub_t_uint256(expr_346, convert_t_rational_1_by_1_to_t_uint256(expr_347))
+                        let expr_343 := 0x01
+                        let _157 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_rational_1_by_1(expr_342,expr_343)
+                        let _158_slot := _157
+                        let expr_344_slot := _158_slot
+                        let _159 := add(expr_344_slot, 2)
+                        update_storage_value_offset_0t_address_to_t_address(_159, expr_351)
+                        let expr_352 := expr_351
+                        let _160 := vloc_curentVotes_294
+                        let expr_361 := _160
+                        let _161 := 0x01
+                        let expr_354 := _161
+                        let _162 := read_from_storage_offset_0_t_uint256(0x00)
+                        let expr_355 := _162
+                        let expr_356 := 0x01
+                        let expr_357 := checked_sub_t_uint256(expr_355, convert_t_rational_1_by_1_to_t_uint256(expr_356))
 
-                        let expr_349 := expr_348
-                        let _165 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_345,expr_349)
-                        let _166_slot := _165
-                        let expr_350_slot := _166_slot
-                        let _167 := add(expr_350_slot, 4)
-                        update_storage_value_offset_0t_uint256_to_t_uint256(_167, expr_352)
-                        let expr_353 := expr_352
+                        let expr_358 := expr_357
+                        let _163 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_354,expr_358)
+                        let _164_slot := _163
+                        let expr_359_slot := _164_slot
+                        let _165 := add(expr_359_slot, 4)
+                        update_storage_value_offset_0t_uint256_to_t_uint256(_165, expr_361)
+                        let expr_362 := expr_361
                     }
-                    let _169 := vloc_nextCandidateId_288
+                    let _167 := vloc_nextCandidateId_297
+                    let _166 := increment_t_uint256(_167)
+                    vloc_nextCandidateId_297 := _166
+                    let expr_367 := _167
+                    let _169 := vloc_cnt_310
                     let _168 := increment_t_uint256(_169)
-                    vloc_nextCandidateId_288 := _168
-                    let expr_358 := _169
-                    let _171 := vloc_cnt_301
-                    let _170 := increment_t_uint256(_171)
-                    vloc_cnt_301 := _170
-                    let expr_361 := _171
+                    vloc_cnt_310 := _168
+                    let expr_370 := _169
                 }
-                let _172 := vloc_nextCandidateId_288
-                let expr_373 := _172
-                let _173 := 0x01
-                let expr_366 := _173
-                let _174 := read_from_storage_offset_0_t_uint256(0x00)
-                let expr_367 := _174
-                let expr_368 := 0x01
-                let expr_369 := checked_sub_t_uint256(expr_367, convert_t_rational_1_by_1_to_t_uint256(expr_368))
+                let _170 := vloc_nextCandidateId_297
+                let expr_382 := _170
+                let _171 := 0x01
+                let expr_375 := _171
+                let _172 := read_from_storage_offset_0_t_uint256(0x00)
+                let expr_376 := _172
+                let expr_377 := 0x01
+                let expr_378 := checked_sub_t_uint256(expr_376, convert_t_rational_1_by_1_to_t_uint256(expr_377))
 
-                let expr_370 := expr_369
-                let _175 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_366,expr_370)
-                let _176_slot := _175
-                let expr_371_slot := _176_slot
-                let _177 := add(expr_371_slot, 5)
-                update_storage_value_offset_0t_uint256_to_t_uint256(_177, expr_373)
-                let expr_374 := expr_373
-                let _178 := 0x02
-                let expr_376 := _178
-                let _179 := read_from_storage_offset_0_t_uint256(0x00)
-                let expr_377 := _179
-                let _180 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_376,expr_377)
-                let _181_slot := _180
-                let expr_378_slot := _181_slot
-                let _182 := add(expr_378_slot, 3)
-                let _183 := _182
-                let expr_379 := _183
-                let _184 := vloc_nextCandidateId_288
-                let expr_380 := _184
-                let _185 := mapping_index_access_t_mapping$_t_uint256_$_t_address_$_of_t_uint256(expr_379,expr_380)
-                let _186 := read_from_storage_offset_0_t_address(_185)
-                let expr_381 := _186
-                let expr_384 := 0x00
-                let expr_385 := convert_t_rational_0_by_1_to_t_address_payable(expr_384)
-                let expr_386 := eq(cleanup_t_address(expr_381), convert_t_address_payable_to_t_address(expr_385))
-                let expr_387 := expr_386
-                if expr_387 {
-                    let _187 := 0x02
-                    let expr_389 := _187
-                    let _188 := read_from_storage_offset_0_t_uint256(0x00)
-                    let expr_390 := _188
-                    let _189 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_389,expr_390)
-                    let _190_slot := _189
-                    let expr_391_slot := _190_slot
-                    let _191 := add(expr_391_slot, 2)
-                    let _192 := read_from_storage_offset_0_t_address(_191)
-                    let expr_392 := _192
-                    update_storage_value_offset_0t_address_to_t_address(0x03, expr_392)
-                    let expr_393 := expr_392
-                    let expr_399 := 0x01
-                    let _193 := 0x02
-                    let expr_395 := _193
-                    let _194 := read_from_storage_offset_0_t_uint256(0x00)
-                    let expr_396 := _194
-                    let _195 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_395,expr_396)
-                    let _196_slot := _195
-                    let expr_397_slot := _196_slot
-                    let _197 := add(expr_397_slot, 2)
-                    update_storage_value_offset_20t_bool_to_t_bool(_197, expr_399)
-                    let expr_400 := expr_399
-                    let _198 := 0x01
-                    let expr_402 := _198
-                    let _199 := read_from_storage_offset_0_t_uint256(0x00)
-                    let expr_403 := _199
-                    let expr_404 := 0x01
-                    let expr_405 := checked_sub_t_uint256(expr_403, convert_t_rational_1_by_1_to_t_uint256(expr_404))
+                let expr_379 := expr_378
+                let _173 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_375,expr_379)
+                let _174_slot := _173
+                let expr_380_slot := _174_slot
+                let _175 := add(expr_380_slot, 5)
+                update_storage_value_offset_0t_uint256_to_t_uint256(_175, expr_382)
+                let expr_383 := expr_382
+                let _176 := 0x02
+                let expr_385 := _176
+                let _177 := read_from_storage_offset_0_t_uint256(0x00)
+                let expr_386 := _177
+                let _178 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_385,expr_386)
+                let _179_slot := _178
+                let expr_387_slot := _179_slot
+                let _180 := add(expr_387_slot, 3)
+                let _181 := _180
+                let expr_388 := _181
+                let _182 := vloc_nextCandidateId_297
+                let expr_389 := _182
+                let _183 := mapping_index_access_t_mapping$_t_uint256_$_t_address_$_of_t_uint256(expr_388,expr_389)
+                let _184 := read_from_storage_offset_0_t_address(_183)
+                let expr_390 := _184
+                let expr_393 := 0x00
+                let expr_394 := convert_t_rational_0_by_1_to_t_address_payable(expr_393)
+                let expr_395 := eq(cleanup_t_address(expr_390), convert_t_address_payable_to_t_address(expr_394))
+                let expr_396 := expr_395
+                if expr_396 {
+                    let _185 := 0x02
+                    let expr_398 := _185
+                    let _186 := read_from_storage_offset_0_t_uint256(0x00)
+                    let expr_399 := _186
+                    let _187 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_398,expr_399)
+                    let _188_slot := _187
+                    let expr_400_slot := _188_slot
+                    let _189 := add(expr_400_slot, 2)
+                    let _190 := read_from_storage_offset_0_t_address(_189)
+                    let expr_401 := _190
+                    update_storage_value_offset_0t_address_to_t_address(0x03, expr_401)
+                    let expr_402 := expr_401
+                    let expr_411 := 0x01
+                    let _191 := 0x02
+                    let expr_404 := _191
+                    let _192 := read_from_storage_offset_0_t_uint256(0x00)
+                    let expr_405 := _192
+                    let expr_406 := 0x01
+                    let expr_407 := checked_sub_t_uint256(expr_405, convert_t_rational_1_by_1_to_t_uint256(expr_406))
 
-                    let expr_406 := expr_405
-                    let _200 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_402,expr_406)
-                    let _201_slot := _200
-                    let expr_407_slot := _201_slot
-                    let _202 := add(expr_407_slot, 4)
-                    let _203 := read_from_storage_offset_0_t_uint256(_202)
-                    let expr_408 := _203
-                    let expr_409 := 0x00
-                    let expr_410 := eq(cleanup_t_uint256(expr_408), convert_t_rational_0_by_1_to_t_uint256(expr_409))
-                    let expr_411 := expr_410
-                    if expr_411 {
-                        let expr_417 := number()
-                        let _204 := 0x01
-                        let expr_412 := _204
-                        let _205 := read_from_storage_offset_0_t_uint256(0x00)
-                        let expr_413 := _205
-                        let _206 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_412,expr_413)
-                        let _207_slot := _206
-                        let expr_414_slot := _207_slot
-                        let _208 := add(expr_414_slot, 0)
-                        update_storage_value_offset_0t_uint256_to_t_uint256(_208, expr_417)
-                        let expr_418 := expr_417
-                        let expr_425 := number()
-                        let _209 := read_from_storage_offset_0_t_uint256(0x05)
-                        let expr_426 := _209
-                        let expr_427 := checked_add_t_uint256(expr_425, expr_426)
+                    let expr_408 := expr_407
+                    let _193 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_404,expr_408)
+                    let _194_slot := _193
+                    let expr_409_slot := _194_slot
+                    let _195 := add(expr_409_slot, 2)
+                    update_storage_value_offset_20t_bool_to_t_bool(_195, expr_411)
+                    let expr_412 := expr_411
+                    let _196 := 0x01
+                    let expr_414 := _196
+                    let _197 := read_from_storage_offset_0_t_uint256(0x00)
+                    let expr_415 := _197
+                    let expr_416 := 0x01
+                    let expr_417 := checked_sub_t_uint256(expr_415, convert_t_rational_1_by_1_to_t_uint256(expr_416))
 
-                        let expr_428 := expr_427
-                        let _210 := 0x01
-                        let expr_420 := _210
-                        let _211 := read_from_storage_offset_0_t_uint256(0x00)
-                        let expr_421 := _211
-                        let _212 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_420,expr_421)
-                        let _213_slot := _212
-                        let expr_422_slot := _213_slot
-                        let _214 := add(expr_422_slot, 1)
-                        update_storage_value_offset_0t_uint256_to_t_uint256(_214, expr_428)
-                        let expr_429 := expr_428
-                        let _216 := read_from_storage_offset_0_t_uint256(0x00)
-                        let _215 := increment_t_uint256(_216)
-                        update_storage_value_offset_0t_uint256_to_t_uint256(0x00, _215)
-                        let expr_432 := _216
+                    let expr_418 := expr_417
+                    let _198 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_414,expr_418)
+                    let _199_slot := _198
+                    let expr_419_slot := _199_slot
+                    let _200 := add(expr_419_slot, 4)
+                    let _201 := read_from_storage_offset_0_t_uint256(_200)
+                    let expr_420 := _201
+                    let expr_421 := 0x00
+                    let expr_422 := eq(cleanup_t_uint256(expr_420), convert_t_rational_0_by_1_to_t_uint256(expr_421))
+                    let expr_423 := expr_422
+                    if expr_423 {
+                        let expr_429 := number()
+                        let _202 := 0x01
+                        let expr_424 := _202
+                        let _203 := read_from_storage_offset_0_t_uint256(0x00)
+                        let expr_425 := _203
+                        let _204 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_424,expr_425)
+                        let _205_slot := _204
+                        let expr_426_slot := _205_slot
+                        let _206 := add(expr_426_slot, 0)
+                        update_storage_value_offset_0t_uint256_to_t_uint256(_206, expr_429)
+                        let expr_430 := expr_429
+                        let expr_437 := number()
+                        let _207 := read_from_storage_offset_0_t_uint256(0x05)
+                        let expr_438 := _207
+                        let expr_439 := checked_add_t_uint256(expr_437, expr_438)
+
+                        let expr_440 := expr_439
+                        let _208 := 0x01
+                        let expr_432 := _208
+                        let _209 := read_from_storage_offset_0_t_uint256(0x00)
+                        let expr_433 := _209
+                        let _210 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_432,expr_433)
+                        let _211_slot := _210
+                        let expr_434_slot := _211_slot
+                        let _212 := add(expr_434_slot, 1)
+                        update_storage_value_offset_0t_uint256_to_t_uint256(_212, expr_440)
+                        let expr_441 := expr_440
+                        let _214 := read_from_storage_offset_0_t_uint256(0x00)
+                        let _213 := increment_t_uint256(_214)
+                        update_storage_value_offset_0t_uint256_to_t_uint256(0x00, _213)
+                        let expr_444 := _214
                     }
                 }
 
             }
 
-            function fun_observe__0_452(vloc_i_441) -> vloc__444 {
-                let zero_value_for_type_t_uint256_217 := zero_value_for_split_t_uint256()
-                vloc__444 := zero_value_for_type_t_uint256_217
+            function fun_observe__0_464(vloc_i_453) -> vloc__456 {
+                let zero_value_for_type_t_uint256_215 := zero_value_for_split_t_uint256()
+                vloc__456 := zero_value_for_type_t_uint256_215
 
-                let _218 := 0x01
-                let expr_446 := _218
-                let _219 := vloc_i_441
-                let expr_447 := _219
-                let _220 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_446,expr_447)
-                let _221_slot := _220
-                let expr_448_slot := _221_slot
-                let _222 := add(expr_448_slot, 3)
-                let _223 := read_from_storage_offset_0_t_uint256(_222)
-                let expr_449 := _223
-                vloc__444 := expr_449
+                let _216 := 0x01
+                let expr_458 := _216
+                let _217 := vloc_i_453
+                let expr_459 := _217
+                let _218 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_458,expr_459)
+                let _219_slot := _218
+                let expr_460_slot := _219_slot
+                let _220 := add(expr_460_slot, 3)
+                let _221 := read_from_storage_offset_0_t_uint256(_220)
+                let expr_461 := _221
+                vloc__456 := expr_461
                 leave
 
             }
 
-            function fun_observe__1_469(vloc_i_454) -> vloc__457 {
-                let zero_value_for_type_t_bool_224 := zero_value_for_split_t_bool()
-                vloc__457 := zero_value_for_type_t_bool_224
+            function fun_observe__1_481(vloc_i_466) -> vloc__469 {
+                let zero_value_for_type_t_bool_222 := zero_value_for_split_t_bool()
+                vloc__469 := zero_value_for_type_t_bool_222
 
-                let _225 := 0x02
-                let expr_459 := _225
-                let _226 := vloc_i_454
-                let expr_460 := _226
-                let _227 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_459,expr_460)
-                let _228_slot := _227
-                let expr_461_slot := _228_slot
-                let _229 := add(expr_461_slot, 1)
-                let _230 := _229
-                let expr_462 := _230
-                let expr_464 := caller()
-                let _231 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_462,expr_464)
-                let _232_slot := _231
-                let expr_465_slot := _232_slot
-                let _233 := add(expr_465_slot, 1)
-                let _234 := read_from_storage_offset_0_t_bool(_233)
-                let expr_466 := _234
-                vloc__457 := expr_466
+                let _223 := 0x02
+                let expr_471 := _223
+                let _224 := vloc_i_466
+                let expr_472 := _224
+                let _225 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_471,expr_472)
+                let _226_slot := _225
+                let expr_473_slot := _226_slot
+                let _227 := add(expr_473_slot, 1)
+                let _228 := _227
+                let expr_474 := _228
+                let expr_476 := caller()
+                let _229 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_474,expr_476)
+                let _230_slot := _229
+                let expr_477_slot := _230_slot
+                let _231 := add(expr_477_slot, 1)
+                let _232 := read_from_storage_offset_0_t_bool(_231)
+                let expr_478 := _232
+                vloc__469 := expr_478
                 leave
 
             }
 
-            function fun_observe__2_477() -> vloc__472 {
+            function fun_observe__2_489() -> vloc__484 {
+                let zero_value_for_type_t_uint256_233 := zero_value_for_split_t_uint256()
+                vloc__484 := zero_value_for_type_t_uint256_233
+
+                let _234 := read_from_storage_offset_0_t_uint256(0x00)
+                let expr_486 := _234
+                vloc__484 := expr_486
+                leave
+
+            }
+
+            function fun_observe__3_506(vloc_i_491) -> vloc__494 {
                 let zero_value_for_type_t_uint256_235 := zero_value_for_split_t_uint256()
-                vloc__472 := zero_value_for_type_t_uint256_235
+                vloc__494 := zero_value_for_type_t_uint256_235
 
-                let _236 := read_from_storage_offset_0_t_uint256(0x00)
-                let expr_474 := _236
-                vloc__472 := expr_474
+                let _236 := 0x02
+                let expr_496 := _236
+                let _237 := vloc_i_491
+                let expr_497 := _237
+                let _238 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_496,expr_497)
+                let _239_slot := _238
+                let expr_498_slot := _239_slot
+                let _240 := add(expr_498_slot, 1)
+                let _241 := _240
+                let expr_499 := _241
+                let expr_501 := caller()
+                let _242 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_499,expr_501)
+                let _243_slot := _242
+                let expr_502_slot := _243_slot
+                let _244 := add(expr_502_slot, 0)
+                let _245 := read_from_storage_offset_0_t_uint256(_244)
+                let expr_503 := _245
+                vloc__494 := expr_503
                 leave
 
             }
 
-            function fun_observe__3_494(vloc_i_479) -> vloc__482 {
-                let zero_value_for_type_t_uint256_237 := zero_value_for_split_t_uint256()
-                vloc__482 := zero_value_for_type_t_uint256_237
+            function fun_observe__4_523(vloc_i_508) -> vloc__511 {
+                let zero_value_for_type_t_bool_246 := zero_value_for_split_t_bool()
+                vloc__511 := zero_value_for_type_t_bool_246
 
-                let _238 := 0x02
-                let expr_484 := _238
-                let _239 := vloc_i_479
-                let expr_485 := _239
-                let _240 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_484,expr_485)
-                let _241_slot := _240
-                let expr_486_slot := _241_slot
-                let _242 := add(expr_486_slot, 1)
-                let _243 := _242
-                let expr_487 := _243
-                let expr_489 := caller()
-                let _244 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_487,expr_489)
-                let _245_slot := _244
-                let expr_490_slot := _245_slot
-                let _246 := add(expr_490_slot, 0)
-                let _247 := read_from_storage_offset_0_t_uint256(_246)
-                let expr_491 := _247
-                vloc__482 := expr_491
+                let _247 := 0x02
+                let expr_513 := _247
+                let _248 := vloc_i_508
+                let expr_514 := _248
+                let _249 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_513,expr_514)
+                let _250_slot := _249
+                let expr_515_slot := _250_slot
+                let _251 := add(expr_515_slot, 1)
+                let _252 := _251
+                let expr_516 := _252
+                let expr_518 := caller()
+                let _253 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_516,expr_518)
+                let _254_slot := _253
+                let expr_519_slot := _254_slot
+                let _255 := add(expr_519_slot, 1)
+                let _256 := read_from_storage_offset_1_t_bool(_255)
+                let expr_520 := _256
+                vloc__511 := expr_520
                 leave
 
             }
 
-            function fun_observe__4_511(vloc_i_496) -> vloc__499 {
-                let zero_value_for_type_t_bool_248 := zero_value_for_split_t_bool()
-                vloc__499 := zero_value_for_type_t_bool_248
+            function fun_observe__5_545(vloc_i_525) -> vloc__528 {
+                let zero_value_for_type_t_uint256_257 := zero_value_for_split_t_uint256()
+                vloc__528 := zero_value_for_type_t_uint256_257
 
-                let _249 := 0x02
-                let expr_501 := _249
-                let _250 := vloc_i_496
-                let expr_502 := _250
-                let _251 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_501,expr_502)
-                let _252_slot := _251
-                let expr_503_slot := _252_slot
-                let _253 := add(expr_503_slot, 1)
-                let _254 := _253
-                let expr_504 := _254
-                let expr_506 := caller()
-                let _255 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_504,expr_506)
-                let _256_slot := _255
-                let expr_507_slot := _256_slot
-                let _257 := add(expr_507_slot, 1)
-                let _258 := read_from_storage_offset_1_t_bool(_257)
-                let expr_508 := _258
-                vloc__499 := expr_508
-                leave
-
-            }
-
-            function fun_observe__5_533(vloc_i_513) -> vloc__516 {
-                let zero_value_for_type_t_uint256_259 := zero_value_for_split_t_uint256()
-                vloc__516 := zero_value_for_type_t_uint256_259
-
-                let _260 := 0x02
-                let expr_518 := _260
-                let _261 := vloc_i_513
-                let expr_519 := _261
-                let _262 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_518,expr_519)
-                let _263_slot := _262
-                let expr_520_slot := _263_slot
-                let _264 := add(expr_520_slot, 0)
-                let _265 := _264
-                let expr_521 := _265
-                let _266 := 0x02
-                let expr_522 := _266
-                let _267 := vloc_i_513
-                let expr_523 := _267
-                let _268 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_522,expr_523)
-                let _269_slot := _268
-                let expr_524_slot := _269_slot
-                let _270 := add(expr_524_slot, 1)
-                let _271 := _270
-                let expr_525 := _271
-                let expr_527 := caller()
-                let _272 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_525,expr_527)
-                let _273_slot := _272
-                let expr_528_slot := _273_slot
-                let _274 := add(expr_528_slot, 0)
+                let _258 := 0x02
+                let expr_530 := _258
+                let _259 := vloc_i_525
+                let expr_531 := _259
+                let _260 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_530,expr_531)
+                let _261_slot := _260
+                let expr_532_slot := _261_slot
+                let _262 := add(expr_532_slot, 0)
+                let _263 := _262
+                let expr_533 := _263
+                let _264 := 0x02
+                let expr_534 := _264
+                let _265 := vloc_i_525
+                let expr_535 := _265
+                let _266 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_534,expr_535)
+                let _267_slot := _266
+                let expr_536_slot := _267_slot
+                let _268 := add(expr_536_slot, 1)
+                let _269 := _268
+                let expr_537 := _269
+                let expr_539 := caller()
+                let _270 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_537,expr_539)
+                let _271_slot := _270
+                let expr_540_slot := _271_slot
+                let _272 := add(expr_540_slot, 0)
+                let _273 := read_from_storage_offset_0_t_uint256(_272)
+                let expr_541 := _273
+                let _274 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_uint256(expr_533,expr_541)
                 let _275 := read_from_storage_offset_0_t_uint256(_274)
-                let expr_529 := _275
-                let _276 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_uint256(expr_521,expr_529)
-                let _277 := read_from_storage_offset_0_t_uint256(_276)
-                let expr_530 := _277
-                vloc__516 := expr_530
+                let expr_542 := _275
+                vloc__528 := expr_542
                 leave
 
             }
 
-            function fun_observe__6_550(vloc_i_535) -> vloc__538 {
-                let zero_value_for_type_t_uint256_278 := zero_value_for_split_t_uint256()
-                vloc__538 := zero_value_for_type_t_uint256_278
+            function fun_observe__6_558(vloc_i_547) -> vloc__550 {
+                let zero_value_for_type_t_uint256_276 := zero_value_for_split_t_uint256()
+                vloc__550 := zero_value_for_type_t_uint256_276
 
-                let _279 := 0x02
-                let expr_540 := _279
-                let _280 := vloc_i_535
-                let expr_541 := _280
-                let _281 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_540,expr_541)
-                let _282_slot := _281
-                let expr_542_slot := _282_slot
-                let _283 := add(expr_542_slot, 1)
-                let _284 := _283
-                let expr_543 := _284
-                let expr_545 := caller()
-                let _285 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_543,expr_545)
-                let _286_slot := _285
-                let expr_546_slot := _286_slot
-                let _287 := add(expr_546_slot, 0)
-                let _288 := read_from_storage_offset_0_t_uint256(_287)
-                let expr_547 := _288
-                vloc__538 := expr_547
+                let _277 := 0x01
+                let expr_552 := _277
+                let _278 := vloc_i_547
+                let expr_553 := _278
+                let _279 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_552,expr_553)
+                let _280_slot := _279
+                let expr_554_slot := _280_slot
+                let _281 := add(expr_554_slot, 4)
+                let _282 := read_from_storage_offset_0_t_uint256(_281)
+                let expr_555 := _282
+                vloc__550 := expr_555
                 leave
 
             }
 
-            function fun_observe__7_567(vloc_i_552) -> vloc__555 {
-                let zero_value_for_type_t_bool_289 := zero_value_for_split_t_bool()
-                vloc__555 := zero_value_for_type_t_bool_289
+            function fun_observe__7_571(vloc_i_560) -> vloc__563 {
+                let zero_value_for_type_t_uint256_283 := zero_value_for_split_t_uint256()
+                vloc__563 := zero_value_for_type_t_uint256_283
 
-                let _290 := 0x02
-                let expr_557 := _290
-                let _291 := vloc_i_552
-                let expr_558 := _291
-                let _292 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_557,expr_558)
-                let _293_slot := _292
-                let expr_559_slot := _293_slot
-                let _294 := add(expr_559_slot, 1)
-                let _295 := _294
-                let expr_560 := _295
-                let expr_562 := caller()
-                let _296 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_560,expr_562)
-                let _297_slot := _296
-                let expr_563_slot := _297_slot
-                let _298 := add(expr_563_slot, 1)
-                let _299 := read_from_storage_offset_0_t_bool(_298)
-                let expr_564 := _299
-                vloc__555 := expr_564
+                let _284 := 0x01
+                let expr_565 := _284
+                let _285 := vloc_i_560
+                let expr_566 := _285
+                let _286 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_565,expr_566)
+                let _287_slot := _286
+                let expr_567_slot := _287_slot
+                let _288 := add(expr_567_slot, 1)
+                let _289 := read_from_storage_offset_0_t_uint256(_288)
+                let expr_568 := _289
+                vloc__563 := expr_568
                 leave
 
             }
 
-            function fun_observe__8_584(vloc_i_569) -> vloc__572 {
-                let zero_value_for_type_t_bool_300 := zero_value_for_split_t_bool()
-                vloc__572 := zero_value_for_type_t_bool_300
+            function fun_observe__8_584(vloc_i_573) -> vloc__576 {
+                let zero_value_for_type_t_uint256_290 := zero_value_for_split_t_uint256()
+                vloc__576 := zero_value_for_type_t_uint256_290
 
-                let _301 := 0x02
-                let expr_574 := _301
-                let _302 := vloc_i_569
-                let expr_575 := _302
-                let _303 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_574,expr_575)
-                let _304_slot := _303
-                let expr_576_slot := _304_slot
-                let _305 := add(expr_576_slot, 1)
-                let _306 := _305
-                let expr_577 := _306
-                let expr_579 := caller()
-                let _307 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_577,expr_579)
-                let _308_slot := _307
-                let expr_580_slot := _308_slot
-                let _309 := add(expr_580_slot, 1)
-                let _310 := read_from_storage_offset_1_t_bool(_309)
-                let expr_581 := _310
-                vloc__572 := expr_581
+                let _291 := 0x01
+                let expr_578 := _291
+                let _292 := vloc_i_573
+                let expr_579 := _292
+                let _293 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_578,expr_579)
+                let _294_slot := _293
+                let expr_580_slot := _294_slot
+                let _295 := add(expr_580_slot, 0)
+                let _296 := read_from_storage_offset_0_t_uint256(_295)
+                let expr_581 := _296
+                vloc__576 := expr_581
                 leave
 
             }
 
-            function fun_sumbitForElection_211() {
+            function fun_sumbitForElection_220() {
 
                 let _15 := 0x01
                 let expr_125 := _15
@@ -1130,220 +1112,231 @@ object "CreditDAOTransformed181_585" {
                 let expr_139 := _21
                 let _22 := read_from_storage_offset_0_t_uint256(0x00)
                 let expr_140 := _22
-                let _23 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_139,expr_140)
-                let _24_slot := _23
-                let expr_141_slot := _24_slot
-                let _25 := add(expr_141_slot, 1)
-                let _26 := _25
-                let expr_142 := _26
-                let expr_144 := caller()
-                let _27 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_142,expr_144)
-                let _28_slot := _27
-                let expr_145_slot := _28_slot
-                let _29 := add(expr_145_slot, 1)
-                let _30 := read_from_storage_offset_0_t_bool(_29)
-                let expr_146 := _30
-                let expr_147 := cleanup_t_bool(iszero(expr_146))
-                require_helper(expr_147)
-                let vloc_nextCandidateId_151
-                let zero_value_for_type_t_uint256_31 := zero_value_for_split_t_uint256()
-                vloc_nextCandidateId_151 := zero_value_for_type_t_uint256_31
-                let _32 := 0x01
-                let expr_154 := _32
-                let _33 := read_from_storage_offset_0_t_uint256(0x00)
-                let expr_155 := _33
-                let _34 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_154,expr_155)
-                let _35_slot := _34
-                let expr_156_slot := _35_slot
-                let _36 := add(expr_156_slot, 3)
-                let _37 := read_from_storage_offset_0_t_uint256(_36)
-                let expr_157 := _37
-                vloc_nextCandidateId_151 := expr_157
-                let expr_158 := expr_157
-                let expr_170 := caller()
-                let _38 := convert_t_address_payable_to_t_address(expr_170)
-                let _39 := 0x02
-                let expr_160 := _39
-                let _40 := read_from_storage_offset_0_t_uint256(0x00)
-                let expr_161 := _40
-                let expr_162 := 0x01
-                let expr_163 := checked_sub_t_uint256(expr_161, convert_t_rational_1_by_1_to_t_uint256(expr_162))
+                let expr_141 := 0x01
+                let expr_142 := checked_sub_t_uint256(expr_140, convert_t_rational_1_by_1_to_t_uint256(expr_141))
 
-                let expr_164 := expr_163
-                let _41 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_160,expr_164)
+                let expr_143 := expr_142
+                let _23 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_139,expr_143)
+                let _24_slot := _23
+                let expr_144_slot := _24_slot
+                let _25 := add(expr_144_slot, 1)
+                let _26 := _25
+                let expr_145 := _26
+                let expr_147 := caller()
+                let _27 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_145,expr_147)
+                let _28_slot := _27
+                let expr_148_slot := _28_slot
+                let _29 := add(expr_148_slot, 1)
+                let _30 := read_from_storage_offset_0_t_bool(_29)
+                let expr_149 := _30
+                let expr_150 := cleanup_t_bool(iszero(expr_149))
+                require_helper(expr_150)
+                let vloc_nextCandidateId_154
+                let zero_value_for_type_t_uint256_31 := zero_value_for_split_t_uint256()
+                vloc_nextCandidateId_154 := zero_value_for_type_t_uint256_31
+                let _32 := 0x01
+                let expr_157 := _32
+                let _33 := read_from_storage_offset_0_t_uint256(0x00)
+                let expr_158 := _33
+                let _34 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_157,expr_158)
+                let _35_slot := _34
+                let expr_159_slot := _35_slot
+                let _36 := add(expr_159_slot, 3)
+                let _37 := read_from_storage_offset_0_t_uint256(_36)
+                let expr_160 := _37
+                vloc_nextCandidateId_154 := expr_160
+                let expr_161 := expr_160
+                let expr_173 := caller()
+                let _38 := convert_t_address_payable_to_t_address(expr_173)
+                let _39 := 0x02
+                let expr_163 := _39
+                let _40 := read_from_storage_offset_0_t_uint256(0x00)
+                let expr_164 := _40
+                let expr_165 := 0x01
+                let expr_166 := checked_sub_t_uint256(expr_164, convert_t_rational_1_by_1_to_t_uint256(expr_165))
+
+                let expr_167 := expr_166
+                let _41 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_163,expr_167)
                 let _42_slot := _41
-                let expr_165_slot := _42_slot
-                let _43 := add(expr_165_slot, 3)
+                let expr_168_slot := _42_slot
+                let _43 := add(expr_168_slot, 3)
                 let _44 := _43
-                let expr_166 := _44
-                let _45 := vloc_nextCandidateId_151
-                let expr_167 := _45
-                let _46 := mapping_index_access_t_mapping$_t_uint256_$_t_address_$_of_t_uint256(expr_166,expr_167)
+                let expr_169 := _44
+                let _45 := vloc_nextCandidateId_154
+                let expr_170 := _45
+                let _46 := mapping_index_access_t_mapping$_t_uint256_$_t_address_$_of_t_uint256(expr_169,expr_170)
                 update_storage_value_offset_0t_address_to_t_address(_46, _38)
-                let expr_171 := _38
-                let expr_173 := 0x01
-                if expr_173 {
-                    let _47 := vloc_nextCandidateId_151
-                    let expr_182 := _47
+                let expr_174 := _38
+                let expr_176 := 0x01
+                if expr_176 {
+                    let _47 := vloc_nextCandidateId_154
+                    let expr_188 := _47
                     let _48 := 0x02
-                    let expr_174 := _48
+                    let expr_177 := _48
                     let _49 := read_from_storage_offset_0_t_uint256(0x00)
-                    let expr_175 := _49
-                    let _50 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_174,expr_175)
+                    let expr_178 := _49
+                    let expr_179 := 0x01
+                    let expr_180 := checked_sub_t_uint256(expr_178, convert_t_rational_1_by_1_to_t_uint256(expr_179))
+
+                    let expr_181 := expr_180
+                    let _50 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_177,expr_181)
                     let _51_slot := _50
-                    let expr_176_slot := _51_slot
-                    let _52 := add(expr_176_slot, 1)
+                    let expr_182_slot := _51_slot
+                    let _52 := add(expr_182_slot, 1)
                     let _53 := _52
-                    let expr_177 := _53
-                    let expr_179 := caller()
-                    let _54 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_177,expr_179)
+                    let expr_183 := _53
+                    let expr_185 := caller()
+                    let _54 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_183,expr_185)
                     let _55_slot := _54
-                    let expr_180_slot := _55_slot
-                    let _56 := add(expr_180_slot, 0)
-                    update_storage_value_offset_0t_uint256_to_t_uint256(_56, expr_182)
-                    let expr_183 := expr_182
+                    let expr_186_slot := _55_slot
+                    let _56 := add(expr_186_slot, 0)
+                    update_storage_value_offset_0t_uint256_to_t_uint256(_56, expr_188)
+                    let expr_189 := expr_188
                 }
                 let _57 := 0x01
-                let expr_187 := _57
+                let expr_193 := _57
                 let _58 := read_from_storage_offset_0_t_uint256(0x00)
-                let expr_188 := _58
-                let expr_189 := 0x01
-                let expr_190 := checked_sub_t_uint256(expr_188, convert_t_rational_1_by_1_to_t_uint256(expr_189))
+                let expr_194 := _58
+                let expr_195 := 0x01
+                let expr_196 := checked_sub_t_uint256(expr_194, convert_t_rational_1_by_1_to_t_uint256(expr_195))
 
-                let expr_191 := expr_190
-                let _59 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_187,expr_191)
+                let expr_197 := expr_196
+                let _59 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_193,expr_197)
                 let _60_slot := _59
-                let expr_192_slot := _60_slot
-                let _61 := add(expr_192_slot, 3)
+                let expr_198_slot := _60_slot
+                let _61 := add(expr_198_slot, 3)
                 let _63 := read_from_storage_offset_0_t_uint256(_61)
                 let _62 := increment_t_uint256(_63)
                 update_storage_value_offset_0t_uint256_to_t_uint256(_61, _62)
-                let expr_194 := _63
-                let expr_196 := 0x01
-                if expr_196 {
-                    let expr_205 := 0x01
+                let expr_200 := _63
+                let expr_202 := 0x01
+                if expr_202 {
+                    let expr_214 := 0x01
                     let _64 := 0x02
-                    let expr_197 := _64
+                    let expr_203 := _64
                     let _65 := read_from_storage_offset_0_t_uint256(0x00)
-                    let expr_198 := _65
-                    let _66 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_197,expr_198)
+                    let expr_204 := _65
+                    let expr_205 := 0x01
+                    let expr_206 := checked_sub_t_uint256(expr_204, convert_t_rational_1_by_1_to_t_uint256(expr_205))
+
+                    let expr_207 := expr_206
+                    let _66 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_203,expr_207)
                     let _67_slot := _66
-                    let expr_199_slot := _67_slot
-                    let _68 := add(expr_199_slot, 1)
+                    let expr_208_slot := _67_slot
+                    let _68 := add(expr_208_slot, 1)
                     let _69 := _68
-                    let expr_200 := _69
-                    let expr_202 := caller()
-                    let _70 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_200,expr_202)
+                    let expr_209 := _69
+                    let expr_211 := caller()
+                    let _70 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_209,expr_211)
                     let _71_slot := _70
-                    let expr_203_slot := _71_slot
-                    let _72 := add(expr_203_slot, 1)
-                    update_storage_value_offset_0t_bool_to_t_bool(_72, expr_205)
-                    let expr_206 := expr_205
+                    let expr_212_slot := _71_slot
+                    let _72 := add(expr_212_slot, 1)
+                    update_storage_value_offset_0t_bool_to_t_bool(_72, expr_214)
+                    let expr_215 := expr_214
                 }
 
             }
 
-            function fun_vote_279(vloc__participant_213) {
+            function fun_vote_288(vloc__participant_222) {
 
                 let _73 := 0x01
-                let expr_217 := _73
+                let expr_226 := _73
                 let _74 := read_from_storage_offset_0_t_uint256(0x00)
-                let expr_218 := _74
-                let expr_219 := 0x01
-                let expr_220 := checked_sub_t_uint256(expr_218, convert_t_rational_1_by_1_to_t_uint256(expr_219))
+                let expr_227 := _74
+                let expr_228 := 0x01
+                let expr_229 := checked_sub_t_uint256(expr_227, convert_t_rational_1_by_1_to_t_uint256(expr_228))
 
-                let expr_221 := expr_220
-                let _75 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_217,expr_221)
+                let expr_230 := expr_229
+                let _75 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(expr_226,expr_230)
                 let _76_slot := _75
-                let expr_222_slot := _76_slot
-                let _77 := add(expr_222_slot, 1)
+                let expr_231_slot := _76_slot
+                let _77 := add(expr_231_slot, 1)
                 let _78 := read_from_storage_offset_0_t_uint256(_77)
-                let expr_223 := _78
-                let expr_225 := number()
-                let expr_226 := gt(cleanup_t_uint256(expr_223), cleanup_t_uint256(expr_225))
-                let expr_227 := expr_226
-                require_helper(expr_227)
+                let expr_232 := _78
+                let expr_234 := number()
+                let expr_235 := gt(cleanup_t_uint256(expr_232), cleanup_t_uint256(expr_234))
+                let expr_236 := expr_235
+                require_helper(expr_236)
                 let _79 := 0x02
-                let expr_231 := _79
+                let expr_240 := _79
                 let _80 := read_from_storage_offset_0_t_uint256(0x00)
-                let expr_232 := _80
-                let _81 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_231,expr_232)
+                let expr_241 := _80
+                let _81 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_240,expr_241)
                 let _82_slot := _81
-                let expr_233_slot := _82_slot
-                let _83 := add(expr_233_slot, 1)
+                let expr_242_slot := _82_slot
+                let _83 := add(expr_242_slot, 1)
                 let _84 := _83
-                let expr_234 := _84
-                let expr_236 := caller()
-                let _85 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_234,expr_236)
+                let expr_243 := _84
+                let expr_245 := caller()
+                let _85 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_243,expr_245)
                 let _86_slot := _85
-                let expr_237_slot := _86_slot
-                let _87 := add(expr_237_slot, 1)
+                let expr_246_slot := _86_slot
+                let _87 := add(expr_246_slot, 1)
                 let _88 := read_from_storage_offset_1_t_bool(_87)
-                let expr_238 := _88
-                let expr_239 := cleanup_t_bool(iszero(expr_238))
-                require_helper(expr_239)
-                let vloc_candidateId_243
+                let expr_247 := _88
+                let expr_248 := cleanup_t_bool(iszero(expr_247))
+                require_helper(expr_248)
+                let vloc_candidateId_252
                 let zero_value_for_type_t_uint256_89 := zero_value_for_split_t_uint256()
-                vloc_candidateId_243 := zero_value_for_type_t_uint256_89
+                vloc_candidateId_252 := zero_value_for_type_t_uint256_89
                 let _90 := 0x02
-                let expr_246 := _90
+                let expr_255 := _90
                 let _91 := read_from_storage_offset_0_t_uint256(0x00)
-                let expr_247 := _91
-                let _92 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_246,expr_247)
+                let expr_256 := _91
+                let _92 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_255,expr_256)
                 let _93_slot := _92
-                let expr_248_slot := _93_slot
-                let _94 := add(expr_248_slot, 1)
+                let expr_257_slot := _93_slot
+                let _94 := add(expr_257_slot, 1)
                 let _95 := _94
-                let expr_249 := _95
-                let _96 := vloc__participant_213
-                let expr_250 := _96
-                let _97 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address(expr_249,expr_250)
+                let expr_258 := _95
+                let _96 := vloc__participant_222
+                let expr_259 := _96
+                let _97 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address(expr_258,expr_259)
                 let _98_slot := _97
-                let expr_251_slot := _98_slot
-                let _99 := add(expr_251_slot, 0)
+                let expr_260_slot := _98_slot
+                let _99 := add(expr_260_slot, 0)
                 let _100 := read_from_storage_offset_0_t_uint256(_99)
-                let expr_252 := _100
-                vloc_candidateId_243 := expr_252
-                let expr_253 := expr_252
-                let expr_261 := 0x01
-                let _101 := convert_t_rational_1_by_1_to_t_uint256(expr_261)
+                let expr_261 := _100
+                vloc_candidateId_252 := expr_261
+                let expr_262 := expr_261
+                let expr_270 := 0x01
+                let _101 := convert_t_rational_1_by_1_to_t_uint256(expr_270)
                 let _102 := 0x02
-                let expr_255 := _102
+                let expr_264 := _102
                 let _103 := read_from_storage_offset_0_t_uint256(0x00)
-                let expr_256 := _103
-                let _104 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_255,expr_256)
+                let expr_265 := _103
+                let _104 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_264,expr_265)
                 let _105_slot := _104
-                let expr_257_slot := _105_slot
-                let _106 := add(expr_257_slot, 0)
+                let expr_266_slot := _105_slot
+                let _106 := add(expr_266_slot, 0)
                 let _107 := _106
-                let expr_258 := _107
-                let _108 := vloc_candidateId_243
-                let expr_259 := _108
-                let _109 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_uint256(expr_258,expr_259)
+                let expr_267 := _107
+                let _108 := vloc_candidateId_252
+                let expr_268 := _108
+                let _109 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_uint256(expr_267,expr_268)
                 let _110 := read_from_storage_offset_0_t_uint256(_109)
                 _101 := checked_add_t_uint256(_110, _101)
                 update_storage_value_offset_0t_uint256_to_t_uint256(_109, _101)
-                let expr_262 := _101
-                let expr_264 := 0x01
-                if expr_264 {
-                    let expr_273 := 0x01
+                let expr_271 := _101
+                let expr_273 := 0x00
+                if expr_273 {
+                    let expr_282 := 0x01
                     let _111 := 0x02
-                    let expr_265 := _111
-                    let _112 := read_from_storage_offset_0_t_uint256(0x00)
-                    let expr_266 := _112
-                    let _113 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_uint256(expr_265,expr_266)
-                    let _114_slot := _113
-                    let expr_267_slot := _114_slot
-                    let _115 := add(expr_267_slot, 1)
-                    let _116 := _115
-                    let expr_268 := _116
-                    let expr_270 := caller()
-                    let _117 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_268,expr_270)
-                    let _118_slot := _117
-                    let expr_271_slot := _118_slot
-                    let _119 := add(expr_271_slot, 1)
-                    update_storage_value_offset_1t_bool_to_t_bool(_119, expr_273)
-                    let expr_274 := expr_273
+                    let expr_274 := _111
+                    let expr_275 := 0x01
+                    let _112 := mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_rational_1_by_1(expr_274,expr_275)
+                    let _113_slot := _112
+                    let expr_276_slot := _113_slot
+                    let _114 := add(expr_276_slot, 1)
+                    let _115 := _114
+                    let expr_277 := _115
+                    let expr_279 := caller()
+                    let _116 := mapping_index_access_t_mapping$_t_address_$_t_struct$_Candidate_$38_storage_$_of_t_address_payable(expr_277,expr_279)
+                    let _117_slot := _116
+                    let expr_280_slot := _117_slot
+                    let _118 := add(expr_280_slot, 1)
+                    update_storage_value_offset_1t_bool_to_t_bool(_118, expr_282)
+                    let expr_283 := expr_282
                 }
 
             }
@@ -1444,6 +1437,12 @@ object "CreditDAOTransformed181_585" {
 
             function mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$14_storage_$_of_t_uint256(slot , key) -> dataSlot {
                 mstore(0, convert_t_uint256_to_t_uint256(key))
+                mstore(0x20, slot)
+                dataSlot := keccak256(0, 0x40)
+            }
+
+            function mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Foo_$31_storage_$_of_t_rational_1_by_1(slot , key) -> dataSlot {
+                mstore(0, convert_t_rational_1_by_1_to_t_uint256(key))
                 mstore(0x20, slot)
                 dataSlot := keccak256(0, 0x40)
             }

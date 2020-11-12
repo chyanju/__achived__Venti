@@ -93,13 +93,13 @@ function observe__5(uint256 i) public view returns (uint256) {
 return elections[i].candidateVotes[elections[i].candidateAddyToIndexMap[msg.sender]];
 }
 function observe__6(uint256 i) public view returns (uint256) {
-return elections[i].candidateAddyToIndexMap[msg.sender];
+return elections[i].numOfMaxVotes;
 }
-function observe__7(uint256 i) public view returns (bool) {
-return elections[i].candidates[msg.sender];
+function observe__7(uint256 i) public view returns (uint256) {
+return elections[i].endBlock;
 }
-function observe__8(uint256 i) public view returns (bool) {
-return elections[i].userHasVoted[msg.sender];
+function observe__8(uint256 i) public view returns (uint256) {
+return elections[i].startBlock;
 }
 
 }

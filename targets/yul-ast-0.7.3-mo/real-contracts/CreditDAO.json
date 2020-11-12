@@ -2,7 +2,7 @@
 	"yul_object",
 	[
 		"yul_string_literal",
-		"CreditDAO_577"
+		"CreditDAO_568"
 	],
 	[
 		"yul_code",
@@ -323,7 +323,7 @@
 					"yul_function_definition",
 					[
 						"yul_identifier",
-						"constructor_CreditDAO_577"
+						"constructor_CreditDAO_568"
 					],
 					[
 						"yul_block",
@@ -16563,7 +16563,7 @@
 					"yul_function_definition",
 					[
 						"yul_identifier",
-						"fun_observe__6_544"
+						"fun_observe__6_541"
 					],
 					[
 						"yul_function_arg_list",
@@ -16827,7 +16827,7 @@
 													"yul_number_literal",
 													[
 														"yul_dec_number",
-														"6"
+														"11"
 													]
 												]
 											]
@@ -16850,8 +16850,18 @@
 								[
 									"yul_expression",
 									[
-										"yul_identifier",
-										"_258"
+										"yul_function_call",
+										[
+											"yul_identifier",
+											"read_from_storage_offset_0_t_uint256"
+										],
+										[
+											"yul_expression",
+											[
+												"yul_identifier",
+												"_258"
+											]
+										]
 									]
 								]
 							]
@@ -16879,116 +16889,6 @@
 						[
 							"yul_statement",
 							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"expr_540"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_function_call",
-										[
-											"yul_identifier",
-											"caller"
-										]
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"_260"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_function_call",
-										[
-											"yul_identifier",
-											"mapping_index_access_t_mapping$_t_address_$_t_uint256_$_of_t_address_payable"
-										],
-										[
-											"yul_expression",
-											[
-												"yul_identifier",
-												"expr_538"
-											]
-										],
-										[
-											"yul_expression",
-											[
-												"yul_identifier",
-												"expr_540"
-											]
-										]
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"_261"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_function_call",
-										[
-											"yul_identifier",
-											"read_from_storage_offset_0_t_uint256"
-										],
-										[
-											"yul_expression",
-											[
-												"yul_identifier",
-												"_260"
-											]
-										]
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"expr_541"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_identifier",
-										"_261"
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
 								"yul_assignment",
 								[
 									"yul_identifier_list",
@@ -17001,7 +16901,7 @@
 									"yul_expression",
 									[
 										"yul_identifier",
-										"expr_541"
+										"expr_538"
 									]
 								]
 							]
@@ -17021,7 +16921,7 @@
 					"yul_function_definition",
 					[
 						"yul_identifier",
-						"fun_observe__7_560"
+						"fun_observe__7_554"
 					],
 					[
 						"yul_function_arg_list",
@@ -17029,7 +16929,7 @@
 							"yul_typed_identifier_list",
 							[
 								"yul_identifier",
-								"vloc_i_546"
+								"vloc_i_543"
 							]
 						]
 					],
@@ -17039,7 +16939,7 @@
 							"yul_typed_identifier_list",
 							[
 								"yul_identifier",
-								"vloc__549"
+								"vloc__546"
 							]
 						]
 					],
@@ -17053,7 +16953,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"zero_value_for_type_t_bool_262"
+										"zero_value_for_type_t_uint256_260"
 									]
 								],
 								[
@@ -17062,7 +16962,7 @@
 										"yul_function_call",
 										[
 											"yul_identifier",
-											"zero_value_for_split_t_bool"
+											"zero_value_for_split_t_uint256"
 										]
 									]
 								]
@@ -17076,14 +16976,100 @@
 									"yul_identifier_list",
 									[
 										"yul_identifier",
-										"vloc__549"
+										"vloc__546"
 									]
 								],
 								[
 									"yul_expression",
 									[
 										"yul_identifier",
-										"zero_value_for_type_t_bool_262"
+										"zero_value_for_type_t_uint256_260"
+									]
+								]
+							]
+						],
+						[
+							"yul_statement",
+							[
+								"yul_variable_declaration",
+								[
+									"yul_typed_identifier_list",
+									[
+										"yul_identifier",
+										"_261"
+									]
+								],
+								[
+									"yul_expression",
+									[
+										"yul_literal",
+										[
+											"yul_number_literal",
+											[
+												"yul_hex_number",
+												"0x01"
+											]
+										]
+									]
+								]
+							]
+						],
+						[
+							"yul_statement",
+							[
+								"yul_variable_declaration",
+								[
+									"yul_typed_identifier_list",
+									[
+										"yul_identifier",
+										"expr_548"
+									]
+								],
+								[
+									"yul_expression",
+									[
+										"yul_identifier",
+										"_261"
+									]
+								]
+							]
+						],
+						[
+							"yul_statement",
+							[
+								"yul_variable_declaration",
+								[
+									"yul_typed_identifier_list",
+									[
+										"yul_identifier",
+										"_262"
+									]
+								],
+								[
+									"yul_expression",
+									[
+										"yul_identifier",
+										"vloc_i_543"
+									]
+								]
+							]
+						],
+						[
+							"yul_statement",
+							[
+								"yul_variable_declaration",
+								[
+									"yul_typed_identifier_list",
+									[
+										"yul_identifier",
+										"expr_549"
+									]
+								],
+								[
+									"yul_expression",
+									[
+										"yul_identifier",
+										"_262"
 									]
 								]
 							]
@@ -17102,12 +17088,136 @@
 								[
 									"yul_expression",
 									[
-										"yul_literal",
+										"yul_function_call",
 										[
-											"yul_number_literal",
+											"yul_identifier",
+											"mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$38_storage_$_of_t_uint256"
+										],
+										[
+											"yul_expression",
 											[
-												"yul_hex_number",
-												"0x01"
+												"yul_identifier",
+												"expr_548"
+											]
+										],
+										[
+											"yul_expression",
+											[
+												"yul_identifier",
+												"expr_549"
+											]
+										]
+									]
+								]
+							]
+						],
+						[
+							"yul_statement",
+							[
+								"yul_variable_declaration",
+								[
+									"yul_typed_identifier_list",
+									[
+										"yul_identifier",
+										"_264_slot"
+									]
+								],
+								[
+									"yul_expression",
+									[
+										"yul_identifier",
+										"_263"
+									]
+								]
+							]
+						],
+						[
+							"yul_statement",
+							[
+								"yul_variable_declaration",
+								[
+									"yul_typed_identifier_list",
+									[
+										"yul_identifier",
+										"expr_550_slot"
+									]
+								],
+								[
+									"yul_expression",
+									[
+										"yul_identifier",
+										"_264_slot"
+									]
+								]
+							]
+						],
+						[
+							"yul_statement",
+							[
+								"yul_variable_declaration",
+								[
+									"yul_typed_identifier_list",
+									[
+										"yul_identifier",
+										"_265"
+									]
+								],
+								[
+									"yul_expression",
+									[
+										"yul_function_call",
+										[
+											"yul_identifier",
+											"add"
+										],
+										[
+											"yul_expression",
+											[
+												"yul_identifier",
+												"expr_550_slot"
+											]
+										],
+										[
+											"yul_expression",
+											[
+												"yul_literal",
+												[
+													"yul_number_literal",
+													[
+														"yul_dec_number",
+														"1"
+													]
+												]
+											]
+										]
+									]
+								]
+							]
+						],
+						[
+							"yul_statement",
+							[
+								"yul_variable_declaration",
+								[
+									"yul_typed_identifier_list",
+									[
+										"yul_identifier",
+										"_266"
+									]
+								],
+								[
+									"yul_expression",
+									[
+										"yul_function_call",
+										[
+											"yul_identifier",
+											"read_from_storage_offset_0_t_uint256"
+										],
+										[
+											"yul_expression",
+											[
+												"yul_identifier",
+												"_265"
 											]
 										]
 									]
@@ -17129,317 +17239,7 @@
 									"yul_expression",
 									[
 										"yul_identifier",
-										"_263"
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"_264"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_identifier",
-										"vloc_i_546"
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"expr_552"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_identifier",
-										"_264"
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"_265"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_function_call",
-										[
-											"yul_identifier",
-											"mapping_index_access_t_mapping$_t_uint256_$_t_struct$_Election_$38_storage_$_of_t_uint256"
-										],
-										[
-											"yul_expression",
-											[
-												"yul_identifier",
-												"expr_551"
-											]
-										],
-										[
-											"yul_expression",
-											[
-												"yul_identifier",
-												"expr_552"
-											]
-										]
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"_266_slot"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_identifier",
-										"_265"
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"expr_553_slot"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_identifier",
-										"_266_slot"
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"_267"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_function_call",
-										[
-											"yul_identifier",
-											"add"
-										],
-										[
-											"yul_expression",
-											[
-												"yul_identifier",
-												"expr_553_slot"
-											]
-										],
-										[
-											"yul_expression",
-											[
-												"yul_literal",
-												[
-													"yul_number_literal",
-													[
-														"yul_dec_number",
-														"8"
-													]
-												]
-											]
-										]
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"_268"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_identifier",
-										"_267"
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"expr_554"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_identifier",
-										"_268"
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"expr_556"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_function_call",
-										[
-											"yul_identifier",
-											"caller"
-										]
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"_269"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_function_call",
-										[
-											"yul_identifier",
-											"mapping_index_access_t_mapping$_t_address_$_t_bool_$_of_t_address_payable"
-										],
-										[
-											"yul_expression",
-											[
-												"yul_identifier",
-												"expr_554"
-											]
-										],
-										[
-											"yul_expression",
-											[
-												"yul_identifier",
-												"expr_556"
-											]
-										]
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"_270"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_function_call",
-										[
-											"yul_identifier",
-											"read_from_storage_offset_0_t_bool"
-										],
-										[
-											"yul_expression",
-											[
-												"yul_identifier",
-												"_269"
-											]
-										]
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"expr_557"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_identifier",
-										"_270"
+										"_266"
 									]
 								]
 							]
@@ -17452,14 +17252,14 @@
 									"yul_identifier_list",
 									[
 										"yul_identifier",
-										"vloc__549"
+										"vloc__546"
 									]
 								],
 								[
 									"yul_expression",
 									[
 										"yul_identifier",
-										"expr_557"
+										"expr_551"
 									]
 								]
 							]
@@ -17479,7 +17279,7 @@
 					"yul_function_definition",
 					[
 						"yul_identifier",
-						"fun_observe__8_576"
+						"fun_observe__8_567"
 					],
 					[
 						"yul_function_arg_list",
@@ -17487,7 +17287,7 @@
 							"yul_typed_identifier_list",
 							[
 								"yul_identifier",
-								"vloc_i_562"
+								"vloc_i_556"
 							]
 						]
 					],
@@ -17497,7 +17297,7 @@
 							"yul_typed_identifier_list",
 							[
 								"yul_identifier",
-								"vloc__565"
+								"vloc__559"
 							]
 						]
 					],
@@ -17511,7 +17311,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"zero_value_for_type_t_bool_271"
+										"zero_value_for_type_t_uint256_267"
 									]
 								],
 								[
@@ -17520,7 +17320,7 @@
 										"yul_function_call",
 										[
 											"yul_identifier",
-											"zero_value_for_split_t_bool"
+											"zero_value_for_split_t_uint256"
 										]
 									]
 								]
@@ -17534,14 +17334,14 @@
 									"yul_identifier_list",
 									[
 										"yul_identifier",
-										"vloc__565"
+										"vloc__559"
 									]
 								],
 								[
 									"yul_expression",
 									[
 										"yul_identifier",
-										"zero_value_for_type_t_bool_271"
+										"zero_value_for_type_t_uint256_267"
 									]
 								]
 							]
@@ -17554,7 +17354,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_272"
+										"_268"
 									]
 								],
 								[
@@ -17580,14 +17380,14 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"expr_567"
+										"expr_561"
 									]
 								],
 								[
 									"yul_expression",
 									[
 										"yul_identifier",
-										"_272"
+										"_268"
 									]
 								]
 							]
@@ -17600,14 +17400,14 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_273"
+										"_269"
 									]
 								],
 								[
 									"yul_expression",
 									[
 										"yul_identifier",
-										"vloc_i_562"
+										"vloc_i_556"
 									]
 								]
 							]
@@ -17620,14 +17420,14 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"expr_568"
+										"expr_562"
 									]
 								],
 								[
 									"yul_expression",
 									[
 										"yul_identifier",
-										"_273"
+										"_269"
 									]
 								]
 							]
@@ -17640,7 +17440,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_274"
+										"_270"
 									]
 								],
 								[
@@ -17655,14 +17455,14 @@
 											"yul_expression",
 											[
 												"yul_identifier",
-												"expr_567"
+												"expr_561"
 											]
 										],
 										[
 											"yul_expression",
 											[
 												"yul_identifier",
-												"expr_568"
+												"expr_562"
 											]
 										]
 									]
@@ -17677,14 +17477,14 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_275_slot"
+										"_271_slot"
 									]
 								],
 								[
 									"yul_expression",
 									[
 										"yul_identifier",
-										"_274"
+										"_270"
 									]
 								]
 							]
@@ -17697,14 +17497,14 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"expr_569_slot"
+										"expr_563_slot"
 									]
 								],
 								[
 									"yul_expression",
 									[
 										"yul_identifier",
-										"_275_slot"
+										"_271_slot"
 									]
 								]
 							]
@@ -17717,7 +17517,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_276"
+										"_272"
 									]
 								],
 								[
@@ -17732,7 +17532,7 @@
 											"yul_expression",
 											[
 												"yul_identifier",
-												"expr_569_slot"
+												"expr_563_slot"
 											]
 										],
 										[
@@ -17743,7 +17543,7 @@
 													"yul_number_literal",
 													[
 														"yul_dec_number",
-														"9"
+														"0"
 													]
 												]
 											]
@@ -17760,47 +17560,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_277"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_identifier",
-										"_276"
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"expr_570"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_identifier",
-										"_277"
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"expr_572"
+										"_273"
 									]
 								],
 								[
@@ -17809,43 +17569,13 @@
 										"yul_function_call",
 										[
 											"yul_identifier",
-											"caller"
-										]
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"_278"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_function_call",
-										[
-											"yul_identifier",
-											"mapping_index_access_t_mapping$_t_address_$_t_bool_$_of_t_address_payable"
+											"read_from_storage_offset_0_t_uint256"
 										],
 										[
 											"yul_expression",
 											[
 												"yul_identifier",
-												"expr_570"
-											]
-										],
-										[
-											"yul_expression",
-											[
-												"yul_identifier",
-												"expr_572"
+												"_272"
 											]
 										]
 									]
@@ -17860,44 +17590,14 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_279"
-									]
-								],
-								[
-									"yul_expression",
-									[
-										"yul_function_call",
-										[
-											"yul_identifier",
-											"read_from_storage_offset_0_t_bool"
-										],
-										[
-											"yul_expression",
-											[
-												"yul_identifier",
-												"_278"
-											]
-										]
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_variable_declaration",
-								[
-									"yul_typed_identifier_list",
-									[
-										"yul_identifier",
-										"expr_573"
+										"expr_564"
 									]
 								],
 								[
 									"yul_expression",
 									[
 										"yul_identifier",
-										"_279"
+										"_273"
 									]
 								]
 							]
@@ -17910,14 +17610,14 @@
 									"yul_identifier_list",
 									[
 										"yul_identifier",
-										"vloc__565"
+										"vloc__559"
 									]
 								],
 								[
 									"yul_expression",
 									[
 										"yul_identifier",
-										"expr_573"
+										"expr_564"
 									]
 								]
 							]

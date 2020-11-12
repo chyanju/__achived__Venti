@@ -2,11 +2,11 @@
 	"ContractPaths":[
 		[
 			"source",
-			"./contracts/CreditDAOTransformed181.json"
+			"./real-contracts/CreditDAO.json"
 		],
 		[
 			"target",
-			"./contracts/CreditDAO.json"
+			"./real-contracts/CreditDAOTransformed82.json"
 		]
 	],
 	"Tasks":[
@@ -17,13 +17,12 @@
 			],
 			[
 				"txn_function_call",
-				"vote",
-				"static:address"
+				"sumbitForElection"
 			],
 			[
 				"txn_function_call",
-				"observe__8",
-				"dynamic:uint"
+				"observe__3",
+				"scoped:uint256"
 			]
 		]
 	]
