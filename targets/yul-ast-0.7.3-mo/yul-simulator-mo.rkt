@@ -81,6 +81,9 @@
 			(set! yul-default-bitvector (bitvector arg-nbits))
 			(set! yul-memory (make-vector arg-memsize (bv 0 yul-default-bitvector)))
 			(set! yul-storage (make-vector arg-memsize (bv 0 yul-default-bitvector)))
+			; (set! yul-storage
+			; 	(list->vector (reverse (for/list ([i (range arg-memsize)]) (bv i arg-nbits))))
+			; )
 			(set! yul-register (make-zhash))
 			(set! yul-functions (make-hash))
 			(set! yul-function-args (make-hash))

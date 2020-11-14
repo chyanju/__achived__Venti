@@ -25,7 +25,7 @@
 ; and only keep the last call of every txn (except the first one)
 (define arg-cached-txn #f)
 
-(define arg-nbits 24)
+(define arg-nbits 256)
 (define arg-memsize 10000)
 (define arg-nruns 1)
 (define arg-random-ub 3) ; upper bound of the random: varaible, default lower bound is 0
