@@ -25,7 +25,7 @@
 ; in this case, re-use the state of the simulator (no need to reset)
 ; and only keep the last call of every txn (except the first one)
 (define arg-cached-txn #t)
-(define arg-preset "creditdao")
+(define arg-preset "CreditDAO")
 
 (define arg-nbits 256)
 (define arg-memsize 10000)
@@ -61,7 +61,7 @@
 			(set! arg-cached-txn #t)
 		)
 	]
-	[("--preset") p-preset "specify the solidare preset components to use, default: creditdao"
+	[("--preset") p-preset "specify the solidare preset components to use, default: CreditDAO"
 		(begin
 			(set! arg-preset p-preset)
 		)
@@ -258,7 +258,25 @@
 			(define tmp1 
 				(for/list ([c0 one-txn])
 					; note: exclusive to slim version, repalce the component with enhanced signature (if any)
-					(define modified-c0 (hash-ref (hash-ref spc arg-preset) (list-ref c0 1)))
+					;       - if no preset is found, use scpoed: prefix by default
+					(define modified-c0
+						(if (hash-has-key? spc arg-preset)
+							(if (hash-has-key? (hash-ref spc arg-preset) (list-ref c0 1))
+								; preset found, set it
+								(hash-ref (hash-ref spc arg-preset) (list-ref c0 1))
+								; can't find preset
+								(begin
+									(set! vpref "scoped:")
+									c0
+								)
+							)
+							; can't find preset
+							(begin
+								(set! vpref "scoped:")
+								c0
+							)
+						)
+					)
 					(define tmp0
 						(for/list ([k (range (length modified-c0))])
 							(if (>= k 2)
@@ -296,7 +314,25 @@
 			(define tmp3
 				(for/list ([c1 mul-obs])
 					; note: exclusive to slim version, repalce the component with enhanced signature (if any)
-					(define modified-c1 (hash-ref (hash-ref spc arg-preset) (list-ref c1 1)))
+					;       - if no preset is found, use scpoed: prefix by default
+					(define modified-c1
+						(if (hash-has-key? spc arg-preset)
+							(if (hash-has-key? (hash-ref spc arg-preset) (list-ref c1 1))
+								; preset found, set it
+								(hash-ref (hash-ref spc arg-preset) (list-ref c1 1))
+								; can't find preset
+								(begin
+									(set! vpref "scoped:")
+									c1
+								)
+							)
+							; can't find preset
+							(begin
+								(set! vpref "scoped:")
+								c1
+							)
+						)
+					)
 					(define tmp2
 						(for/list ([k (range (length modified-c1))])
 							(if (>= k 2)
