@@ -217,6 +217,15 @@
 		(define-symbolic* arg-bool boolean?) ; creates a different constant when evaluated
 		(list (bool->bitvector arg-bool (bitvector sz)))
 	)
+	(define (symbolic-bv-list sz)
+		; default: size 5 list
+		(list
+			(for/list ([_ (range 5)])
+				(define-symbolic* arg-bv (bitvector sz))
+				arg-bv
+			)
+		)
+	)
 	(define (random-bv sz)
 		(define res (integer->bitvector (random arg-random-ub) (bitvector sz)))
 		(list res)
@@ -228,6 +237,13 @@
 			(list (bool->bitvector #t (bitvector sz)))
 		)
 	)
+	(define (random-bv-list sz)
+		(list
+			(for/list ([_ (range 5)])
+				(integer->bitvector (random arg-random-ub) (bitvector sz))
+			)
+		)
+	)
 	(define (scoped-bv sz)
 		(for/list ([p (range arg-random-ub)])
 			(bv p sz)
@@ -236,6 +252,21 @@
 	(define (scoped-bool sz)
 		(for/list ([p (list #f #t)])
 			(bool->bitvector p (bitvector sz))
+		)
+	)
+	(define (scoped-bv-list sz)
+		; note-important-fixme: enumerating all possible lists will be too many
+		;                       so here we just sample multiple times
+		(list
+			(for/list ([_ (range 5)])
+				(integer->bitvector (random arg-random-ub) (bitvector sz))
+			)
+			(for/list ([_ (range 5)])
+				(integer->bitvector (random arg-random-ub) (bitvector sz))
+			)
+			(for/list ([_ (range 5)])
+				(integer->bitvector (random arg-random-ub) (bitvector sz))
+			)
 		)
 	)
 
@@ -255,16 +286,19 @@
 									["symbolic:uint" (symbolic-bv arg-nbits)]
 									["symbolic:address" (symbolic-bv arg-nbits)]
 									["symbolic:bool" (symbolic-bool arg-nbits)]
+									["symbolic:address[]" (symbolic-bv-list arg-nbits)]
 
 									["random:uint256" (random-bv arg-nbits)]
 									["random:uint" (random-bv arg-nbits)]
 									["random:address" (random-bv arg-nbits)]
 									["random:bool" (random-bool arg-nbits)]
+									["random:address[]" (random-bv-list arg-nbits)]
 
 									["scoped:uint256" (scoped-bv arg-nbits)]
 									["scoped:uint" (scoped-bv arg-nbits)]
 									["scoped:address" (scoped-bv arg-nbits)]
 									["scoped:bool" (scoped-bool arg-nbits)]
+									["scoped:address[]" (scoped-bv-list arg-nbits)]
 
 									[_
 										(printf "# [exit] make-run: unsupported argument type, got: ~a.\n" (list-ref c0 k))

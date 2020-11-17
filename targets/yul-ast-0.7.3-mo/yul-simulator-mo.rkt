@@ -152,7 +152,6 @@
 						; if you reach here, it means the statement is in global scope
 						; then you need to execute it right now
 						[_
-							; (printf "# [debug] interpreting ~a\n" m)
 							; todo: implement this
 							(interpret-node (list yul-register) m)
 						]
@@ -209,9 +208,7 @@
 			(match arg-node
 				[(list "yul_if" m-expression m-block)
 					(define r-expression (interpret-node args-register m-expression))
-					; (printf "# [debug] yul_if, condition evals to: ~a\n" r-expression)
 					(when (bitvector->bool r-expression)
-						; (printf "# [debug] enter yul_if body\n")
 						(interpret-node args-register m-block)
 					)
 				]
@@ -254,10 +251,8 @@
 				; m-block-1 is the post block
 				; m-block-2 is the body block
 				[(list "yul_for_loop" m-block-0 m-expression m-block-1 m-block-2)
-					; (printf "# [debug] for loop register is ~a\n" args-register)
 					(interpret-node args-register m-block-0 #:block-create-scope #f)
 					(define r-expression (interpret-node args-register m-expression))
-					; (printf "# [debug] for loop register-after is ~a\n" args-register)
 					(when (bitvector->bool r-expression)
 						(interpret-node args-register m-block-2 #:block-create-scope #f)
 						(interpret-node args-register m-block-1 #:block-create-scope #f)
@@ -274,7 +269,6 @@
 				; note: here you should call the function directly; it's function interpretation now
 				; note: this is called by yul_function_call, not yul_statement or other
 				[(list "yul_function_definition" m-identifier ms-function-xxx-list ... m-block)
-					; (printf "# [debug] yul_function_definition/before: id is ~a, storage is ~a\n" m-identifier yul-storage)
 					; search for the return list
 					(define p-ret-list null)
 					(for ([p-list ms-function-xxx-list])
@@ -285,13 +279,10 @@
 							(set! p-ret-list (get-typed-id-pairs (list-tail (list-ref p-list 1) 1)))
 						)
 					)
-					; (printf "# [debug] p-ret-list is ~a\n" p-ret-list)
 					; note: define necessary return variable as 0 in the scope
 					(for ([p p-ret-list])
 						(make-var args-register (list-ref p 0) (bv 0 yul-default-bitvector) #:where "r")
 					)
-					; (printf "# [debug] interpret yul_function_definition: id is ~a, args-register is ~a\n" m-identifier args-register)
-					; (printf "# [debug] interpret yul_function_definition: id is ~a\n" m-identifier)
 					; then interpret
 					(interpret-node args-register m-block)
 					(if (null? p-ret-list)
@@ -312,8 +303,6 @@
 					; note: it's ok to define tips first since there's no interpret-? call 
 					; process all the (id,type) pairs first; should remove the tag (pos=0)
 					(define tips (get-typed-id-pairs (list-tail m-yul-typed-identifier-list 1)))
-					; (printf "# [debug] tips-list: ~a\n" m-yul-typed-identifier-list)
-					; (printf "# [debug] tips-tips: ~a\n" tips)
 
 
 					(define r-expression
@@ -345,9 +334,6 @@
 							(println-and-exit "# exception-exit: arity mismatch in yul_variable_declaration.")
 						)
 					)
-					; (printf "# [debug] after declaration to ~a, memory is ~a\n" m-yul-typed-identifier-list yul-memory)
-					; (printf "# [debug] after declaration: ~a\n" args-register)
-					; (printf "# [debug] var ~a gets ~a\n" m-yul-typed-identifier-list r-expression)
 				]
 
 				; note: scope of yul_block will be introduced by its parent structure and itself
@@ -380,7 +366,6 @@
 					)
 				]
 				[(list "yul_statement" m)
-					; (printf "# [debug] interpret yul_statement: m is ~a\n" m)
 					(interpret-node args-register m)
 				]
 
@@ -392,8 +377,6 @@
 							(list-ref p 1)
 						)
 					) ; remove the tag and get the id only
-					; (printf "# [debug] rids-list: ~a\n" m-identifier-list)
-					; (printf "# [debug] rids-rids: ~a\n" rids)
 					(if (equal? 1 (length rids))
 						; =1
 						(write-var args-register (list-ref rids 0) r-expression #:where "r")
@@ -408,7 +391,6 @@
 							(println-and-exit "# exception-exit: arity mismatch in yul_assignment.")
 						)
 					)
-					; (printf "# [debug] after assignment to ~a, memory is ~a\n" m-identifier-list yul-memory)
 				]
 				[(list "yul_expression" m)
 					(interpret-node args-register m)
@@ -416,7 +398,6 @@
 
 				; note: process built-in function in this level, and process user-defined functions in the next level
 				[(list-rest "yul_function_call" m-identifier ms-expression)
-					; (printf "# [debug] entering yul_function_call, function is ~a, args-register is ~a\n" m-identifier args-register)
 					(define r-identifier 
 						(if (string-prefix? (list-ref m-identifier 1) "mapping_index_access")
 							; note-important: memory-optimized version operation
@@ -431,8 +412,6 @@
 							(interpret-node args-register m-expression)
 						)
 					)
-					; (printf "# [debug] calling ~a with args: ~a\n" r-identifier rs-expression)
-					; (printf "# [debug] in the middle yul_function_call, function is ~a, args-register is ~a\n" m-identifier args-register)
 					(when (not (hash-has-key? yul-functions r-identifier))
 						(println-and-exit (format "# exception-exit: undefined function ~a." r-identifier))
 					)
@@ -461,7 +440,6 @@
 				; note: arguments don't need evaluation again, which means you should pass values like 0x99 not "0x99"
 				[(list-rest "txn_function_call" t-identifier t-arg-list)
 					(define pilot-identifier (auto-pilot t-identifier))
-					; (printf "# [debug] original function: ~a, pilot function: ~a\n" t-identifier pilot-identifier)
 					(when (not (hash-has-key? yul-functions pilot-identifier))
 						(println-and-exit (format "# exception-exit: undefined function ~a." pilot-identifier))
 					)
@@ -479,7 +457,6 @@
 							(for ([i (in-range (length p-args))])
 								(zhash-set! p-register (list-ref (list-ref p-args i) 0) (list-ref t-arg-list i) )
 							)
-							; (printf "# [debug] p-register: ~a\n" p-register)
 							(interpret-node (cons p-register args-register) (hash-ref yul-functions pilot-identifier))
 						)
 					)
@@ -487,10 +464,7 @@
 
 				; note: if you need to read an identifier this way, it means it's plain access
 				[(list "yul_identifier" m)
-					; (printf "# [debug] yul_identifier is ~a, and current args-register is ~a\n" m args-register)
-					; (printf "# [debug] yul_identifier is ~a\n" m)
 					(define ret-val (read-var args-register m #:where "r"))
-					; (printf "# [debug] yul_identifier is ~a, it gets: ~a\n" m ret-val)
 					ret-val
 				]
 
@@ -506,7 +480,6 @@
 				]
 
 				[(list "yul_hex_number" m)
-					; (printf "# [debug] parsed number: ~a\n" (string->number (substring m 2) 16))
 					(bv (string->number (substring m 2) 16) yul-default-bitvector)
 				]
 				[(list "yul_dec_number" m)
@@ -567,7 +540,7 @@
 						)
 					]
 					[(integer? arg-id) arg-id]
-					[else (println-and-exit (format "# [exit] make-var: internal error, got unsupported type of variable name in ~a, which is: ~a" where r-id))]
+					[else (println-and-exit (format "# [exit] make-var: internal error, got unsupported type of variable name in ~a, which is: ~a" where arg-id))]
 				)
 			)
 
@@ -586,7 +559,6 @@
 		)
 
 		(define (write-var args-register arg-id arg-val #:where where)
-			; (printf "# [debug] write-var register is ~a\n" args-register)
 			(define r-register
 				(match where
 					["m" yul-memory]
@@ -625,7 +597,7 @@
 						)
 					]
 					[(integer? arg-id) arg-id]
-					[else (println-and-exit (format "# [exit] write-var: internal error, got unsupported type of variable name in ~a, which is: ~a" where r-id))]
+					[else (println-and-exit (format "# [exit] write-var: internal error, got unsupported type of variable name in ~a, which is: ~a" where arg-id))]
 				)
 			)
 
@@ -689,7 +661,7 @@
 						)
 					]
 					[(integer? arg-id) arg-id]
-					[else (println-and-exit (format "# [exit] read-var: internal error, got unsupported type of variable name in ~a, which is: ~a" where r-id))]
+					[else (println-and-exit (format "# [exit] read-var: internal error, got unsupported type of variable name in ~a, which is: ~a" where arg-id))]
 				)
 			)
 
@@ -755,7 +727,7 @@
 						)
 					]
 					[(integer? arg-id) arg-id]
-					[else (println-and-exit (format "# [exit] overwrite-var: internal error, got unsupported type of variable name in ~a, which is: ~a" where r-id))]
+					[else (println-and-exit (format "# [exit] overwrite-var: internal error, got unsupported type of variable name in ~a, which is: ~a" where arg-id))]
 				)
 			)
 
@@ -843,7 +815,6 @@
 			(hash-set! yul-functions "xor" (lambda (x y) (bvxor x y)))
 			(hash-set! yul-functions "shl" (lambda (x y) (bvshl y x))) ; see the latest doc of EVM dialect
 			(hash-set! yul-functions "shr" (lambda (x y) 
-				; (printf "# [debug]: shr gets x=~a, y=~a\n" x y)
 				(bvlshr y x)
 			)) ; see the latest doc of EVM dialect
 			(hash-set! yul-functions "sar" (lambda (x y) (bvashr y x))) ; see the latest doc of EVM dialect

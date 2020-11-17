@@ -1,0 +1,32 @@
+{
+	"ContractPaths": [
+		[
+			"source",
+			"./real-contracts/Announcement.json"
+		],
+		[
+			"target",
+			"./real-contracts/AnnouncementTransformed1.json"
+		]
+	],
+	"Tasks": [
+		[
+			[
+				"txn_function_call",
+				"constructor"
+			],
+			[
+				"txn_function_call",
+				"initAnnouncement",
+				"scoped:address[]",
+				"scoped:uint256",
+				"scoped:uint256"
+			],
+			[
+				"txn_function_call",
+				"observe__5",
+				"scoped:uint256"
+			]
+		]
+	]
+}
