@@ -93,6 +93,12 @@
 		mo-lazy-step
 	)
 ))
+; convert to bv first
+(set! mo-hash-seq 
+	(for/list ([jj mo-hash-seq])
+		(bv jj arg-nbits)
+	)
+)
 (define mo-lazy-hash (make-hash))
 (define (mo-mia p n)
 	(define int-p (bitvector->integer p))
@@ -105,10 +111,8 @@
 			(set! mo-hash-seq (cdr mo-hash-seq))
 		)
 	)
-	; return the hashed number
-	(bv (hash-ref mo-lazy-hash pair-key) arg-nbits)
+	(hash-ref mo-lazy-hash pair-key)
 )
-
 (if (hash-has-key? arg-config 'ContractStrings)
 	; yes there's contents, use that directly
 	(for ([p (hash-ref arg-config 'ContractStrings)])

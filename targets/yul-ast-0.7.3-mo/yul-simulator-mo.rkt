@@ -93,6 +93,8 @@
 			(initialize-builtin-functions)
 
 			(initialize-node yul-program)
+
+			; (printf "# [debug] all functions:\n~a\n" yul-function-args)
 		)
 		; note: this may call interpret-? series in global scope (according to Yul grammar)
 		(define (initialize-node arg-node)
@@ -180,10 +182,11 @@
 				(when (string-prefix? p pilot-fun-prefix)
 					(set! pilot-return-name p)
 				)
-				(when (string-prefix? p pilot-constructor-prefix)
+				(when (&& (string-prefix? p pilot-constructor-prefix) (equal? arg-function-name "constructor"))
 					(set! pilot-return-name p)
 				)
 			)
+			; (printf "# [debug] auto-pilot ~a to ~a\n" arg-function-name pilot-return-name)
 			pilot-return-name
 		)
 
@@ -895,7 +898,8 @@
 			))
 			; fixme
 			(hash-set! yul-functions "calldatasize" (lambda ()
-				(println-and-exit (format "# [not-implemented] calldatasize.\n"))
+				; (println-and-exit (format "# [not-implemented] calldatasize.\n"))
+				(bv 2 yul-default-bitvector)
 			))
 			; fixme
 			(hash-set! yul-functions "calldataload" (lambda (p)

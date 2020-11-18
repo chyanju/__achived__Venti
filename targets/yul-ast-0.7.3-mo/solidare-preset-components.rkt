@@ -20,3 +20,8 @@
 (hash-set! contract-CreditDAO "finishElections" (list "txn_function_call" "finishElections" "scoped:uint256"))
 ; add to spc
 (hash-set! spc "CreditDAO" contract-CreditDAO)
+
+(define contract-Kingdom (make-hash))
+(hash-set! contract-Kingdom "buySpecialBuilding" (list "txn_function_call" "buySpecialBuilding" "scoped:uint256" "scoped:uint256" "symbolic:uint256"))
+; add to spc
+(hash-set! spc "Kingdom" contract-Kingdom)

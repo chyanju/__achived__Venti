@@ -100,6 +100,12 @@
 		mo-lazy-step
 	)
 ))
+; convert to bv first
+(set! mo-hash-seq 
+	(for/list ([jj mo-hash-seq])
+		(bv jj arg-nbits)
+	)
+)
 (define mo-lazy-hash (make-hash))
 (define (mo-mia p n)
 	(define int-p (bitvector->integer p))
@@ -112,8 +118,7 @@
 			(set! mo-hash-seq (cdr mo-hash-seq))
 		)
 	)
-	; return the hashed number
-	(bv (hash-ref mo-lazy-hash pair-key) arg-nbits)
+	(hash-ref mo-lazy-hash pair-key)
 )
 (if (hash-has-key? arg-config 'ContractStrings)
 	; yes there's contents, use that directly
@@ -236,16 +241,26 @@
 							(if (hash-has-key? (hash-ref spc arg-preset) (list-ref c0 1))
 								; preset found, set it
 								(hash-ref (hash-ref spc arg-preset) (list-ref c0 1))
-								; can't find preset
-								(begin
-									(set! vpref "scoped:")
-									c0
+								; can't find preset, use default prefix
+								(append
+									(list 
+										(car c0) 
+										(cadr c0) 
+									)
+									(for/list ([ccc (cddr c0)])
+										(string-append "scoped:" ccc)
+									)
 								)
 							)
 							; can't find preset
-							(begin
-								(set! vpref "scoped:")
-								c0
+							(append
+								(list 
+									(car c0) 
+									(cadr c0) 
+								)
+								(for/list ([ccc (cddr c0)])
+									(string-append "scoped:" ccc)
+								)
 							)
 						)
 					)
@@ -366,15 +381,25 @@
 								; preset found, set it
 								(hash-ref (hash-ref spc arg-preset) (list-ref c1 1))
 								; can't find preset
-								(begin
-									(set! vpref "scoped:")
-									c1
+								(append
+									(list 
+										(car c1) 
+										(cadr c1) 
+									)
+									(for/list ([ccc (cddr c1)])
+										(string-append "scoped:" ccc)
+									)
 								)
 							)
 							; can't find preset
-							(begin
-								(set! vpref "scoped:")
-								c1
+							(append
+								(list 
+									(car c1) 
+									(cadr c1) 
+								)
+								(for/list ([ccc (cddr c1)])
+									(string-append "scoped:" ccc)
+								)
 							)
 						)
 					)

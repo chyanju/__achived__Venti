@@ -1,0 +1,31 @@
+{
+  "ContractPaths": [
+    [
+      "source",
+      "./real-contracts/Kingdom.json"
+  	],
+    [
+      "target",
+      "./real-contracts/KingdomTransformed1.json"
+  	]
+  ],
+  "Tasks": [
+    [
+      [
+        "txn_function_call",
+        "constructor"
+      ],
+      [
+        "txn_function_call",
+        "buySpecialBuilding",
+        "scoped:uint256",
+        "scoped:uint256",
+        "symbolic:uint256"
+      ],
+      [
+        "txn_function_call",
+        "observe__6"
+      ]
+    ]
+  ]
+}
