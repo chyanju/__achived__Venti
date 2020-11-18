@@ -28,7 +28,7 @@
 (define arg-nbits 256)
 (define arg-memsize 10000)
 (define arg-nruns 1)
-(define arg-random-ub 3) ; upper bound of the random: varaible, default lower bound is 0
+(define arg-random-ub 1) ; upper bound of the random: varaible, default lower bound is 0
 ; (define arg-config (string->jsexpr (file->string "test-config.json")))
 (command-line
 	#:program "yul-bmc"
@@ -82,66 +82,7 @@
 
 ; initialize one simulator for every contract
 (define simulators (make-hash))
-; ==== beforehand linear mapping ==== ;
-; (define (mo-mia p n) 
-; 	; p is slot (base addr), n is key (offset/index)
-; 	; stretchy coefficients k=25, b=5
-; 	; normal computation: addr = p*k + n*b
-; 	; constraint is: addr < memsize
-; 	; so the guard is: p < ( memsize - n*b ) / k
-; 	; or: n < ( memsize - k*p ) / b
-; 	(define bv-memsize (bv arg-memsize arg-nbits))
-; 	(define bv-k (bv 13 arg-nbits))
-; 	(define bv-b (bv 1 arg-nbits))
-; 	; (define tmp-bound (bvudiv (bvsub bv-memsize (bvmul p bv-k)) bv-b))
-; 	; (assert (bvult n tmp-bound))
-; 	(define addr (bvadd (bvmul p bv-k) (bvmul n bv-b) ))
-; 	addr
-; )
-; (define (mo-mia p n) 
-; 	(define addr (bvmul (bvadd p n ) (bv 23 arg-nbits)))
-; 	addr
-; )
-; ==== preset hash function ==== ;
-; (define mo-mia-hash
-; 	(for/list ([_ (range arg-memsize)])
-; 		(for/list ([_ (range arg-memsize)])
-; 			(bv (random arg-memsize) arg-nbits)
-; 		)
-; 	)
-; )
-; (define (mo-mia p n) 
-; 	(define int-p (bitvector->integer p))
-; 	(define int-n (bitvector->integer n))
-; 	(list-ref (list-ref mo-mia-hash int-p) int-n)
-; )
-; ==== Cantor Pairing Function ==== ;
-; (define (mo-mia p n)
-; 	(define term0 (bvadd p n))
-; 	(define term1 (bvadd term0 (bv 1 arg-nbits)))
-; 	(define term2 (bvmul term0 term1))
-; 	(define term3 (bvudiv term2 (bv 2 arg-nbits)))
-; 	(define term4 (bvadd term3 n))
-; 	term4
-; )
-; ==== lazy random hash ==== ;
-; (define mo-reserved-nslots 100)
-; (define mo-hash-seq (shuffle (range mo-reserved-nslots (- arg-memsize mo-reserved-nslots))))
-; (define mo-lazy-hash (make-hash))
-; (define (mo-mia p n)
-; 	(define int-p (bitvector->integer p))
-; 	(define int-n (bitvector->integer n))
-; 	(define pair-key (cons int-p int-n))
-; 	(when (! (hash-has-key? mo-lazy-hash pair-key))
-; 		; no key, add it
-; 		(begin
-; 			(hash-set! mo-lazy-hash pair-key (car mo-hash-seq))
-; 			(set! mo-hash-seq (cdr mo-hash-seq))
-; 		)
-; 	)
-; 	; return the hashed number
-; 	(bv (hash-ref mo-lazy-hash pair-key) arg-nbits)
-; )
+; ==== mo: memory/storage indexing ==== ;
 ; ==== sparse lazy random hash ==== ;
 (define mo-reserved-nslots 100)
 (define mo-lazy-step 13) ; lazy step to prevent collision for direct sload(addr+?)
@@ -167,6 +108,7 @@
 	; return the hashed number
 	(bv (hash-ref mo-lazy-hash pair-key) arg-nbits)
 )
+
 (if (hash-has-key? arg-config 'ContractStrings)
 	; yes there's contents, use that directly
 	(for ([p (hash-ref arg-config 'ContractStrings)])
@@ -282,23 +224,93 @@
 							(if (>= k 2)
 								; pos 2 starts the function call arguments
 								(match (string-append vpref (list-ref c0 k))
+									
+									; ==========
 									["symbolic:uint256" (symbolic-bv arg-nbits)]
+									["symbolic:uint128" (symbolic-bv arg-nbits)]
+									["symbolic:uint64" (symbolic-bv arg-nbits)]
+									["symbolic:uint32" (symbolic-bv arg-nbits)]
+									["symbolic:uint16" (symbolic-bv arg-nbits)]
+									["symbolic:uint8" (symbolic-bv arg-nbits)]
 									["symbolic:uint" (symbolic-bv arg-nbits)]
+
+									["symbolic:int256" (symbolic-bv arg-nbits)]
+									["symbolic:int128" (symbolic-bv arg-nbits)]
+									["symbolic:int64" (symbolic-bv arg-nbits)]
+									["symbolic:int32" (symbolic-bv arg-nbits)]
+									["symbolic:int16" (symbolic-bv arg-nbits)]
+									["symbolic:int8" (symbolic-bv arg-nbits)]
+									["symbolic:int" (symbolic-bv arg-nbits)]
+
+									["symbolic:bytes256" (symbolic-bv arg-nbits)]
+									["symbolic:bytes128" (symbolic-bv arg-nbits)]
+									["symbolic:bytes64" (symbolic-bv arg-nbits)]
+									["symbolic:bytes32" (symbolic-bv arg-nbits)]
+									["symbolic:bytes16" (symbolic-bv arg-nbits)]
+									["symbolic:bytes8" (symbolic-bv arg-nbits)]
+									["symbolic:bytes" (symbolic-bv arg-nbits)]
+
 									["symbolic:address" (symbolic-bv arg-nbits)]
 									["symbolic:bool" (symbolic-bool arg-nbits)]
-									["symbolic:address[]" (symbolic-bv-list arg-nbits)]
+									; ["symbolic:address[]" (symbolic-bv-list arg-nbits)]
 
+									; ==========
 									["random:uint256" (random-bv arg-nbits)]
+									["random:uint128" (random-bv arg-nbits)]
+									["random:uint64" (random-bv arg-nbits)]
+									["random:uint32" (random-bv arg-nbits)]
+									["random:uint16" (random-bv arg-nbits)]
+									["random:uint8" (random-bv arg-nbits)]
 									["random:uint" (random-bv arg-nbits)]
+
+									["random:int256" (random-bv arg-nbits)]
+									["random:int128" (random-bv arg-nbits)]
+									["random:int64" (random-bv arg-nbits)]
+									["random:int32" (random-bv arg-nbits)]
+									["random:int16" (random-bv arg-nbits)]
+									["random:int8" (random-bv arg-nbits)]
+									["random:int" (random-bv arg-nbits)]
+
+									["random:bytes256" (random-bv arg-nbits)]
+									["random:bytes128" (random-bv arg-nbits)]
+									["random:bytes64" (random-bv arg-nbits)]
+									["random:bytes32" (random-bv arg-nbits)]
+									["random:bytes16" (random-bv arg-nbits)]
+									["random:bytes8" (random-bv arg-nbits)]
+									["random:bytes" (random-bv arg-nbits)]
+
 									["random:address" (random-bv arg-nbits)]
 									["random:bool" (random-bool arg-nbits)]
-									["random:address[]" (random-bv-list arg-nbits)]
+									; ["random:address[]" (random-bv-list arg-nbits)]
 
+									; ==========
 									["scoped:uint256" (scoped-bv arg-nbits)]
+									["scoped:uint128" (scoped-bv arg-nbits)]
+									["scoped:uint64" (scoped-bv arg-nbits)]
+									["scoped:uint32" (scoped-bv arg-nbits)]
+									["scoped:uint16" (scoped-bv arg-nbits)]
+									["scoped:uint8" (scoped-bv arg-nbits)]
 									["scoped:uint" (scoped-bv arg-nbits)]
+
+									["scoped:int256" (scoped-bv arg-nbits)]
+									["scoped:int128" (scoped-bv arg-nbits)]
+									["scoped:int64" (scoped-bv arg-nbits)]
+									["scoped:int32" (scoped-bv arg-nbits)]
+									["scoped:int16" (scoped-bv arg-nbits)]
+									["scoped:int8" (scoped-bv arg-nbits)]
+									["scoped:int" (scoped-bv arg-nbits)]
+
+									["scoped:bytes256" (scoped-bv arg-nbits)]
+									["scoped:bytes128" (scoped-bv arg-nbits)]
+									["scoped:bytes64" (scoped-bv arg-nbits)]
+									["scoped:bytes32" (scoped-bv arg-nbits)]
+									["scoped:bytes16" (scoped-bv arg-nbits)]
+									["scoped:bytes8" (scoped-bv arg-nbits)]
+									["scoped:bytes" (scoped-bv arg-nbits)]
+
 									["scoped:address" (scoped-bv arg-nbits)]
 									["scoped:bool" (scoped-bool arg-nbits)]
-									["scoped:address[]" (scoped-bv-list arg-nbits)]
+									; ["scoped:address[]" (scoped-bv-list arg-nbits)]
 
 									[_
 										(printf "# [exit] make-run: unsupported argument type, got: ~a.\n" (list-ref c0 k))

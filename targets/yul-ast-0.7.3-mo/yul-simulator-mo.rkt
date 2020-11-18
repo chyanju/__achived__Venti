@@ -57,6 +57,7 @@
 			; mapping-index-access
 			; bv <- bv bv
 			[mo-mia null] 
+
 		)
 
 		; builtin control function
@@ -88,7 +89,7 @@
 			(set! yul-functions (make-hash))
 			(set! yul-function-args (make-hash))
 			(set! yul-builtin-functions null)
-			(set! mo-mia arg-mia) ; memory-optimized special function
+			(set! mo-mia arg-mia) ; memory-optimized memory indexing function
 			(initialize-builtin-functions)
 
 			(initialize-node yul-program)
@@ -334,6 +335,8 @@
 							(println-and-exit "# exception-exit: arity mismatch in yul_variable_declaration.")
 						)
 					)
+
+					; (printf "# [debug] let ~a be ~a\n" m-yul-typed-identifier-list r-expression)
 				]
 
 				; note: scope of yul_block will be introduced by its parent structure and itself
@@ -391,6 +394,8 @@
 							(println-and-exit "# exception-exit: arity mismatch in yul_assignment.")
 						)
 					)
+
+					; (printf "# [debug] assign ~a of ~a\n" m-identifier-list r-expression)
 				]
 				[(list "yul_expression" m)
 					(interpret-node args-register m)
@@ -399,12 +404,13 @@
 				; note: process built-in function in this level, and process user-defined functions in the next level
 				[(list-rest "yul_function_call" m-identifier ms-expression)
 					(define r-identifier 
-						(if (string-prefix? (list-ref m-identifier 1) "mapping_index_access")
+						(cond
 							; note-important: memory-optimized version operation
 							;                 hijack the address mapping function call
-							"mo-mia"
+							[(string-prefix? (list-ref m-identifier 1) "mapping_index_access_") "mo-mia"]
+							; [(string-prefix? (list-ref m-identifier 1) "array_length_") "mo-array-length"]
 							; normal
-							(list-ref m-identifier 1)
+							[else (list-ref m-identifier 1)]
 						)
 					)
 					(define rs-expression
@@ -790,7 +796,10 @@
 			(hash-set! yul-functions "sdiv" (lambda (x y) (bvsdiv x y)))
 			(hash-set! yul-functions "mod" (lambda (x y) (bvsmod x y))) ; fixme: this is wrong
 			(hash-set! yul-functions "smod" (lambda (x y) (bvsmod x y)))
-			(hash-set! yul-functions "exp" (lambda (x y) (println-and-exit (format "# exception-exit: exp is not supported yet." x)) ))
+			(hash-set! yul-functions "exp" (lambda (x y) 
+				; (println-and-exit (format "# exception-exit: exp is not supported yet." x)) 
+				(bvmul (bvmul x x) x)
+			))
 			(hash-set! yul-functions "not" (lambda (x) (bvnot x)))
 			(hash-set! yul-functions "lt" (lambda (x y) 
 				(bool->bitvector (bvult x y) yul-default-bitvector)
@@ -835,13 +844,24 @@
 			))
 
 			; fixme
+			(hash-set! yul-functions "address" (lambda ()
+				; (println-and-exit (format "# [not-implemented] address.\n"))
+				(bv 0 yul-default-bitvector)
+			))
+			; fixme
+			(hash-set! yul-functions "balance" (lambda (p)
+				; (println-and-exit (format "# [not-implemented] balance.\n"))
+				(bv 11 yul-default-bitvector)
+			))
+			; fixme
 			(hash-set! yul-functions "memoryguard" (lambda (p)
 				; (println-and-exit (format "# [not-implemented] memoryguard.\n"))
 				p
 			))
 			; fixme
 			(hash-set! yul-functions "callvalue" (lambda ()
-				(println-and-exit (format "# [not-implemented] callvalue.\n"))
+				; (println-and-exit (format "# [not-implemented] callvalue.\n"))
+				(bv (random 1024) yul-default-bitvector)
 			))
 			; fixme
 			(hash-set! yul-functions "codecopy" (lambda (t f s)
@@ -882,10 +902,21 @@
 				(println-and-exit (format "# [not-implemented] calldataload.\n"))
 			))
 			; fixme
+			(hash-set! yul-functions "calldataload" (lambda (p)
+				(println-and-exit (format "# [not-implemented] calldataload.\n"))
+			))
+			; fixme
+			(hash-set! yul-functions "timestamp" (lambda ()
+				(bv (random 1024) yul-default-bitvector)
+			))
+			; fixme
 			; caller gets the msg.sender
 			(hash-set! yul-functions "caller" (lambda ()
 				; (bv (random 1000 2000) yul-default-bitvector)
 				(bv 7 yul-default-bitvector)
+			))
+			(hash-set! yul-functions "origin" (lambda ()
+				(bv 0 yul-default-bitvector)
 			))
 			; fixme
 			(hash-set! yul-functions "revert" (lambda (p s)
