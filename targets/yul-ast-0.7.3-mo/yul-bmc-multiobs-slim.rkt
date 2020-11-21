@@ -204,6 +204,11 @@
 			(bv p sz)
 		)
 	)
+	(define (special-scoped-bv sz)
+		(for/list ([p (range arg-random-ub)])
+			(bv 1 sz)
+		)
+	)
 	(define (scoped-bool sz)
 		(for/list ([p (list #f #t)])
 			(bool->bitvector p (bitvector sz))
@@ -224,6 +229,7 @@
 			)
 		)
 	)
+
 
 	; ============================ ;
 	; ======= for every run ====== ;
@@ -353,7 +359,9 @@
 									["scoped:bytes8" (scoped-bv arg-nbits)]
 									["scoped:bytes" (scoped-bv arg-nbits)]
 
-									["scoped:address" (scoped-bv arg-nbits)]
+									; ["scoped:address" (scoped-bv arg-nbits)]
+									; hack, fix me
+									["scoped:address" (special-scoped-bv arg-nbits)]
 									["scoped:bool" (scoped-bool arg-nbits)]
 									; ["scoped:address[]" (scoped-bv-list arg-nbits)]
 
@@ -492,7 +500,9 @@
 									["scoped:bytes8" (scoped-bv arg-nbits)]
 									["scoped:bytes" (scoped-bv arg-nbits)]
 
-									["scoped:address" (scoped-bv arg-nbits)]
+									; ["scoped:address" (scoped-bv arg-nbits)]
+									; hack, fix me
+									["scoped:address" (special-scoped-bv arg-nbits)]
 									["scoped:bool" (scoped-bool arg-nbits)]
 									; ["scoped:address[]" (scoped-bv-list arg-nbits)]
 
