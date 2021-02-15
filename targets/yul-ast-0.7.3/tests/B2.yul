@@ -8,7 +8,7 @@
 
 object "B2_74" {
     code {
-        mstore(64, memoryguard(128))
+        mstore(64, 128)
         if callvalue() { revert(0, 0) }
 
         constructor_B2_74()
@@ -24,7 +24,7 @@ object "B2_74" {
     }
     object "B2_74_deployed" {
         code {
-            mstore(64, memoryguard(128))
+            mstore(64, 128)
 
             if iszero(lt(calldatasize(), 4))
             {
@@ -144,15 +144,15 @@ object "B2_74" {
             }
 
             function fun_bar_57() -> vloc__50 {
-                let zero_value_for_type_t_uint256_21 := zero_value_for_split_t_uint256()
-                vloc__50 := zero_value_for_type_t_uint256_21
+                let zero_value_for_type_t_uint256_1 := zero_value_for_split_t_uint256()
+                vloc__50 := zero_value_for_type_t_uint256_1
 
-                let _22 := 0x01
-                let expr_52 := _22
+                let _2 := 0x01
+                let expr_52 := _2
                 let expr_53 := 0x01
-                let _23 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_rational_1_by_1(expr_52,expr_53)
-                let _24 := read_from_storage_offset_0_t_uint256(_23)
-                let expr_54 := _24
+                let _3 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_rational_1_by_1(expr_52,expr_53)
+                let _4 := read_from_storage_offset_0_t_uint256(_3)
+                let expr_54 := _4
                 vloc__50 := expr_54
                 leave
 
@@ -160,64 +160,64 @@ object "B2_74" {
 
             function fun_foo_47(vloc_x_11, vloc_y_13) {
 
-                let _9 := vloc_x_11
-                let expr_18 := _9
+                let _5 := vloc_x_11
+                let expr_18 := _5
                 let vloc_s_f1_UNWRAP_17 := expr_18
-                let _10 := vloc_y_13
-                let expr_22 := _10
+                let _6 := vloc_y_13
+                let expr_22 := _6
                 let vloc_s_f2_UNWRAP_21 := expr_22
                 let expr_24 := 0x00
                 if expr_24 {
-                    let _11 := 0x00
-                    let expr_28 := _11
+                    let _7 := 0x00
+                    let expr_28 := _7
                     let expr_29 := 0x01
-                    let _12 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_rational_1_by_1(expr_28,expr_29)
-                    let _13 := read_from_storage_offset_0_t_uint256(_12)
-                    let expr_30 := _13
-                    let _14 := 0x00
-                    let expr_25 := _14
+                    let _8 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_rational_1_by_1(expr_28,expr_29)
+                    let _9 := read_from_storage_offset_0_t_uint256(_8)
+                    let expr_30 := _9
+                    let _10 := 0x00
+                    let expr_25 := _10
                     let expr_26 := 0x01
-                    let _15 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_rational_1_by_1(expr_25,expr_26)
-                    update_storage_value_offset_0t_uint256_to_t_uint256(_15, expr_30)
+                    let _11 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_rational_1_by_1(expr_25,expr_26)
+                    update_storage_value_offset_0t_uint256_to_t_uint256(_11, expr_30)
                     let expr_31 := expr_30
                 }
                 let expr_35 := 0x01
                 if expr_35 {
-                    let _16 := 0x01
-                    let expr_39 := _16
+                    let _12 := 0x01
+                    let expr_39 := _12
                     let expr_40 := 0x01
-                    let _17 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_rational_1_by_1(expr_39,expr_40)
-                    let _18 := read_from_storage_offset_0_t_uint256(_17)
-                    let expr_41 := _18
-                    let _19 := 0x01
-                    let expr_36 := _19
+                    let _13 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_rational_1_by_1(expr_39,expr_40)
+                    let _14 := read_from_storage_offset_0_t_uint256(_13)
+                    let expr_41 := _14
+                    let _15 := 0x01
+                    let expr_36 := _15
                     let expr_37 := 0x01
-                    let _20 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_rational_1_by_1(expr_36,expr_37)
-                    update_storage_value_offset_0t_uint256_to_t_uint256(_20, expr_41)
+                    let _16 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_rational_1_by_1(expr_36,expr_37)
+                    update_storage_value_offset_0t_uint256_to_t_uint256(_16, expr_41)
                     let expr_42 := expr_41
                 }
 
             }
 
             function fun_observe_73() -> vloc__60, vloc__62 {
-                let zero_value_for_type_t_uint256_1 := zero_value_for_split_t_uint256()
-                vloc__60 := zero_value_for_type_t_uint256_1
-                let zero_value_for_type_t_uint256_2 := zero_value_for_split_t_uint256()
-                vloc__62 := zero_value_for_type_t_uint256_2
+                let zero_value_for_type_t_uint256_17 := zero_value_for_split_t_uint256()
+                vloc__60 := zero_value_for_type_t_uint256_17
+                let zero_value_for_type_t_uint256_18 := zero_value_for_split_t_uint256()
+                vloc__62 := zero_value_for_type_t_uint256_18
 
-                let _3 := 0x01
-                let expr_64 := _3
+                let _19 := 0x01
+                let expr_64 := _19
                 let expr_65 := 0x01
-                let _4 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_rational_1_by_1(expr_64,expr_65)
-                let _5 := read_from_storage_offset_0_t_uint256(_4)
-                let expr_66 := _5
+                let _20 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_rational_1_by_1(expr_64,expr_65)
+                let _21 := read_from_storage_offset_0_t_uint256(_20)
+                let expr_66 := _21
                 let expr_70_component_1 := expr_66
-                let _6 := 0x01
-                let expr_67 := _6
+                let _22 := 0x01
+                let expr_67 := _22
                 let expr_68 := 0x01
-                let _7 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_rational_1_by_1(expr_67,expr_68)
-                let _8 := read_from_storage_offset_0_t_uint256(_7)
-                let expr_69 := _8
+                let _23 := mapping_index_access_t_mapping$_t_uint256_$_t_uint256_$_of_t_rational_1_by_1(expr_67,expr_68)
+                let _24 := read_from_storage_offset_0_t_uint256(_23)
+                let expr_69 := _24
                 let expr_70_component_2 := expr_69
                 vloc__60 := expr_70_component_1
                 vloc__62 := expr_70_component_2

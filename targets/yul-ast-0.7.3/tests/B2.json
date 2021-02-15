@@ -1487,7 +1487,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"zero_value_for_type_t_uint256_21"
+										"zero_value_for_type_t_uint256_1"
 									]
 								],
 								[
@@ -1517,7 +1517,7 @@
 									"yul_expression",
 									[
 										"yul_identifier",
-										"zero_value_for_type_t_uint256_21"
+										"zero_value_for_type_t_uint256_1"
 									]
 								]
 							]
@@ -1530,7 +1530,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_22"
+										"_2"
 									]
 								],
 								[
@@ -1563,7 +1563,7 @@
 									"yul_expression",
 									[
 										"yul_identifier",
-										"_22"
+										"_2"
 									]
 								]
 							]
@@ -1602,7 +1602,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_23"
+										"_3"
 									]
 								],
 								[
@@ -1639,7 +1639,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_24"
+										"_4"
 									]
 								],
 								[
@@ -1654,7 +1654,7 @@
 											"yul_expression",
 											[
 												"yul_identifier",
-												"_23"
+												"_3"
 											]
 										]
 									]
@@ -1676,7 +1676,7 @@
 									"yul_expression",
 									[
 										"yul_identifier",
-										"_24"
+										"_4"
 									]
 								]
 							]
@@ -1742,7 +1742,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_9"
+										"_5"
 									]
 								],
 								[
@@ -1769,7 +1769,7 @@
 									"yul_expression",
 									[
 										"yul_identifier",
-										"_9"
+										"_5"
 									]
 								]
 							]
@@ -1802,7 +1802,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_10"
+										"_6"
 									]
 								],
 								[
@@ -1829,7 +1829,7 @@
 									"yul_expression",
 									[
 										"yul_identifier",
-										"_10"
+										"_6"
 									]
 								]
 							]
@@ -1901,7 +1901,7 @@
 												"yul_typed_identifier_list",
 												[
 													"yul_identifier",
-													"_11"
+													"_7"
 												]
 											],
 											[
@@ -1934,7 +1934,7 @@
 												"yul_expression",
 												[
 													"yul_identifier",
-													"_11"
+													"_7"
 												]
 											]
 										]
@@ -1973,7 +1973,7 @@
 												"yul_typed_identifier_list",
 												[
 													"yul_identifier",
-													"_12"
+													"_8"
 												]
 											],
 											[
@@ -2010,7 +2010,7 @@
 												"yul_typed_identifier_list",
 												[
 													"yul_identifier",
-													"_13"
+													"_9"
 												]
 											],
 											[
@@ -2025,7 +2025,7 @@
 														"yul_expression",
 														[
 															"yul_identifier",
-															"_12"
+															"_8"
 														]
 													]
 												]
@@ -2047,7 +2047,7 @@
 												"yul_expression",
 												[
 													"yul_identifier",
-													"_13"
+													"_9"
 												]
 											]
 										]
@@ -2060,7 +2060,7 @@
 												"yul_typed_identifier_list",
 												[
 													"yul_identifier",
-													"_14"
+													"_10"
 												]
 											],
 											[
@@ -2093,7 +2093,7 @@
 												"yul_expression",
 												[
 													"yul_identifier",
-													"_14"
+													"_10"
 												]
 											]
 										]
@@ -2132,7 +2132,7 @@
 												"yul_typed_identifier_list",
 												[
 													"yul_identifier",
-													"_15"
+													"_11"
 												]
 											],
 											[
@@ -2175,7 +2175,7 @@
 													"yul_expression",
 													[
 														"yul_identifier",
-														"_15"
+														"_11"
 													]
 												],
 												[
@@ -2258,7 +2258,7 @@
 												"yul_typed_identifier_list",
 												[
 													"yul_identifier",
-													"_16"
+													"_12"
 												]
 											],
 											[
@@ -2291,7 +2291,7 @@
 												"yul_expression",
 												[
 													"yul_identifier",
-													"_16"
+													"_12"
 												]
 											]
 										]
@@ -2330,7 +2330,7 @@
 												"yul_typed_identifier_list",
 												[
 													"yul_identifier",
-													"_17"
+													"_13"
 												]
 											],
 											[
@@ -2367,7 +2367,7 @@
 												"yul_typed_identifier_list",
 												[
 													"yul_identifier",
-													"_18"
+													"_14"
 												]
 											],
 											[
@@ -2382,7 +2382,7 @@
 														"yul_expression",
 														[
 															"yul_identifier",
-															"_17"
+															"_13"
 														]
 													]
 												]
@@ -2404,7 +2404,7 @@
 												"yul_expression",
 												[
 													"yul_identifier",
-													"_18"
+													"_14"
 												]
 											]
 										]
@@ -2417,7 +2417,7 @@
 												"yul_typed_identifier_list",
 												[
 													"yul_identifier",
-													"_19"
+													"_15"
 												]
 											],
 											[
@@ -2450,7 +2450,7 @@
 												"yul_expression",
 												[
 													"yul_identifier",
-													"_19"
+													"_15"
 												]
 											]
 										]
@@ -2489,7 +2489,7 @@
 												"yul_typed_identifier_list",
 												[
 													"yul_identifier",
-													"_20"
+													"_16"
 												]
 											],
 											[
@@ -2532,7 +2532,7 @@
 													"yul_expression",
 													[
 														"yul_identifier",
-														"_20"
+														"_16"
 													]
 												],
 												[
@@ -2603,7 +2603,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"zero_value_for_type_t_uint256_1"
+										"zero_value_for_type_t_uint256_17"
 									]
 								],
 								[
@@ -2633,7 +2633,7 @@
 									"yul_expression",
 									[
 										"yul_identifier",
-										"zero_value_for_type_t_uint256_1"
+										"zero_value_for_type_t_uint256_17"
 									]
 								]
 							]
@@ -2646,7 +2646,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"zero_value_for_type_t_uint256_2"
+										"zero_value_for_type_t_uint256_18"
 									]
 								],
 								[
@@ -2676,7 +2676,7 @@
 									"yul_expression",
 									[
 										"yul_identifier",
-										"zero_value_for_type_t_uint256_2"
+										"zero_value_for_type_t_uint256_18"
 									]
 								]
 							]
@@ -2689,7 +2689,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_3"
+										"_19"
 									]
 								],
 								[
@@ -2722,7 +2722,7 @@
 									"yul_expression",
 									[
 										"yul_identifier",
-										"_3"
+										"_19"
 									]
 								]
 							]
@@ -2761,7 +2761,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_4"
+										"_20"
 									]
 								],
 								[
@@ -2798,7 +2798,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_5"
+										"_21"
 									]
 								],
 								[
@@ -2813,7 +2813,7 @@
 											"yul_expression",
 											[
 												"yul_identifier",
-												"_4"
+												"_20"
 											]
 										]
 									]
@@ -2835,7 +2835,7 @@
 									"yul_expression",
 									[
 										"yul_identifier",
-										"_5"
+										"_21"
 									]
 								]
 							]
@@ -2868,7 +2868,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_6"
+										"_22"
 									]
 								],
 								[
@@ -2901,7 +2901,7 @@
 									"yul_expression",
 									[
 										"yul_identifier",
-										"_6"
+										"_22"
 									]
 								]
 							]
@@ -2940,7 +2940,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_7"
+										"_23"
 									]
 								],
 								[
@@ -2977,7 +2977,7 @@
 									"yul_typed_identifier_list",
 									[
 										"yul_identifier",
-										"_8"
+										"_24"
 									]
 								],
 								[
@@ -2992,7 +2992,7 @@
 											"yul_expression",
 											[
 												"yul_identifier",
-												"_7"
+												"_23"
 											]
 										]
 									]
@@ -3014,7 +3014,7 @@
 									"yul_expression",
 									[
 										"yul_identifier",
-										"_8"
+										"_24"
 									]
 								]
 							]
