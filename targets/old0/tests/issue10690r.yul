@@ -1,9 +1,9 @@
-object "issue10690" {
+object "issue10690r" {
     code {
         function fn_test() -> r0, r1 {
             let _1 := 128
             // write to 64, but this is redundant
-            mstore(64, _1)
+            // mstore(64, _1)
             if callvalue() { revert(0, 0) }
             let _2 := 0
             // does not write to location 64
@@ -36,7 +36,7 @@ object "issue10690" {
             r1 := mload(data)
         }
     }
-    object "issue10690" {
+    object "issue10690r" {
         code {
             
         }

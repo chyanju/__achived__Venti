@@ -52,21 +52,13 @@
 			; used to convert literals into internal representations
 			[yul-default-bitvector (bitvector 256)]
 
+			[yul-mchoices 0]
+			[yul-mtrigger #f]
+
 			; need a symbolic bitvector of default size
 			[yul-calldatasize null]
 			[yul-returndatasize null]
 			[yul-gas null]
-			[yul-multimem null] ; helper only for AllocateMemory
-
-			; for 10690
-			; verifying that a position is never read
-			[yul-mprobe null]
-			[yul-probe-assertions null]
-			[yul-temp-rid null]
-
-			; for 10755
-			; verifying that mstore always overwrites 0 with 0
-			[yul-zero-assertions null]
 		)
 
 		(define/public (set-calldatasize t)
@@ -79,8 +71,13 @@
 			(set! yul-gas t)
 		)
 
-		(define/public (set-mprobe t)
-			(set! yul-mprobe t)
+		(define/public (set-mtrigger t)
+			(set! yul-mtrigger t)
+		)
+
+		(define (new-mchoice)
+			(define-symbolic* mc boolean?)
+			mc
 		)
 
 		; builtin control function
@@ -107,7 +104,6 @@
 				arg-internal-bv
 			)
 
-			(set! yul-multimem (make-hash))
 			(set! yul-memory (make-vector 2000 (bv 0 yul-default-bitvector)))
 			(set! yul-storage (make-vector 2000 (bv 0 yul-default-bitvector)))
 			(set! yul-register (make-zhash))
@@ -722,22 +718,7 @@
 				)
 				; in memory or storage
 				(begin
-					(if (null? yul-mprobe)
-						; no probe to track
-						(set! r-ret (vector-ref r-register r-id))
-						; need to track probe
-						(begin
-							(pretty-print r-id)
-							(set! yul-temp-rid r-id)
-							; (assert (not (equal? r-id yul-mprobe)))
-							; add to assertions if you want to verify
-							(set! yul-probe-assertions (cons
-								(not (equal? r-id yul-mprobe))
-								yul-probe-assertions
-							))
-							(set! r-ret (vector-ref r-register r-id))
-						)
-					)
+					(set! r-ret (vector-ref r-register r-id))
 				)
 			)
 
@@ -795,16 +776,7 @@
 				; in register
 				(zhash-set! r-register r-id arg-val)
 				; in memory or storage
-				(begin
-					(set! yul-zero-assertions (cons
-						(&&
-							(bveq (vector-ref r-register r-id) (bv 0 yul-default-bitvector))
-							(bveq arg-val (bv 0 yul-default-bitvector))
-						)
-						yul-zero-assertions
-					))
-					(vector-set! r-register r-id arg-val)
-				)
+				(vector-set! r-register r-id arg-val)
 			)
 		)
 
@@ -893,7 +865,19 @@
 				(read-var null p #:where "m")
 			))
 			(hash-set! yul-functions "mstore" (lambda (p v)
-				(overwrite-var null p v #:where "m")
+				(if yul-mtrigger
+					(begin
+						(define mc (new-mchoice))
+						(if mc
+							(begin
+								(overwrite-var null p v #:where "m")
+								(set! temp-counter (+ 1 temp-counter))
+							)
+							(void)
+						)
+					)
+					(overwrite-var null p v #:where "m")
+				)
 			))
 
 			(hash-set! yul-functions "sload" (lambda (p)
@@ -973,11 +957,7 @@
 			))
 			; fixme
 			(hash-set! yul-functions "allocateMemory" (lambda (p)
-				; (bv 0 yul-default-bitvector)
-				; (super fix for 10755) no matter how large, allocate 320
-				(define ts (length (hash-keys yul-multimem)))
-				(for ([z (range ts (+ 10 ts))]) (hash-set! yul-multimem z #t))
-				(bv (* ts #x20) yul-default-bitvector) ; encode back
+				(bv 0 yul-default-bitvector)
 			))
 			; fixme
 			(hash-set! yul-functions "pop" (lambda (p)
@@ -1012,9 +992,7 @@
 			))
 			; fixme
 			(hash-set! yul-functions "calldataload" (lambda (p)
-				; (bv 32 yul-default-bitvector)
-				; super hack, definitely need to fix later
-				yul-calldatasize
+				(bv 32 yul-default-bitvector)
 			))
 			; fixme
 			(hash-set! yul-functions "calldatacopy" (lambda (t f s)

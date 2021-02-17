@@ -2,7 +2,7 @@
 	"yul_object",
 	[
 		"yul_string_literal",
-		"issue10690"
+		"issue10690r"
 	],
 	[
 		"yul_code",
@@ -53,39 +53,6 @@
 												"yul_dec_number",
 												"128"
 											]
-										]
-									]
-								]
-							]
-						],
-						[
-							"yul_statement",
-							[
-								"yul_expression",
-								[
-									"yul_function_call",
-									[
-										"yul_identifier",
-										"mstore"
-									],
-									[
-										"yul_expression",
-										[
-											"yul_literal",
-											[
-												"yul_number_literal",
-												[
-													"yul_dec_number",
-													"64"
-												]
-											]
-										]
-									],
-									[
-										"yul_expression",
-										[
-											"yul_identifier",
-											"_1"
 										]
 									]
 								]

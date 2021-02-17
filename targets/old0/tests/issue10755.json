@@ -17,20 +17,6 @@
 						"fn_test"
 					],
 					[
-						"yul_function_ret_list",
-						[
-							"yul_typed_identifier_list",
-							[
-								"yul_identifier",
-								"r0"
-							],
-							[
-								"yul_identifier",
-								"r1"
-							]
-						]
-					],
-					[
 						"yul_block",
 						[
 							"yul_statement",
@@ -435,49 +421,36 @@
 									[
 										"yul_statement",
 										[
-											"yul_assignment",
+											"yul_expression",
 											[
-												"yul_identifier_list",
+												"yul_function_call",
 												[
 													"yul_identifier",
-													"r0"
-												]
-											],
-											[
-												"yul_expression",
+													"return"
+												],
 												[
-													"yul_function_call",
+													"yul_expression",
 													[
-														"yul_identifier",
-														"allocateMemory"
-													],
-													[
-														"yul_expression",
+														"yul_function_call",
 														[
 															"yul_identifier",
-															"_1"
+															"allocateMemory"
+														],
+														[
+															"yul_expression",
+															[
+																"yul_identifier",
+																"_1"
+															]
 														]
 													]
-												]
-											]
-										]
-									],
-									[
-										"yul_statement",
-										[
-											"yul_assignment",
-											[
-												"yul_identifier_list",
+												],
 												[
-													"yul_identifier",
-													"r1"
-												]
-											],
-											[
-												"yul_expression",
-												[
-													"yul_identifier",
-													"_1"
+													"yul_expression",
+													[
+														"yul_identifier",
+														"_1"
+													]
 												]
 											]
 										]
