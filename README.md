@@ -192,13 +192,3 @@ python ./yul_parser.py --yul ./tests/RandomTest/CreditDAOOriginal.yul --verbose 
 15. Make `return;` explicit by specifying what is returned.
 16. For `void` functions, if there's a `return;`, change it to `return void();`.
 
-| Contract                | Status               | Comment                                           |
-| ----------------------- | -------------------- | ------------------------------------------------- |
-| BdpImageStorage_1 / ..T | OK / OK              | OK / OK                                           |
-| CreditDAO / ..T         | OK / OK              | OK / OK                                           |
-| CryptoTask / ..T        | Failed / Not Started | Compiler error: stack too deep.                   |
-| EMPresale_1 / ..T       | Failed / Not Started | Undefined identifier: ReferredPlayer              |
-| EthLottery_2 / ..T      | Failed / Not Started | Wrong argument count for function call: keccak256 |
-| moduleToken_1 / ..T     | Failed / Not Started | Too many to fix.                                  |
-| PollManager / ..T       | Failed / Not Started | Too many to fix.                                  |
-
