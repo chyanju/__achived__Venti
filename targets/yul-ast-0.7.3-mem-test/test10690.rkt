@@ -22,9 +22,9 @@
 (send simulator-a set-calldatasize sym-calldatasize)
 (send simulator-a set-returndatasize sym-returndatasize)
 (send simulator-a set-gas sym-gas)
-; (send simulator-a set-mprobe (/ 64 #x20)) ; memory pos to probe
+(send simulator-a set-mprobe (/ 64 #x20)) ; memory pos to probe
 ; (send simulator-a set-mprobe (/ 128 #x20)) ; memory pos to probe
-(send simulator-a set-mprobe (/ 96 #x20)) ; memory pos to probe
+; (send simulator-a set-mprobe (/ 96 #x20)) ; memory pos to probe
 (define register-a (get-field yul-register simulator-a))
 (define memory-a (get-field yul-memory simulator-a))
 (define storage-a (get-field yul-storage simulator-a))

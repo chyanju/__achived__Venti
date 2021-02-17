@@ -52,6 +52,9 @@
 			; used to convert literals into internal representations
 			[yul-default-bitvector (bitvector 256)]
 
+			[yul-mchoices 0]
+			[yul-mtrigger #f]
+
 			; need a symbolic bitvector of default size
 			[yul-calldatasize null]
 			[yul-returndatasize null]
@@ -67,6 +70,15 @@
 			; for 10755
 			; verifying that mstore always overwrites 0 with 0
 			[yul-zero-assertions null]
+		)
+
+		(define/public (set-mtrigger t)
+			(set! yul-mtrigger t)
+		)
+
+		(define (new-mchoice)
+			(define-symbolic* mc boolean?)
+			mc
 		)
 
 		(define/public (set-calldatasize t)
@@ -893,7 +905,20 @@
 				(read-var null p #:where "m")
 			))
 			(hash-set! yul-functions "mstore" (lambda (p v)
-				(overwrite-var null p v #:where "m")
+				(if yul-mtrigger
+					(begin
+						(define mc (new-mchoice))
+						; (printf "# [debug] mc: ~a, p: ~a, v: ~a\n" mc p v)
+						(if mc
+							(begin
+								(overwrite-var null p v #:where "m")
+								(set! temp-counter (+ 1 temp-counter))
+							)
+							(void)
+						)
+					)
+					(overwrite-var null p v #:where "m")
+				)
 			))
 
 			(hash-set! yul-functions "sload" (lambda (p)
