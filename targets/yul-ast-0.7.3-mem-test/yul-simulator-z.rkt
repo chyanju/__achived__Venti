@@ -8,7 +8,6 @@
 ; The simulator is only for testing.
 
 (provide (all-defined-out))
-(define temp-counter 0)
 (define yul-simulator%
 	; ==== yul-simulator normal procedures ==== ;
 	; 1. load program into yul-program by calling load-? series
@@ -54,6 +53,7 @@
 
 			[yul-mchoices 0]
 			[yul-mtrigger #f]
+			[yul-mcollection null]
 
 			; need a symbolic bitvector of default size
 			[yul-calldatasize null]
@@ -78,6 +78,10 @@
 
 		(define (new-mchoice)
 			(define-symbolic* mc boolean?)
+			(set! yul-mcollection (cons
+				(if mc 1 0)
+				yul-mcollection
+			))
 			mc
 		)
 
@@ -910,10 +914,7 @@
 						(define mc (new-mchoice))
 						; (printf "# [debug] mc: ~a, p: ~a, v: ~a\n" mc p v)
 						(if mc
-							(begin
-								(overwrite-var null p v #:where "m")
-								(set! temp-counter (+ 1 temp-counter))
-							)
+							(overwrite-var null p v #:where "m")
 							(void)
 						)
 					)
