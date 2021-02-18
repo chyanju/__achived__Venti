@@ -1,6 +1,6 @@
 <div align="left">
   <h2>
-    <img src="./doc/icon.png" width=50>Venti - Verifying Smart Contracts via Yul
+    <img src="./doc/icon.png" width=50>Venti - Verifying/Optimizing Smart Contracts via Yul
   </h2>
 </div>
 
