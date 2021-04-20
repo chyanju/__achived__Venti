@@ -1,6 +1,6 @@
 pragma solidity >=0.7.3;
 // SPDX-License-Identifier: UNLICENSED
-contract Symbolic1B {
+contract P1B {
 	uint xValue;
 	constructor() {
 		xValue = 7;

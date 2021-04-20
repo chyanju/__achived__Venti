@@ -3,8 +3,7 @@
     <img src="./doc/icon.png" width=50>Venti - Verifying/Optimizing Smart Contracts via Yul
   </h2>
 </div>
-
-*<u>Note: This project is still under alpha development and it includes some temporary developing notes.</u>*
+*<u>Note: This branch is designed for CS190I homework assignment.</u>*
 
 ### Require
 
@@ -191,4 +190,3 @@ python ./yul_parser.py --yul ./tests/RandomTest/CreditDAOOriginal.yul --verbose 
 14. Add "override" specifier.
 15. Make `return;` explicit by specifying what is returned.
 16. For `void` functions, if there's a `return;`, change it to `return void();`.
-
