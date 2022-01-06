@@ -8,9 +8,9 @@
 
 ### Require
 
-- Racket (7.0+): [https://racket-lang.org/](https://racket-lang.org/)
-- Rosette (latest release): [https://github.com/emina/rosette](https://github.com/emina/rosette)
-- Solc (0.7.3 recommended): [https://github.com/crytic/solc-select](https://github.com/crytic/solc-select)
+- Racket (7.7): [https://racket-lang.org/](https://racket-lang.org/)
+- Rosette (3.2): [https://github.com/emina/rosette](https://github.com/emina/rosette)
+- Solc (0.7.3): [https://github.com/crytic/solc-select](https://github.com/crytic/solc-select)
 - Python (3.6+): [https://www.python.org/](https://www.python.org/)
 - Antlr (4.8): [https://github.com/antlr/antlr4](https://github.com/antlr/antlr4)
   - Python Targets Setup: [https://github.com/antlr/antlr4/blob/master/doc/python-target.md](https://github.com/antlr/antlr4/blob/master/doc/python-target.md)
