@@ -1,3 +1,5 @@
+***Note: Development of Venti has been moved to the Eurus project of Veridise (https://github.com/Veridise/Eurus). Maintenance of this (original) repo is temporarily suspended.***
+
 <div align="left">
   <h2>
     <img src="./doc/icon.png" width=50>Venti - Verifying/Optimizing Smart Contracts via Yul
